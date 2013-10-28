@@ -8,6 +8,13 @@ public abstract class Personen {
 	private String nachname;
 	private Adressen adresse;
 	private Date geburtsdatum;
+	public int getTelefonnummer() {
+		return telefonnummer;
+	}
+	public void setTelefonnummer(int telefonnummer) {
+		this.telefonnummer = telefonnummer;
+	}
+	private int telefonnummer;
 	public String getVorname() {
 		return vorname;
 	}
