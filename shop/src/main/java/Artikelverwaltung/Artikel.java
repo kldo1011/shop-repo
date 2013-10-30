@@ -2,6 +2,7 @@ package Artikelverwaltung;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 
+
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.math.BigDecimal;
