@@ -1,7 +1,7 @@
-package Artikelverwaltung;
+package Artikelverwaltung.domain;
 
+import static util.Constants.KEINE_ID;
 import static javax.persistence.TemporalType.TIMESTAMP;
-
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -28,10 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.logging.Logger;
 
-
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @Entity
 @Table(indexes = @Index(columnList = "bezeichnung"))
 @NamedQueries({
@@ -215,4 +211,3 @@ public class Artikel implements Serializable {
 			   + ", aktualisiert=" + aktualisiert + "]";
 	}
 }
-
