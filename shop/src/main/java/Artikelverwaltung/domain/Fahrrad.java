@@ -11,12 +11,15 @@ public class Fahrrad extends Artikel
 	private String rahmen;
 	private String farbe;
 	private String hersteller;
-	private int rahmengröße;
 	
 	
-	public Fahrrad(URI artikelUri, String bezeichnung, int preis, Long id) {
+	public Fahrrad(URI artikelUri, String bezeichnung, int preis, Long id, String rahmen, String farbe, String hersteller) {
 		super(artikelUri, bezeichnung, preis, id);
-		// TODO Auto-generated constructor stub
+
+			this.rahmen = rahmen;
+			this.farbe = farbe;
+			this.hersteller = hersteller;
+		
 	}
 	
 	@Override
@@ -45,22 +48,18 @@ public class Fahrrad extends Artikel
 	public void setHersteller(String hersteller) {
 		this.hersteller = hersteller;
 	}
-	public int getRahmengröße() {
-		return rahmengröße;
-	}
-	public void setRahmengröße(int rahmengröße) {
-		this.rahmengröße = rahmengröße;
-	}
+
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result
+				+ ((artikelUri == null) ? 0 : artikelUri.hashCode());
 		result = prime * result + ((farbe == null) ? 0 : farbe.hashCode());
 		result = prime * result
 				+ ((hersteller == null) ? 0 : hersteller.hashCode());
 		result = prime * result + ((rahmen == null) ? 0 : rahmen.hashCode());
-		result = prime * result + rahmengröße;
 		return result;
 	}
 	@Override
@@ -72,6 +71,11 @@ public class Fahrrad extends Artikel
 		if (getClass() != obj.getClass())
 			return false;
 		Fahrrad other = (Fahrrad) obj;
+		if (artikelUri == null) {
+			if (other.artikelUri != null)
+				return false;
+		} else if (!artikelUri.equals(other.artikelUri))
+			return false;
 		if (farbe == null) {
 			if (other.farbe != null)
 				return false;
@@ -87,15 +91,12 @@ public class Fahrrad extends Artikel
 				return false;
 		} else if (!rahmen.equals(other.rahmen))
 			return false;
-		if (rahmengröße != other.rahmengröße)
-			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Fahrrad [rahmen=" + rahmen + ", farbe=" + farbe
-				+ ", hersteller=" + hersteller + ", rahmengröße=" + rahmengröße
-				+ "]";
+		return "Fahrrad [artikelUri=" + artikelUri + ", rahmen=" + rahmen
+				+ ", farbe=" + farbe + ", hersteller=" + hersteller + "]" + super.toString();
 	}
 
 	

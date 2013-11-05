@@ -9,7 +9,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import Artikelverwaltung.domain.Artikel;
 
@@ -22,14 +24,15 @@ public class ArtikelService {
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Artikel findArtikelById(@PathParam ("id") Long id) {
-		//TODO Artikel mit Hilfe von Id finden 
+		//for(int zl = 0; zl < 1000; zl++) {
+			//if(id == Artikel.class)
+		
 				return null;
 	}
-
 	
 
 	@GET
-	@Path("{Bezeichnuing:[A-Z][a-z]*}")
+	@Path("{Bezeichnung:[A-Z][a-z]*}")
 	public Artikel findArtikelByBezeichnung(@PathParam ("Bezeichnung") String bezeichnung) {
 				return null;
 		}
@@ -47,9 +50,18 @@ public class ArtikelService {
 	public Response createArtikel(Artikel artikel) {
 		
 		Artikel neuerArtikel = new Artikel(artikel.getArtikelUri(),artikel.getBezeichnung(),artikel.getPreis(),artikel.getId());
-		//return Response.created("https://github.com/kldo1011/shop-repo/Artikelverwaltung.domain/artikel/" + neuerArtikel.getId())				
-			//	       .build();
+		URI uri = null;
+		try {
+			uri = new URI("https://github.com/kldo1011/shop-repo/Artikelverwaltung.domain/artikel/" + neuerArtikel.getId());
+			return Response.created(uri)		
+				       .build();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
 		return null;
+		
 	     
       }
 	
