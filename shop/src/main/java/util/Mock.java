@@ -129,6 +129,10 @@ public class Mock {
 		return artikel;
 	}
 	
+	public static void updateArtikel(Artikel artikel) {
+		System.out.println("Aktualisierter Artikel: " + artikel);
+	}
+	
 	private Mock() { /**/ }
 	
 	
