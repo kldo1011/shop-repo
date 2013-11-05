@@ -22,7 +22,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import Artikelverwaltung.domain.Artikel;
-import Bestellverwaltung.rest.BestellungResource;
+//import Bestellverwaltung.rest.BestellungResource;
 import Kundenverwaltung.domain.AbstractKunde;
 import Kundenverwaltung.rest.KundeResource;
 
@@ -37,8 +37,8 @@ public class ArtikelService {
 	@Inject
 	private UriHelper uriHelper;
 	
-	@Inject
-	private BestellungResource bestellungResource;
+	//@Inject
+	//private BestellungResource bestellungResource;
 	
 	@GET
 	@Path("{id:[1-9][0-9]*}")
@@ -59,9 +59,10 @@ public class ArtikelService {
 	public void artikelupdate(Artikel artikel){;
 	  }
 	
-	@POST
+	//@POST
 	//@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
-	@Produces
+	//@Produces
+	/*
 	public Response createArtikel(Artikel artikel) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 				artikel = Mock.createArtikel(artikel);
@@ -69,7 +70,7 @@ public class ArtikelService {
 					          // .build();
 				return null;
 	     
-      }
+      }*/
 	
 	
 	
