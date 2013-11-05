@@ -155,6 +155,10 @@ public class Mock {
 		System.out.println("Aktualisierter Artikel: " + artikel);
 	}
 	
+	public static void deleteArtikel(Long Id) {
+		System.out.println("Artikel mit ID=" + Id + " geloescht");
+	}
+	
 	private Mock() { /**/ }
 	
 	

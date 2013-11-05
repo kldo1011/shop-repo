@@ -63,6 +63,7 @@ public class KundeResource {
 	
 	
 	}
+	
 	@GET
 	@Path("{" + KUNDEN_ID_PATH_PARAM + ":[1-9][0-9]*}")
 	public Response findKundeById(@PathParam(KUNDEN_ID_PATH_PARAM) Long id) {
@@ -108,9 +109,11 @@ public class KundeResource {
 		
 		return new Link[] { self, add, update, remove };
 	}
+	
 	public URI getUriKunde(AbstractKunde kunde, UriInfo uriInfo) {
 		return uriHelper.getUri(KundeResource.class, "findKundeById", kunde.getId(), uriInfo);
 	}
+	
 	@GET
 	public Response findKundenByNachname(@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) String nachname) {
 		List<? extends AbstractKunde> kunden = null;
@@ -173,6 +176,7 @@ public class KundeResource {
                        .links(getTransitionalLinksBestellungen(bestellungen, kunde, uriInfo))
                        .build();
 	}
+	
 	private Link[] getTransitionalLinksBestellungen(List<Bestellung> bestellungen, AbstractKunde kunde, UriInfo uriInfo) {
 		if (bestellungen == null || bestellungen.isEmpty()) {
 			return new Link[0];
@@ -193,6 +197,7 @@ public class KundeResource {
 		
 		return new Link[] { self, first, last };
 	}
+	
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
