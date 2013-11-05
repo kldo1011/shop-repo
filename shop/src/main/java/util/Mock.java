@@ -10,6 +10,8 @@ import Kundenverwaltung.domain.Adressen;
 import Kundenverwaltung.domain.Firmenkunde;
 import Kundenverwaltung.domain.Kategorie;
 import Kundenverwaltung.domain.Privatkunde;
+import Artikelverwaltung.domain.Artikel;
+
 public class Mock {
 	private static final int MAX_ID = 99;
 	private static final int MAX_KUNDEN = 8;
@@ -110,6 +112,13 @@ public class Mock {
 		System.out.println("Kunde mit ID=" + kundeId + " geloescht");
 	}
 
+	public static Artikel findArtikelById(Long id) {
+		final Artikel artikel = new Artikel();
+		artikel.setId(id);
+		artikel.setBezeichnung("Bezeichnung_" + id);
+		return artikel;
+	}
+	
 	private Mock() { /**/ }
 	
 	

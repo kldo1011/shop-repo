@@ -13,15 +13,6 @@ public class Fahrrad extends Artikel
 	private String hersteller;
 	
 	
-	public Fahrrad(URI artikelUri, String bezeichnung, int preis, Long id, String rahmen, String farbe, String hersteller) {
-		super(artikelUri, bezeichnung, preis, id);
-
-			this.rahmen = rahmen;
-			this.farbe = farbe;
-			this.hersteller = hersteller;
-		
-	}
-	
 	@Override
 	public URI getArtikelUri() {
 		return artikelUri;
