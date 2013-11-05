@@ -10,7 +10,7 @@ public class Adressen  {
 
 	
 	
-	private Long id;
+	
 	private String plz;
 	private String ort;
 	private int hausnummer;
@@ -24,12 +24,7 @@ public class Adressen  {
 	public void setKunde(AbstractKunde kunde) {
 		this.kunde = kunde;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 	public String getPlz() {
 		return plz;
 	}
@@ -61,7 +56,6 @@ public class Adressen  {
 		result = prime * result
 				+ ((bundesland == null) ? 0 : bundesland.hashCode());
 		result = prime * result + hausnummer;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((ort == null) ? 0 : ort.hashCode());
 		result = prime * result + ((plz == null) ? 0 : plz.hashCode());
 		return result;
@@ -82,11 +76,7 @@ public class Adressen  {
 			return false;
 		if (hausnummer != other.hausnummer)
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
+		
 		if (ort == null) {
 			if (other.ort != null)
 				return false;
@@ -101,7 +91,7 @@ public class Adressen  {
 	}
 	@Override
 	public String toString() {
-		return "Adressen [id=" + id + ", plz=" + plz + ", ort=" + ort
+		return "Adressen [plz=" + plz + ", ort=" + ort
 				+ ", hausnummer=" + hausnummer + ", bundesland=" + bundesland
 				+ "]";
 	}
