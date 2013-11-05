@@ -3,7 +3,12 @@ package Kundenverwaltung.rest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-
+import static util.Constants.ADD_LINK;
+import static util.Constants.FIRST_LINK;
+import static util.Constants.LAST_LINK;
+import static util.Constants.REMOVE_LINK;
+import static util.Constants.SELF_LINK;
+import static util.Constants.UPDATE_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
@@ -33,6 +38,7 @@ import javax.ws.rs.core.UriInfo;
 import Bestellverwaltung.domain.Bestellung;
 import Bestellverwaltung.rest.BestellungResource;
 import Kundenverwaltung.domain.AbstractKunde;
+import util.Mock;
 import util.rest.UriHelper;
 
 @Path("/kunden")
