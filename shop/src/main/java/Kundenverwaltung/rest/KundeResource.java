@@ -3,6 +3,7 @@ package Kundenverwaltung.rest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+
 import static util.Constants.ADD_LINK;
 import static util.Constants.FIRST_LINK;
 import static util.Constants.LAST_LINK;
@@ -18,16 +19,12 @@ import java.net.URI;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
@@ -36,6 +33,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import Bestellverwaltung.domain.Bestellung;
+import Bestellverwaltung.rest.BestellungResource;
 //import Bestellverwaltung.rest.BestellungResource;
 import Kundenverwaltung.domain.AbstractKunde;
 import util.Mock;
@@ -51,10 +49,10 @@ public class KundeResource {
 	@Context
 	private UriInfo uriInfo;
 	
-	//@Inject
-	//private BestellungResource bestellungResource;
+	@Inject
+	private BestellungResource bestellungResource;
 	
-	//@Inject
+	@Inject
 	private UriHelper uriHelper;
 	
 	@GET
@@ -152,7 +150,7 @@ public class KundeResource {
 		
 		return new Link[] { first, last };
 	}
-	/*
+	
 	@GET
 	@Path("{id:[1-9][0-9]*}/bestellungen")
 	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
@@ -191,7 +189,7 @@ public class KundeResource {
                               .build();
 		
 		return new Link[] { self, first, last };
-	}*/
+	}
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
