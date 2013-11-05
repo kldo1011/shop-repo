@@ -36,7 +36,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import Bestellverwaltung.domain.Bestellung;
-import Bestellverwaltung.rest.BestellungResource;
+//import Bestellverwaltung.rest.BestellungResource;
 import Kundenverwaltung.domain.AbstractKunde;
 import util.Mock;
 import util.rest.UriHelper;
@@ -51,10 +51,10 @@ public class KundeResource {
 	@Context
 	private UriInfo uriInfo;
 	
-	@Inject
-	private BestellungResource bestellungResource;
+	//@Inject
+	//private BestellungResource bestellungResource;
 	
-	@Inject
+	//@Inject
 	private UriHelper uriHelper;
 	
 	@GET
@@ -152,6 +152,7 @@ public class KundeResource {
 		
 		return new Link[] { first, last };
 	}
+	/*
 	@GET
 	@Path("{id:[1-9][0-9]*}/bestellungen")
 	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
@@ -190,7 +191,7 @@ public class KundeResource {
                               .build();
 		
 		return new Link[] { self, first, last };
-	}
+	}*/
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces

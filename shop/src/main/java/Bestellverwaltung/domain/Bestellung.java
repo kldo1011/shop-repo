@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import Kundenverwaltung.domain.AbstractKunde;
-
+//test
 @XmlRootElement
 public class Bestellung {
 
