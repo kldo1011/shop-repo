@@ -16,6 +16,7 @@ public class Mock {
 	private static final int MAX_ID = 99;
 	private static final int MAX_KUNDEN = 8;
 	private static final int MAX_BESTELLUNGEN = 4;
+	private static final int MAX_ARTIKEL = 10;
 
 	public static AbstractKunde findKundeById(Long id) {
 		if (id > MAX_ID) {
@@ -119,6 +120,17 @@ public class Mock {
 		return artikel;
 	}
 	
+	public static List<Artikel> findArtikelByBezeichnung(String bezeichnung) {
+		final int anzahl = bezeichnung.length();
+		final List<Artikel> listArtikel = new ArrayList<>(anzahl);
+		for (int i = 1; i <= anzahl; i++) {
+			final Artikel artikel = findArtikelById(Long.valueOf(i));
+			artikel.setBezeichnung(bezeichnung);
+			listArtikel.add(artikel);			
+		}
+		return listArtikel;
+	}
+	
 	public static Artikel createArtikel(Artikel artikel) {
 		final String bezeichnung = artikel.getBezeichnung();
 		artikel.setId(Long.valueOf(bezeichnung.length()));
@@ -127,6 +139,16 @@ public class Mock {
 		
 		System.out.println("Neuer Artikel: " + artikel);
 		return artikel;
+	}
+	
+	public static List<Artikel> findAllArtikel() {
+		final int anzahl = MAX_ARTIKEL;
+		final List<Artikel> listArtikel = new ArrayList<>(anzahl);
+		for (int i = 1; i <= anzahl; i++) {
+			final Artikel artikel = findArtikelById(Long.valueOf(i));
+			listArtikel.add(artikel);			
+		}
+		return listArtikel;
 	}
 	
 	public static void updateArtikel(Artikel artikel) {
