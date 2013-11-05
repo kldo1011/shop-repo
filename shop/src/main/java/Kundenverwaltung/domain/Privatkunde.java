@@ -3,6 +3,8 @@ package Kundenverwaltung.domain;
 import java.util.Date;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
 public class Privatkunde extends AbstractKunde {
 	
 	private Set<Kategorie> kategorie;

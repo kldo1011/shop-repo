@@ -24,7 +24,7 @@ public abstract   class AbstractKunde {
 	public static final String PRIVATKUNDE="P";
 	public static final String FIRMENKUNDE="F";
 	
-	private long id;
+	private Long id;
 	private String vorname;
 	private String nachname;
 	private String email;
@@ -32,10 +32,10 @@ public abstract   class AbstractKunde {
 	@XmlTransient
 	private List<Bestellung> bestellungen;
 	private URI bestellungenUri;
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getVorname() {
