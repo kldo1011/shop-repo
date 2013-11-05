@@ -1,22 +1,25 @@
 package Artikelverwaltung.domain;
 
+import java.net.URI;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Artikel 
 {
-	
-	private static final String PREFIX = "Artikel.";
-	public static final String FIND_VERFUEGBARE_ARTIKEL = PREFIX + "findVerfuegbareArtikel";
-	public static final String FIND_ARTIKEL_BY_BEZ = PREFIX + "findArtikelByBez";
-	public static final String FIND_ARTIKEL_MAX_PREIS = PREFIX + "findArtikelByMaxPreis";
-	
-	public static final String PARAM_BEZEICHNUNG = "bezeichnung";
-	public static final String PARAM_PREIS = "preis";
+	private URI artikelUri;
 	private String bezeichnung;
 	private int preis;
 	private Long id;
 	
+	
+	public URI getArtikelUri() {
+		return artikelUri;
+	}
+
+	public void setArtikelUri(URI artikelUri) {
+		this.artikelUri = artikelUri;
+	}
+
 	public String getBezeichnung() {
 		return bezeichnung;
 	}
