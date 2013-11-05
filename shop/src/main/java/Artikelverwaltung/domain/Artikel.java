@@ -8,7 +8,7 @@ public class Artikel
 {
 	private URI artikelUri;
 	private String bezeichnung;
-	private int preis;
+	private Long preis;
 	private Long id;
 	
 
@@ -28,11 +28,11 @@ public class Artikel
 		this.bezeichnung = bezeichnung;
 	}
 
-	public void setPreis(int preis) {
+	public void setPreis(Long preis) {
 		this.preis = preis;
 	}
 
-	public int getPreis() {
+	public Long getPreis() {
 		return preis;
 	}
 	public Long getId() {
