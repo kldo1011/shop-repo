@@ -65,7 +65,7 @@ public class ArtikelService {
 	public Response createArtikel(Artikel artikel) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 				artikel = Mock.createArtikel(artikel);
-				//return Response.created(getUriKunde(artikel, uriInfo))
+				return Response.created(getArtikelUri(artikel, uriInfo))
 					          // .build();
 				return null;
 	     
