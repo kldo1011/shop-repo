@@ -1,54 +1,58 @@
 package Artikelverwaltung.service;
 
-import java.util.List;
-
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.net.URI;
 
 import Artikelverwaltung.domain.Artikel;
 
-@XmlRootElement
+@Path("/artikelService")
+//@Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75",TEXT_XML + ";qs=0.75"})
+@Consumes
 public class ArtikelService {
-	
-	
-	/**
-	 * Suche nach verfuegbaren Artikeln.
-	 * @return Liste der verfuegbaren Artikel.
-	 */
-	public List<Artikel> findVerfuegbareArtikel() {
-		//TODO Alle verfügbaren Artikel finden 
-				return null;
-	}
 
 	
-	/**
-	 * Suche den Artikel zu gegebener ID.
-	 * @param id ID des gesuchten Artikels.
-	 * @return Der gefundene Artikel, null sonst.
-	 */
-	public Artikel findArtikelById(Long id) {
+	@GET
+	@Path("{id:[1-9][0-9]*}")
+	public Artikel findArtikelById(@PathParam ("id") Long id) {
 		//TODO Artikel mit Hilfe von Id finden 
 				return null;
 	}
-	
-	/**
-	 * Suche die Artikel zu gegebenen IDs. 
-	 * @param ids Liste der IDs
-	 * @return Liste der gefundenen Artikel
-	 */
-	public List<Artikel> findArtikelByIds(List<Long> ids) {
-		
-		//TODO mehrer Artikel mit Hilfe von Id finden 
-		return null;
-	}
 
 	
-	/**
-	 * Suche die Artikel mit gleicher Bezeichnung
-	 * @param bezeichnung Gemeinsame Bezeichnung der gesuchten Artikel
-	 * @return Liste der gefundenen Artikel
-	 */
-	public List<Artikel> findArtikelByBezeichnung(String bezeichnung) {
-		//TODO mehrer Artikel mit Hilfe von Bezeichnung finden 
+
+	@GET
+	@Path("{Bezeichnuing:[A-Z][a-z]*}")
+	public Artikel findArtikelByBezeichnung(@PathParam ("Bezeichnung") String bezeichnung) {
 				return null;
 		}
+	
+	@PUT
+	//@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Produces
+	public void artikelupdate(Artikel artikel){
+		//TODO sdfs
+	  }
+	
+	@POST
+	//@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Produces
+	public Response createArtikel(Artikel artikel) {
+		
+		Artikel neuerArtikel = new Artikel(artikel.getArtikelUri(),artikel.getBezeichnung(),artikel.getPreis(),artikel.getId());
+		//return Response.created("https://github.com/kldo1011/shop-repo/Artikelverwaltung.domain/artikel/" + neuerArtikel.getId())				
+			//	       .build();
+		return null;
+	     
+      }
+	
+	
+	
 }

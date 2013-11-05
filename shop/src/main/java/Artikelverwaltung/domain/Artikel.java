@@ -12,6 +12,14 @@ public class Artikel
 	private Long id;
 	
 	
+	public Artikel(URI artikelUri, String bezeichnung, int preis, Long id) {
+		super();
+		this.artikelUri = artikelUri;
+		this.bezeichnung = bezeichnung;
+		this.preis = preis;
+		this.id = id;
+	}
+
 	public URI getArtikelUri() {
 		return artikelUri;
 	}

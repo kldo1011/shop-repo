@@ -13,6 +13,12 @@ public class Fahrrad extends Artikel
 	private String hersteller;
 	private int rahmengröße;
 	
+	
+	public Fahrrad(URI artikelUri, String bezeichnung, int preis, Long id) {
+		super(artikelUri, bezeichnung, preis, id);
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public URI getArtikelUri() {
 		return artikelUri;
