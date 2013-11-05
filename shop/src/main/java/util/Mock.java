@@ -119,6 +119,16 @@ public class Mock {
 		return artikel;
 	}
 	
+	public static Artikel createArtikel(Artikel artikel) {
+		final String bezeichnung = artikel.getBezeichnung();
+		artikel.setId(Long.valueOf(bezeichnung.length()));
+		final Long preis = artikel.getPreis();
+		artikel.setPreis(preis);
+		
+		System.out.println("Neuer Artikel: " + artikel);
+		return artikel;
+	}
+	
 	private Mock() { /**/ }
 	
 	
