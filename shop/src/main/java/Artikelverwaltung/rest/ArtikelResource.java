@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import Artikelverwaltung.domain.AbstractArtikel;
+import Artikelverwaltung.domain.Ersatzteile;
 import Artikelverwaltung.domain.Fahrrad;
 import util.Mock;
 import util.rest.NotFoundException;
@@ -68,7 +69,7 @@ public class ArtikelResource {
 
 	 public URI getUriArtikel(AbstractArtikel artikel, UriInfo uriInfo) {
          return uriHelper.getUri(ArtikelResource.class, "findArtikelById",
-                         artikel.getArtikelNr(), uriInfo);
+                         artikel.getId(), uriInfo);
  }
 	 
 	 
@@ -87,7 +88,7 @@ public class ArtikelResource {
        @Produces
        public Response createErsatzteil(Ersatzteile ersatzteil) {
                // TODO Anwendungskern statt Mock, Verwendung von Locale
-               ersatzteil = Mock.createErsatzteil(ersatzteil);
+               ersatzteil = Mock.createErsatzteile(ersatzteil);
                return Response.created(getUriArtikel(ersatzteil, uriInfo)).build();
        }
 
