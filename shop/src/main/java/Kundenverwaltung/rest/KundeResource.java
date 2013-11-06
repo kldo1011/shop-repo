@@ -14,12 +14,9 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
-
 import java.net.URI;
 import java.util.List;
-
 import javax.inject.Inject;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
@@ -36,6 +33,8 @@ import Bestellverwaltung.domain.Bestellung;
 import Bestellverwaltung.rest.BestellungResource;
 //import Bestellverwaltung.rest.BestellungResource;
 import Kundenverwaltung.domain.AbstractKunde;
+import Kundenverwaltung.domain.Firmenkunde;
+import Kundenverwaltung.domain.Privatkunde;
 import util.Mock;
 import util.rest.UriHelper;
 
@@ -44,8 +43,8 @@ import util.rest.UriHelper;
 @Consumes
 public class KundeResource {
 	
-	public static final String KUNDEN_ID_PATH_PARAM="kundeID";
-	public static final String KUNDEN_NACHNAME_QUERY_PARAM="nachname";
+	//public static final String KUNDEN_ID_PATH_PARAM="kundeID";
+	//public static final String KUNDEN_NACHNAME_QUERY_PARAM="nachname";
 	@Context
 	private UriInfo uriInfo;
 	
@@ -65,8 +64,18 @@ public class KundeResource {
 	}
 	
 	@GET
-	@Path("{" + KUNDEN_ID_PATH_PARAM + ":[1-9][0-9]*}")
-	public Response findKundeById(@PathParam(KUNDEN_ID_PATH_PARAM) Long id) {
+	public Response findAllKunde() {
+	final List<AbstractKunde> kundenList=Mock.findAllKunden();
+	if(kundenList.isEmpty())
+		throw new NotFoundException("Es wurden keine Kunden gefudne");
+	return Response.ok(new GenericEntity<List<?extends AbstractKunde>>(kundenList) {
+		
+	}).build();
+	}
+	
+	@GET
+	@Path("{id:[1-9][0-9]*}")
+	public Response findKundeById(@PathParam("id") Long id) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		final AbstractKunde kunde = Mock.findKundeById(id);
 		if (kunde == null) {
@@ -115,7 +124,7 @@ public class KundeResource {
 	}
 	
 	@GET
-	public Response findKundenByNachname(@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) String nachname) {
+	public Response findKundenByNachname(@QueryParam("nachname") String nachname) {
 		List<? extends AbstractKunde> kunden = null;
 		if (nachname != null) {
 			// TODO Anwendungskern statt Mock, Verwendung von Locale
@@ -199,13 +208,21 @@ public class KundeResource {
 	}
 	
 	@POST
+	@Path("/privat")
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public Response createKunde(AbstractKunde kunde) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		kunde = Mock.createKunde(kunde);
-		return Response.created(getUriKunde(kunde, uriInfo))
-			           .build();
+	public Response createPrivatKunde(Privatkunde pkunde) {
+		pkunde=Mock.createPrivatkunde(pkunde);
+		return Response.created(getUriKunde(pkunde,uriInfo)).build();
+	}
+	
+	@POST
+	@Path("/firmen")
+	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Produces
+	public Response createFirmenKunde(Firmenkunde fkunde) {
+		fkunde= Mock.createFirmenkunde(fkunde);
+		return Response.created(getUriKunde(fkunde,uriInfo)).build();
 	}
 	
 	@PUT
@@ -216,12 +233,6 @@ public class KundeResource {
 		Mock.updateKunde(kunde);
 	}
 	
-	@DELETE
-	@Path("{id:[1-9][0-9]*}")
-	@Produces
-	public void deleteKunde(@PathParam("id") Long kundeId) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		Mock.deleteKunde(kundeId);
-	}
+
 	
 }

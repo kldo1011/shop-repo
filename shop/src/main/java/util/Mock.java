@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import Bestellverwaltung.domain.Bestellung;
+import Bestellverwaltung.domain.Position;
 import Kundenverwaltung.domain.AbstractKunde;
 import Kundenverwaltung.domain.Adressen;
 import Kundenverwaltung.domain.Firmenkunde;
@@ -17,21 +18,34 @@ public class Mock {
 	private static final int MAX_KUNDEN = 8;
 	private static final int MAX_BESTELLUNGEN = 4;
 	private static final int MAX_ARTIKEL = 10;
+	private static final int MAX_POSITIONEN=10;
 
 	public static AbstractKunde findKundeById(Long id) {
 		if (id > MAX_ID) {
 			return null;
 		}
 		
-		final AbstractKunde kunde = id % 2 == 1 ? new Privatkunde() : new Firmenkunde();
+		final AbstractKunde kunde;
+		if(id%2==0) {
+			
+			kunde=new Privatkunde();
+			((Privatkunde)kunde).setVorname("Hans");
+			
+		}
+		else {
+			kunde=new Firmenkunde();
+			((Firmenkunde)kunde).setFirmenname("Benz");
+		}
 		kunde.setId(id);
-		kunde.setNachname("Nachname" + id);
-		kunde.setEmail("" + id + "@hska.de");
+		kunde.setNachname("Maier");
 		
 		final Adressen adresse = new Adressen();
 		adresse.setId(id + 1);        // andere ID fuer die Adresse
 		adresse.setPlz("12345");
 		adresse.setOrt("Testort");
+		adresse.setBundesland("BW");
+		adresse.setHausnummer(4);
+		adresse.setStrasse("TestStraﬂe");
 		adresse.setKunde(kunde);
 		kunde.setAdresse(adresse);
 		if (kunde.getClass().equals(Privatkunde.class)) {
@@ -63,6 +77,51 @@ public class Mock {
 		}
 		return kunden;
 	}
+	
+	
+	
+	
+	public static Privatkunde createPrivatkunde(Privatkunde pkunde) {
+		
+		final String nachname = pkunde.getNachname();
+		pkunde.setId(Long.valueOf(nachname.length()));
+		final Adressen adresse= pkunde.getAdresse();
+		adresse.setId(Long.valueOf(nachname.length()));
+		adresse.setKunde(pkunde);
+		pkunde.setBestellungen(null);
+		System.out.println("Neuer Kunde:"+pkunde);
+		return pkunde;
+		
+	
+	}
+	
+	public static Firmenkunde createFirmenkunde(Firmenkunde fkunde) {
+		
+		final String nachname=fkunde.getNachname();
+		fkunde.setId(Long.valueOf(nachname.length()));
+		final Adressen adresse= fkunde.getAdresse();
+		adresse.setId(Long.valueOf(nachname.length()));
+		adresse.setKunde(fkunde);
+		fkunde.setBestellungen(null);
+		System.out.println("Neuer Kunde:"+fkunde);
+		return fkunde;
+		
+	}
+	public static void updateKunde(AbstractKunde kunde) {
+		
+		final AbstractKunde kundeAlt= findKundeById(kunde.getId());
+		kundeAlt.setNachname(kunde.getNachname());
+		kundeAlt.setAdresse(kunde.getAdresse());
+		if(kunde.getId()%2 == 0) {
+			((Privatkunde)kundeAlt).setVorname(((Privatkunde)kunde).getVorname());
+			
+		}
+		else {
+			((Firmenkunde)kundeAlt).setFirmenname(((Firmenkunde)kunde).getFirmenname());
+			
+		}
+		System.out.println("Aktualisierter Kunde: " + kunde);
+	}
 	public static List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
 		// Beziehungsgeflecht zwischen Kunde und Bestellungen aufbauen
 		final int anzahl = kunde.getId().intValue()% MAX_BESTELLUNGEN+1;  // 1, 2, 3 oder 4 Bestellungen
@@ -85,33 +144,64 @@ public class Mock {
 
 		final Bestellung bestellung = new Bestellung();
 		bestellung.setId(id);
+		bestellung.setBestelldatum("06.11.13");
 		bestellung.setAusgeliefert(false);
 		bestellung.setKunde(kunde);
 		
 		return bestellung;
 	}
 
-	public static AbstractKunde createKunde(AbstractKunde kunde) {
-		// Neue IDs fuer Kunde und zugehoerige Adresse
-		// Ein neuer Kunde hat auch keine Bestellungen
-		final String nachname = kunde.getNachname();
-		kunde.setId(Long.valueOf(nachname.length()));
-		final Adressen adresse = kunde.getAdresse();
-		adresse.setId((Long.valueOf(nachname.length())) + 1);
-		adresse.setKunde(kunde);
-		kunde.setBestellungen(null);
+public static List<Bestellung> findAllBestellungen(){
+	
+	final int anzahl=MAX_BESTELLUNGEN;
+	final List<Bestellung>bestellungsList = new ArrayList<>(anzahl);
+	for(int i=1;i<=anzahl;i++) {
+		final Bestellung bestellung=findBestellungById(Long.valueOf(i));
+		bestellungsList.add(bestellung);
 		
-		System.out.println("Neuer Kunde: " + kunde);
-		return kunde;
 	}
+	return bestellungsList;
+	
+}
 
-	public static void updateKunde(AbstractKunde kunde) {
-		System.out.println("Aktualisierter Kunde: " + kunde);
+public static Position findPositionById(long id ,long bestellid) {
+	if(id>MAX_ID) {
+		return null;
 	}
+	
+	final Position position = new Position();
+	position.setId(id);
+	position.setAnzahl((int)id+3);
+	position.setArtikel(findArtikelById(id));
+	position.setBestellid(bestellid);
+	return position;
+	
+	
+	
+	
+}
 
-	public static void deleteKunde(Long kundeId) {
-		System.out.println("Kunde mit ID=" + kundeId + " geloescht");
+public static List<Position> findAllPositionen(Long id){
+	
+	final int anzahl=MAX_POSITIONEN;
+	final List<Position> positionList= new ArrayList<>(anzahl);
+	for(int i=1;i<=anzahl;i++) {
+		final Position position=findPositionById(i,id);
+		positionList.add(position);
 	}
+	return positionList;
+	
+}
+
+public static Bestellung createBestellung(Bestellung bestellung) {
+	
+	final int nummer=bestellung.getBestelldatum().hashCode();
+	bestellung.setId(Long.valueOf(nummer));
+	System.out.println("Neue Bestellung:"+bestellung);
+	return bestellung;
+}
+
+
 
 	public static Artikel findArtikelById(Long id) {
 		final Artikel artikel = new Artikel();
