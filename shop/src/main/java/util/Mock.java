@@ -77,6 +77,8 @@ public class Mock {
 	}
 	
 	
+	
+	
 	public static Privatkunde createPrivatkunde(Privatkunde pkunde) {
 		
 		final String nachname = pkunde.getNachname();
@@ -89,6 +91,19 @@ public class Mock {
 		return pkunde;
 		
 	
+	}
+	
+	public static Firmenkunde createFirmenkunde(Firmenkunde fkunde) {
+		
+		final String nachname=fkunde.getNachname();
+		fkunde.setId(Long.valueOf(nachname.length()));
+		final Adressen adresse= fkunde.getAdresse();
+		adresse.setId(Long.valueOf(nachname.length()));
+		adresse.setKunde(fkunde);
+		fkunde.setBestellungen(null);
+		System.out.println("Neuer Kunde:"+fkunde);
+		return fkunde;
+		
 	}
 	public static List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
 		// Beziehungsgeflecht zwischen Kunde und Bestellungen aufbauen
@@ -118,21 +133,21 @@ public class Mock {
 		return bestellung;
 	}
 
-	public static AbstractKunde createKunde(AbstractKunde kunde) {
-		// Neue IDs fuer Kunde und zugehoerige Adresse
-		// Ein neuer Kunde hat auch keine Bestellungen
-		final String nachname = kunde.getNachname();
-		kunde.setId(Long.valueOf(nachname.length()));
-		final Adressen adresse = kunde.getAdresse();
-		adresse.setId((Long.valueOf(nachname.length())) + 1);
-		adresse.setKunde(kunde);
-		kunde.setBestellungen(null);
-		
-		System.out.println("Neuer Kunde: " + kunde);
-		return kunde;
-	}
+
 
 	public static void updateKunde(AbstractKunde kunde) {
+		
+		final AbstractKunde kundeAlt= findKundeById(kunde.getId());
+		kundeAlt.setNachname(kunde.getNachname());
+		kundeAlt.setAdresse(kunde.getAdresse());
+		if(kunde.getId()%2 == 0) {
+			((Privatkunde)kundeAlt).setVorname(((Privatkunde)kunde).getVorname());
+			
+		}
+		else {
+			((Firmenkunde)kundeAlt).setFirmenname(((Firmenkunde)kunde).getFirmenname());
+			
+		}
 		System.out.println("Aktualisierter Kunde: " + kunde);
 	}
 
