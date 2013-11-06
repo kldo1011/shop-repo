@@ -2,17 +2,18 @@ package Artikelverwaltung.domain;
 
 import java.net.URI;
 
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import org.codehaus.jackson.annotate.JsonSubTypes;
+import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 @XmlRootElement
-@XmlSeeAlso({ Zubehoer.class, Fahrrad.class, Ersatzteil.class })
+@XmlSeeAlso({  Fahrrad.class, Ersatzteile.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({ @Type(value = Zubehoer.class, name = AbstractArtikel.ZUBEHOER),
-                @Type(value = Fahrrad.class, name = AbstractArtikel.FAHRRAD),
-                @Type(value = Ersatzteil.class, name = AbstractArtikel.ERSATZTEIL) })
+@JsonSubTypes({@Type(value = Fahrrad.class, name = AbstractArtikel.FAHRRAD),
+	           @Type(value = Ersatzteile.class, name = AbstractArtikel.ERSATZTEILE)  })
 
 public class AbstractArtikel {
 	
@@ -20,8 +21,7 @@ public class AbstractArtikel {
 	private double preis;
 	private String typ;
 	private URI artikelUri;
-	public static final String ZUBEHOER="Z";
-	public static final String ERSATZTEIL="E";
+	public static final String ERSATZTEILE="E";
 	public static final String FAHRRAD="F";
 	public long getArtikelNr() {
 		return artikelNr;
@@ -47,15 +47,7 @@ public class AbstractArtikel {
 	public void setArtikelUri(URI artikelUri) {
 		this.artikelUri = artikelUri;
 	}
-	public static String getZubehör() {
-		return zubehör;
-	}
-	public static String getErsatzteile() {
-		return ersatzteile;
-	}
-	public static String getFahrrad() {
-		return fahrrad;
-	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
