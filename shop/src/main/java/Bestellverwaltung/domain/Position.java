@@ -2,12 +2,12 @@ package Bestellverwaltung.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import Artikelverwaltung.domain.Artikel;
+import Artikelverwaltung.domain.AbstractArtikel;
 @XmlRootElement
 public class Position {
 	private Long id;
 	private Long bestellid;
-	private Artikel artikel;
+	private AbstractArtikel artikel;
 	private int anzahl;
 	public Long getId() {
 		return id;
@@ -21,10 +21,10 @@ public class Position {
 	public void setBestellid(Long bestellid) {
 		this.bestellid = bestellid;
 	}
-	public Artikel getArtikel() {
+	public AbstractArtikel getArtikel() {
 		return artikel;
 	}
-	public void setArtikel(Artikel artikel) {
+	public void setArtikel(AbstractArtikel artikel) {
 		this.artikel = artikel;
 	}
 	public int getAnzahl() {
@@ -77,6 +77,7 @@ public class Position {
 		return "Position [id=" + id + ", bestellid=" + bestellid + ", artikel="
 				+ artikel + ", anzahl=" + anzahl + "]";
 	}
+	
 	
 	
 

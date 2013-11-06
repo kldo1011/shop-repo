@@ -11,7 +11,9 @@ import Kundenverwaltung.domain.Adressen;
 import Kundenverwaltung.domain.Firmenkunde;
 import Kundenverwaltung.domain.Kategorie;
 import Kundenverwaltung.domain.Privatkunde;
-import Artikelverwaltung.domain.Artikel;
+import Artikelverwaltung.domain.AbstractArtikel;
+import Artikelverwaltung.domain.Ersatzteile;
+import Artikelverwaltung.domain.Fahrrad;
 
 public class Mock {
 	private static final int MAX_ID = 99;
@@ -203,50 +205,85 @@ public static Bestellung createBestellung(Bestellung bestellung) {
 
 
 
-	public static Artikel findArtikelById(Long id) {
-		final Artikel artikel = new Artikel();
-		artikel.setId(id);
-		artikel.setBezeichnung("Bezeichnung_" + id);
-		artikel.setPreis(Long.valueOf(20));
-		artikel.setLieferant("REX");
-		return artikel;
-	}
-	
-	public static List<Artikel> findArtikelByBezeichnung(String bezeichnung) {
-		final int anzahl = bezeichnung.length();
-		final List<Artikel> listArtikel = new ArrayList<>(anzahl);
-		for (int i = 1; i <= anzahl; i++) {
-			final Artikel artikel = findArtikelById(Long.valueOf(i));
-			listArtikel.add(artikel);			
+	public static AbstractArtikel findArtikelById(Long id) {
+		if(id>MAX_ARTIKEL) {
+			return null;
 		}
-		return listArtikel;
-	}
-	
-	public static Artikel createArtikel(Artikel artikel) {
-		final String bezeichnung = artikel.getBezeichnung();
-		artikel.setId(Long.valueOf(bezeichnung.length()));
+		final AbstractArtikel artikel;
 		
-		System.out.println("Neuer Artikel: " + artikel);
+		if(id%2==0) {
+			
+		artikel =new Fahrrad();
+		
+		artikel.setTyp("Rennrad");
+		((Fahrrad)artikel).setRahmen("Carbon");
+		((Fahrrad)artikel).setBezeichnung("Cube");
+		}
+		
+		else {
+			
+			artikel = new Ersatzteile();
+			artikel.setTyp("Bremse");
+		}
+		
+		
+		artikel.setId(id);
+		artikel.setPreis(821.41);
 		return artikel;
 	}
 	
-	public static List<Artikel> findAllArtikel() {
-		final int anzahl = MAX_ARTIKEL;
-		final List<Artikel> listArtikel = new ArrayList<>(anzahl);
-		for (int i = 1; i <= anzahl; i++) {
-			final Artikel artikel = findArtikelById(Long.valueOf(i));
-			listArtikel.add(artikel);			
-		}
-		return listArtikel;
-	}
+   public static List<AbstractArtikel> findAllArtikel(){
+	   
+	   final int anzahl= MAX_ARTIKEL;
+	   final List <AbstractArtikel> artikelList = new ArrayList<>(anzahl);
+	   
+	   for(int i=1;i<=anzahl;i++) {
+		   final AbstractArtikel artikel = findArtikelById(Long.valueOf(i));
+		   artikelList.add(artikel);
+	   }
+	   return artikelList;
+   }
+   
+   public static Fahrrad createFahrrad(Fahrrad fahrrad) {
+	   
+	   final String bezeichnung = fahrrad.getBezeichnung();
+	   fahrrad.setId(bezeichnung.length());
+	   System.out.println("Neues Fahrrad"+fahrrad);
+	   return fahrrad;
+   }
+   
+   public static Ersatzteile createErsatzteile(Ersatzteile ersatz) {
+	   
+	   final String typ = ersatz.getTyp();
+	   ersatz.setId(typ.length());
+	   System.out.println("Neues Ersatzteil"+ersatz);
+	   return ersatz;
+   }
+   
+   
+   public static void updateArtikel(AbstractArtikel artikel) {
+	   
+	   final AbstractArtikel artikelAlt= findArtikelById(artikel.getId());
+	   artikelAlt.setPreis(artikel.getPreis());
+	   artikelAlt.setTyp(artikel.getTyp());
+	   if(artikel.getId()%2==0) {
+		   
+		   ((Fahrrad)artikelAlt).setBezeichnung(((Fahrrad)artikel).getBezeichnung());
+		   ((Fahrrad) artikelAlt).setRahmen(((Fahrrad) artikel).getRahmen());
+	   }
+	   else {
+		   
+		   ((Ersatzteile)artikelAlt).setFahrrad(((Ersatzteile) artikel)
+                   .getFahrrad());
+	   }
+	   
+   }
 	
-	public static void updateArtikel(Artikel artikel) {
-		System.out.println("Aktualisierter Artikel: " + artikel);
-	}
+
 	
-	public static void deleteArtikel(Long Id) {
-		System.out.println("Artikel mit ID=" + Id + " geloescht");
-	}
+
+	
+	
 	
 	private Mock() { /**/ }
 	
