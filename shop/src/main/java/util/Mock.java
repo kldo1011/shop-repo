@@ -23,15 +23,27 @@ public class Mock {
 			return null;
 		}
 		
-		final AbstractKunde kunde = id % 2 == 1 ? new Privatkunde() : new Firmenkunde();
+		final AbstractKunde kunde;
+		if(id%2==0) {
+			
+			kunde=new Privatkunde();
+			((Privatkunde)kunde).setVorname("Hans");
+			
+		}
+		else {
+			kunde=new Firmenkunde();
+			((Firmenkunde)kunde).setFirmenname("Benz");
+		}
 		kunde.setId(id);
-		kunde.setNachname("Nachname" + id);
-		kunde.setEmail("" + id + "@hska.de");
+		kunde.setNachname("Maier");
 		
 		final Adressen adresse = new Adressen();
 		adresse.setId(id + 1);        // andere ID fuer die Adresse
 		adresse.setPlz("12345");
 		adresse.setOrt("Testort");
+		adresse.setBundesland("BW");
+		adresse.setHausnummer(4);
+		adresse.setStrasse("TestStraße");
 		adresse.setKunde(kunde);
 		kunde.setAdresse(adresse);
 		if (kunde.getClass().equals(Privatkunde.class)) {
@@ -62,6 +74,21 @@ public class Mock {
 			kunden.add(kunde);			
 		}
 		return kunden;
+	}
+	
+	
+	public static Privatkunde createPrivatkunde(Privatkunde pkunde) {
+		
+		final String nachname = pkunde.getNachname();
+		pkunde.setId(Long.valueOf(nachname.length()));
+		final Adressen adresse= pkunde.getAdresse();
+		adresse.setId(Long.valueOf(nachname.length()));
+		adresse.setKunde(pkunde);
+		pkunde.setBestellungen(null);
+		System.out.println("Neuer Kunde:"+pkunde);
+		return pkunde;
+		
+	
 	}
 	public static List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
 		// Beziehungsgeflecht zwischen Kunde und Bestellungen aufbauen

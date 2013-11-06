@@ -3,6 +3,7 @@ package Artikelverwaltung.domain;
 import java.net.URI;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
 @XmlRootElement
 public class Artikel {
 	private URI artikelUri;
@@ -13,6 +14,17 @@ public class Artikel {
 
 	public URI getArtikelUri() {
 		return artikelUri;
+	}
+
+	@Override
+	public String toString() {
+		return "Artikel [artikelUri=" + artikelUri + ", bezeichnung="
+				+ bezeichnung + ", preis=" + preis + ", id=" + id
+				+ ", lieferant=" + lieferant + "]";
+	}
+
+	public void setLieferant(String lieferant) {
+		this.lieferant = lieferant;
 	}
 
 	public void setArtikelUri(URI artikelUri) {
@@ -45,10 +57,13 @@ public class Artikel {
 
 	public String getLieferant() {
 		return lieferant;
+<<<<<<< HEAD
+=======
 	}
 
 	public void setLieferant(String lieferant) {
 		this.lieferant = lieferant;
+>>>>>>> branch 'master' of https://github.com/kldo1011/shop-repo.git
 	}
 
 	@Override
