@@ -3,6 +3,7 @@ package Artikelverwaltung.domain;
 import java.net.URI;
 
 
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
@@ -17,17 +18,17 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 public class AbstractArtikel {
 	
-	private long artikelNr;
+	private long id;
 	private double preis;
 	private String typ;
 	private URI artikelUri;
 	public static final String ERSATZTEILE="E";
 	public static final String FAHRRAD="F";
-	public long getArtikelNr() {
-		return artikelNr;
+	public long getId() {
+		return id;
 	}
-	public void setArtikelNr(long artikelNr) {
-		this.artikelNr = artikelNr;
+	public void setId(long id) {
+		this.id = id;
 	}
 	public double getPreis() {
 		return preis;
@@ -47,14 +48,13 @@ public class AbstractArtikel {
 	public void setArtikelUri(URI artikelUri) {
 		this.artikelUri = artikelUri;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (artikelNr ^ (artikelNr >>> 32));
 		result = prime * result
 				+ ((artikelUri == null) ? 0 : artikelUri.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		long temp;
 		temp = Double.doubleToLongBits(preis);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -70,12 +70,12 @@ public class AbstractArtikel {
 		if (getClass() != obj.getClass())
 			return false;
 		AbstractArtikel other = (AbstractArtikel) obj;
-		if (artikelNr != other.artikelNr)
-			return false;
 		if (artikelUri == null) {
 			if (other.artikelUri != null)
 				return false;
 		} else if (!artikelUri.equals(other.artikelUri))
+			return false;
+		if (id != other.id)
 			return false;
 		if (Double.doubleToLongBits(preis) != Double
 				.doubleToLongBits(other.preis))
@@ -89,9 +89,11 @@ public class AbstractArtikel {
 	}
 	@Override
 	public String toString() {
-		return "AbstractArtikel [artikelNr=" + artikelNr + ", preis=" + preis
-				+ ", typ=" + typ + ", artikelUri=" + artikelUri + "]";
+		return "AbstractArtikel [id=" + id + ", preis=" + preis + ", typ="
+				+ typ + ", artikelUri=" + artikelUri + "]";
 	}
+
+	
 	
 
 	
