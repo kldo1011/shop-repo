@@ -117,6 +117,8 @@ public class Mock {
 		final Artikel artikel = new Artikel();
 		artikel.setId(id);
 		artikel.setBezeichnung("Bezeichnung_" + id);
+		artikel.setPreis(Long.valueOf(20));
+		artikel.setLieferant("REX");
 		return artikel;
 	}
 	
@@ -125,7 +127,6 @@ public class Mock {
 		final List<Artikel> listArtikel = new ArrayList<>(anzahl);
 		for (int i = 1; i <= anzahl; i++) {
 			final Artikel artikel = findArtikelById(Long.valueOf(i));
-			artikel.setBezeichnung(bezeichnung);
 			listArtikel.add(artikel);			
 		}
 		return listArtikel;
@@ -134,8 +135,6 @@ public class Mock {
 	public static Artikel createArtikel(Artikel artikel) {
 		final String bezeichnung = artikel.getBezeichnung();
 		artikel.setId(Long.valueOf(bezeichnung.length()));
-		final Long preis = artikel.getPreis();
-		artikel.setPreis(preis);
 		
 		System.out.println("Neuer Artikel: " + artikel);
 		return artikel;

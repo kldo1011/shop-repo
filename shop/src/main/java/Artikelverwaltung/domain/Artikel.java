@@ -1,10 +1,7 @@
 package Artikelverwaltung.domain;
 
 import java.net.URI;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
-import Kundenverwaltung.domain.Lieferant;
 
 @XmlRootElement
 public class Artikel {
@@ -12,7 +9,7 @@ public class Artikel {
 	private String bezeichnung;
 	private Long preis;
 	private Long id;
-	private Lieferant lieferant;
+	private String lieferant;
 
 	public URI getArtikelUri() {
 		return artikelUri;
@@ -46,11 +43,11 @@ public class Artikel {
 		this.id = id;
 	}
 
-	public Lieferant getLieferant() {
+	public String getLieferant() {
 		return lieferant;
 	}
 
-	public void setLieferant(Lieferant lieferant) {
+	public void setLieferant(String lieferant) {
 		this.lieferant = lieferant;
 	}
 
@@ -105,6 +102,14 @@ public class Artikel {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Artikel [artikelUri=" + artikelUri + ", bezeichnung="
+				+ bezeichnung + ", preis=" + preis + ", id=" + id
+				+ ", lieferant=" + lieferant + "]";
+	}
+	
 	
 	
 }

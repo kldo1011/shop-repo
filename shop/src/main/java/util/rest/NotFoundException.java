@@ -2,6 +2,8 @@ package util.rest;
 
 public class NotFoundException extends RuntimeException {
 
+	private static final long serialVersionUID = -866705588853138386L;
+	
 	public NotFoundException(String msg) {
 		super(msg);
 	}

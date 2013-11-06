@@ -32,7 +32,7 @@ import util.Mock;
 import util.rest.UriHelper;
 import Artikelverwaltung.domain.Artikel;
 
-@Path("/artikelService")
+@Path("/ArtikelService")
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75",TEXT_XML + ";qs=0.75"})
 @Consumes
 public class ArtikelService {
