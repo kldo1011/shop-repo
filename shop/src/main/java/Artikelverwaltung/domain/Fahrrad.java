@@ -1,25 +1,19 @@
 package Artikelverwaltung.domain;
 
-import java.net.URI;
+
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Fahrrad extends Artikel
+public class Fahrrad extends AbstractArtikel
 {
-	private URI artikelUri;
+	private String bezeichnung;
 	private String rahmen;
-	private String farbe;
-	private String hersteller;
-	
-	
-	@Override
-	public URI getArtikelUri() {
-		return artikelUri;
+	public String getBezeichnung() {
+		return bezeichnung;
 	}
-	@Override
-	public void setArtikelUri(URI fahrradUri) {
-		this.artikelUri = fahrradUri;
+	public void setBezeichnung(String bezeichnung) {
+		this.bezeichnung = bezeichnung;
 	}
 	public String getRahmen() {
 		return rahmen;
@@ -27,29 +21,12 @@ public class Fahrrad extends Artikel
 	public void setRahmen(String rahmen) {
 		this.rahmen = rahmen;
 	}
-	public String getFarbe() {
-		return farbe;
-	}
-	public void setFarbe(String farbe) {
-		this.farbe = farbe;
-	}
-	public String getHersteller() {
-		return hersteller;
-	}
-	public void setHersteller(String hersteller) {
-		this.hersteller = hersteller;
-	}
-
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-				+ ((artikelUri == null) ? 0 : artikelUri.hashCode());
-		result = prime * result + ((farbe == null) ? 0 : farbe.hashCode());
-		result = prime * result
-				+ ((hersteller == null) ? 0 : hersteller.hashCode());
+				+ ((bezeichnung == null) ? 0 : bezeichnung.hashCode());
 		result = prime * result + ((rahmen == null) ? 0 : rahmen.hashCode());
 		return result;
 	}
@@ -62,20 +39,10 @@ public class Fahrrad extends Artikel
 		if (getClass() != obj.getClass())
 			return false;
 		Fahrrad other = (Fahrrad) obj;
-		if (artikelUri == null) {
-			if (other.artikelUri != null)
+		if (bezeichnung == null) {
+			if (other.bezeichnung != null)
 				return false;
-		} else if (!artikelUri.equals(other.artikelUri))
-			return false;
-		if (farbe == null) {
-			if (other.farbe != null)
-				return false;
-		} else if (!farbe.equals(other.farbe))
-			return false;
-		if (hersteller == null) {
-			if (other.hersteller != null)
-				return false;
-		} else if (!hersteller.equals(other.hersteller))
+		} else if (!bezeichnung.equals(other.bezeichnung))
 			return false;
 		if (rahmen == null) {
 			if (other.rahmen != null)
@@ -86,10 +53,9 @@ public class Fahrrad extends Artikel
 	}
 	@Override
 	public String toString() {
-		return "Fahrrad [artikelUri=" + artikelUri + ", rahmen=" + rahmen
-				+ ", farbe=" + farbe + ", hersteller=" + hersteller + "]" + super.toString();
+		return "Fahrrad [bezeichnung=" + bezeichnung + ", rahmen=" + rahmen
+				+ "]";
 	}
-
 	
 
 }
