@@ -1,10 +1,6 @@
 package Kundenverwaltung.domain;
 
 
-import javax.xml.bind.annotation.XmlTransient;
-
-
-
 
 public class Adressen  {
 
@@ -16,12 +12,7 @@ public class Adressen  {
 	private int hausnummer;
 	private String bundesland;
 	private String strasse;
-	@XmlTransient
-	private AbstractKunde kunde;
 	
-	public AbstractKunde getKunde() {
-		return kunde;
-	}
 	
 	public String getStrasse() {
 		return strasse;
@@ -31,9 +22,6 @@ public class Adressen  {
 		this.strasse = strasse;
 	}
 
-	public void setKunde(AbstractKunde kunde) {
-		this.kunde = kunde;
-	}
 	public Long getId() {
 		return id;
 	}
@@ -72,7 +60,6 @@ public class Adressen  {
 				+ ((bundesland == null) ? 0 : bundesland.hashCode());
 		result = prime * result + hausnummer;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((kunde == null) ? 0 : kunde.hashCode());
 		result = prime * result + ((ort == null) ? 0 : ort.hashCode());
 		result = prime * result + ((plz == null) ? 0 : plz.hashCode());
 		result = prime * result + ((strasse == null) ? 0 : strasse.hashCode());
@@ -99,11 +86,6 @@ public class Adressen  {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (kunde == null) {
-			if (other.kunde != null)
-				return false;
-		} else if (!kunde.equals(other.kunde))
-			return false;
 		if (ort == null) {
 			if (other.ort != null)
 				return false;
@@ -125,7 +107,7 @@ public class Adressen  {
 	public String toString() {
 		return "Adressen [id=" + id + ", plz=" + plz + ", ort=" + ort
 				+ ", hausnummer=" + hausnummer + ", bundesland=" + bundesland
-				+ ", strasse=" + strasse + ", kunde=" + kunde + "]";
+				+ ", strasse=" + strasse ;
 	}
 	
 

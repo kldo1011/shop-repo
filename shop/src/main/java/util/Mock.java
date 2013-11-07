@@ -47,8 +47,7 @@ public class Mock {
 		adresse.setOrt("Testort");
 		adresse.setBundesland("BW");
 		adresse.setHausnummer(4);
-		adresse.setStrasse("TestStraﬂe");
-		adresse.setKunde(kunde);
+		adresse.setStrasse("TestStrasse");
 		kunde.setAdresse(adresse);
 		if (kunde.getClass().equals(Privatkunde.class)) {
 			final Privatkunde privatkunde = (Privatkunde) kunde;
@@ -89,7 +88,6 @@ public class Mock {
 		pkunde.setId(Long.valueOf(nachname.length()));
 		final Adressen adresse= pkunde.getAdresse();
 		adresse.setId(Long.valueOf(nachname.length()));
-		adresse.setKunde(pkunde);
 		pkunde.setBestellungen(null);
 		System.out.println("Neuer Kunde:"+pkunde);
 		return pkunde;
@@ -103,7 +101,6 @@ public class Mock {
 		fkunde.setId(Long.valueOf(nachname.length()));
 		final Adressen adresse= fkunde.getAdresse();
 		adresse.setId(Long.valueOf(nachname.length()));
-		adresse.setKunde(fkunde);
 		fkunde.setBestellungen(null);
 		System.out.println("Neuer Kunde:"+fkunde);
 		return fkunde;
@@ -124,6 +121,11 @@ public class Mock {
 		}
 		System.out.println("Aktualisierter Kunde: " + kunde);
 	}
+	
+	   public static void deleteKunde(Long kundeId) {
+           System.out.println("Kunde mit ID=" + kundeId + " geloescht");
+   }
+	   
 	public static List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
 		// Beziehungsgeflecht zwischen Kunde und Bestellungen aufbauen
 		final int anzahl = kunde.getId().intValue()% MAX_BESTELLUNGEN+1;  // 1, 2, 3 oder 4 Bestellungen

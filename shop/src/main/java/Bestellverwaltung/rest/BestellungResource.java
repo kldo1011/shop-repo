@@ -73,18 +73,21 @@ public class BestellungResource {
                               .build();
 		return new Link[] { self };
 	}
-	@POST
-	@Consumes({APPLICATION_JSON,APPLICATION_XML,TEXT_XML})
-	@Produces
-	public Response createBestellung(Bestellung bestellung) {
-		
-		bestellung = Mock.createBestellung(bestellung);
-		return Response.created(getUriBestellung(bestellung,uriInfo)).build();
-	}
+
 	
 	public URI getUriBestellung(Bestellung bestellung, UriInfo uriInfo) {
 		return uriHelper.getUri(BestellungResource.class, "findBestellungById", bestellung.getId(), uriInfo);
 	}
+	
+    @POST
+    @Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+    @Produces
+    public Response createBestellung(Bestellung bestellung) {
+            // TODO Anwendungskern statt Mock, Verwendung von Locale
+            bestellung = Mock.createBestellung(bestellung);
+            return Response.created(getUriBestellung(bestellung, uriInfo)).build();
+    }
 }
+
 
 
