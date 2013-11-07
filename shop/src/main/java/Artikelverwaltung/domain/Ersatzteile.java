@@ -40,6 +40,5 @@ public class Ersatzteile extends AbstractArtikel {
 	public String toString() {
 		return "Ersatzteile [fahrrad=" + fahrrad + "]";
 	}
-	
 
 }

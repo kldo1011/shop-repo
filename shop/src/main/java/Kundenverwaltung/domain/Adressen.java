@@ -1,19 +1,14 @@
 package Kundenverwaltung.domain;
 
+public class Adressen {
 
-
-public class Adressen  {
-
-	
-	
 	private Long id;
 	private String plz;
 	private String ort;
 	private int hausnummer;
 	private String bundesland;
 	private String strasse;
-	
-	
+
 	public String getStrasse() {
 		return strasse;
 	}
@@ -25,33 +20,43 @@ public class Adressen  {
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getPlz() {
 		return plz;
 	}
+
 	public void setPlz(String plz) {
 		this.plz = plz;
 	}
+
 	public String getOrt() {
 		return ort;
 	}
+
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
+
 	public int getHausnummer() {
 		return hausnummer;
 	}
+
 	public void setHausnummer(int hausnummer) {
 		this.hausnummer = hausnummer;
 	}
+
 	public String getBundesland() {
 		return bundesland;
 	}
+
 	public void setBundesland(String bundesland) {
 		this.bundesland = bundesland;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,6 +70,7 @@ public class Adressen  {
 		result = prime * result + ((strasse == null) ? 0 : strasse.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -103,15 +109,12 @@ public class Adressen  {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Adressen [id=" + id + ", plz=" + plz + ", ort=" + ort
 				+ ", hausnummer=" + hausnummer + ", bundesland=" + bundesland
-				+ ", strasse=" + strasse ;
+				+ ", strasse=" + strasse;
 	}
-	
 
-	
-	
-	
 }

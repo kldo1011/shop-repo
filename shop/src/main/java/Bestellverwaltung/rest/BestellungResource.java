@@ -1,4 +1,5 @@
 package Bestellverwaltung.rest;
+
 import static util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
@@ -25,69 +26,67 @@ import util.Mock;
 import util.rest.NotFoundException;
 import util.rest.UriHelper;
 
-
 @Path("/bestellungen")
-@Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
+@Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75",
+		TEXT_XML + ";qs=0.5" })
 @Consumes
-
 public class BestellungResource {
-	
+
 	@Context
 	private UriInfo uriInfo;
-	
+
 	@Inject
 	private UriHelper uriHelper;
-	
+
 	@Inject
 	private KundeResource kundeResource;
-	
+
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		final Bestellung bestellung = Mock.findBestellungById(id);
 		if (bestellung == null) {
-			throw new NotFoundException("Keine Bestellung mit der ID " + id + " gefunden.");
+			throw new NotFoundException("Keine Bestellung mit der ID " + id
+					+ " gefunden.");
 		}
-		
+
 		setStructuralLinks(bestellung, uriInfo);
-		
+
 		// Link-Header setzen
 		final Response response = Response.ok(bestellung)
-                                          .links(getTransitionalLinks(bestellung, uriInfo))
-                                          .build();
-		
+				.links(getTransitionalLinks(bestellung, uriInfo)).build();
+
 		return response;
 	}
+
 	public void setStructuralLinks(Bestellung bestellung, UriInfo uriInfo) {
 		// URI fuer Kunde setzen
 		final AbstractKunde kunde = bestellung.getKunde();
 		if (kunde != null) {
-			final URI kundeUri = kundeResource.getUriKunde(bestellung.getKunde(), uriInfo);
+			final URI kundeUri = kundeResource.getUriKunde(
+					bestellung.getKunde(), uriInfo);
 			bestellung.setKundeUri(kundeUri);
 		}
 	}
+
 	private Link[] getTransitionalLinks(Bestellung bestellung, UriInfo uriInfo) {
 		final Link self = Link.fromUri(getUriBestellung(bestellung, uriInfo))
-                              .rel(SELF_LINK)
-                              .build();
+				.rel(SELF_LINK).build();
 		return new Link[] { self };
 	}
 
-	
 	public URI getUriBestellung(Bestellung bestellung, UriInfo uriInfo) {
-		return uriHelper.getUri(BestellungResource.class, "findBestellungById", bestellung.getId(), uriInfo);
+		return uriHelper.getUri(BestellungResource.class, "findBestellungById",
+				bestellung.getId(), uriInfo);
 	}
-	
-    @POST
-    @Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
-    @Produces
-    public Response createBestellung(Bestellung bestellung) {
-            // TODO Anwendungskern statt Mock, Verwendung von Locale
-            bestellung = Mock.createBestellung(bestellung);
-            return Response.created(getUriBestellung(bestellung, uriInfo)).build();
-    }
+
+	@POST
+	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Produces
+	public Response createBestellung(Bestellung bestellung) {
+		// TODO Anwendungskern statt Mock, Verwendung von Locale
+		bestellung = Mock.createBestellung(bestellung);
+		return Response.created(getUriBestellung(bestellung, uriInfo)).build();
+	}
 }
-
-
-

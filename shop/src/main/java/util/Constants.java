@@ -14,7 +14,7 @@ public final class Constants {
 
 	// JPA
 	public static final Long KEINE_ID = null;
-	
+
 	private Constants() {
 	}
 }

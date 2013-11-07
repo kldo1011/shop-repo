@@ -3,36 +3,46 @@ package Bestellverwaltung.domain;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import Artikelverwaltung.domain.AbstractArtikel;
+
 @XmlRootElement
 public class Position {
 	private Long id;
 	private Long bestellid;
 	private AbstractArtikel artikel;
 	private int anzahl;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Long getBestellid() {
 		return bestellid;
 	}
+
 	public void setBestellid(Long bestellid) {
 		this.bestellid = bestellid;
 	}
+
 	public AbstractArtikel getArtikel() {
 		return artikel;
 	}
+
 	public void setArtikel(AbstractArtikel artikel) {
 		this.artikel = artikel;
 	}
+
 	public int getAnzahl() {
 		return anzahl;
 	}
+
 	public void setAnzahl(int anzahl) {
 		this.anzahl = anzahl;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -44,6 +54,7 @@ public class Position {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -72,13 +83,11 @@ public class Position {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Position [id=" + id + ", bestellid=" + bestellid + ", artikel="
 				+ artikel + ", anzahl=" + anzahl + "]";
 	}
-	
-	
-	
 
 }

@@ -1,8 +1,7 @@
 package Kundenverwaltung.domain;
 
 public class Firmenkunde extends AbstractKunde {
-	
-	
+
 	private String firmenname;
 
 	public String getFirmenname() {
@@ -43,6 +42,5 @@ public class Firmenkunde extends AbstractKunde {
 	public String toString() {
 		return "Firmenkunde [firmenname=" + firmenname + "]";
 	}
-	
 
 }

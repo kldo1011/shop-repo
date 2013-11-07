@@ -2,52 +2,59 @@ package Artikelverwaltung.domain;
 
 import java.net.URI;
 
-
-
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
-@XmlRootElement
-@XmlSeeAlso({  Fahrrad.class, Ersatzteile.class })
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({@Type(value = Fahrrad.class, name = AbstractArtikel.FAHRRAD),
-	           @Type(value = Ersatzteile.class, name = AbstractArtikel.ERSATZTEILE)  })
 
+@XmlRootElement
+@XmlSeeAlso({ Fahrrad.class, Ersatzteile.class })
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({ @Type(value = Fahrrad.class, name = AbstractArtikel.FAHRRAD),
+		@Type(value = Ersatzteile.class, name = AbstractArtikel.ERSATZTEILE) })
 public class AbstractArtikel {
-	
+
 	private long id;
 	private double preis;
 	private String typ;
 	private URI artikelUri;
-	public static final String ERSATZTEILE="E";
-	public static final String FAHRRAD="F";
+	public static final String ERSATZTEILE = "E";
+	public static final String FAHRRAD = "F";
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public double getPreis() {
 		return preis;
 	}
+
 	public void setPreis(double preis) {
 		this.preis = preis;
 	}
+
 	public String getTyp() {
 		return typ;
 	}
+
 	public void setTyp(String typ) {
 		this.typ = typ;
 	}
+
 	public URI getArtikelUri() {
 		return artikelUri;
 	}
+
 	public void setArtikelUri(URI artikelUri) {
 		this.artikelUri = artikelUri;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,6 +68,7 @@ public class AbstractArtikel {
 		result = prime * result + ((typ == null) ? 0 : typ.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -87,16 +95,11 @@ public class AbstractArtikel {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "AbstractArtikel [id=" + id + ", preis=" + preis + ", typ="
 				+ typ + ", artikelUri=" + artikelUri + "]";
 	}
 
-	
-	
-
-	
-	
-	
 }

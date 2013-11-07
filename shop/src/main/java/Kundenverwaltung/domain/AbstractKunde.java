@@ -1,4 +1,5 @@
 package Kundenverwaltung.domain;
+
 import java.net.URI;
 import java.util.List;
 
@@ -16,15 +17,13 @@ import Bestellverwaltung.domain.Bestellung;
 @XmlSeeAlso({ Firmenkunde.class, Privatkunde.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-	@Type(value = Privatkunde.class, name = AbstractKunde.PRIVATKUNDE),
-	@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE) })
-public abstract   class AbstractKunde {
-	
+		@Type(value = Privatkunde.class, name = AbstractKunde.PRIVATKUNDE),
+		@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE) })
+public abstract class AbstractKunde {
 
-	
-	public static final String PRIVATKUNDE="P";
-	public static final String FIRMENKUNDE="F";
-	
+	public static final String PRIVATKUNDE = "P";
+	public static final String FIRMENKUNDE = "F";
+
 	private Long id;
 	private String nachname;
 	private String email;
@@ -32,9 +31,11 @@ public abstract   class AbstractKunde {
 	@XmlTransient
 	private List<Bestellung> bestellungen;
 	private URI bestellungenUri;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -42,33 +43,43 @@ public abstract   class AbstractKunde {
 	public String getNachname() {
 		return nachname;
 	}
+
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public Adressen getAdresse() {
 		return adresse;
 	}
+
 	public void setAdresse(Adressen adresse) {
 		this.adresse = adresse;
 	}
+
 	public List<Bestellung> getBestellungen() {
 		return bestellungen;
 	}
+
 	public void setBestellungen(List<Bestellung> bestellungen) {
 		this.bestellungen = bestellungen;
 	}
+
 	public URI getBestellungenUri() {
 		return bestellungenUri;
 	}
+
 	public void setBestellungenUri(URI bestellungenUri) {
 		this.bestellungenUri = bestellungenUri;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -84,6 +95,7 @@ public abstract   class AbstractKunde {
 				+ ((nachname == null) ? 0 : nachname.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -125,6 +137,7 @@ public abstract   class AbstractKunde {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "AbstractKunde [id=" + id + ", nachname=" + nachname
@@ -132,13 +145,5 @@ public abstract   class AbstractKunde {
 				+ ", bestellungen=" + bestellungen + ", bestellungenUri="
 				+ bestellungenUri + "]";
 	}
-
-     
-	
-	
-	
-	
-	
-	
 
 }
