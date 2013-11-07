@@ -278,7 +278,17 @@ public class Mock {
 			((Ersatzteile) artikelAlt).setFahrrad(((Ersatzteile) artikel)
 					.getFahrrad());
 		}
+		
+		System.out.println("Aktualisierter Artikel  "+artikel);
 
+	}
+
+	public static void updateBestellung(Bestellung bestellung) {
+		System.out.println("Aktualisierte Bestellung: " + bestellung);
+	}
+
+	public static void deleteBestellung(Long id) {
+		System.out.println("Bestellung mit ID=" + id + " geloescht");
 	}
 
 	private Mock() { /**/
