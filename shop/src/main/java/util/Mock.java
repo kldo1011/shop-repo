@@ -88,7 +88,6 @@ public class Mock {
 		pkunde.setId(Long.valueOf(nachname.length()));
 		final Adressen adresse = pkunde.getAdresse();
 		adresse.setId(Long.valueOf(nachname.length()));
-		pkunde.setBestellungen(null);
 		System.out.println("Neuer Kunde:" + pkunde);
 		return pkunde;
 
@@ -100,7 +99,6 @@ public class Mock {
 		fkunde.setId(Long.valueOf(nachname.length()));
 		final Adressen adresse = fkunde.getAdresse();
 		adresse.setId(Long.valueOf(nachname.length()));
-		fkunde.setBestellungen(null);
 		System.out.println("Neuer Kunde:" + fkunde);
 		return fkunde;
 
@@ -142,7 +140,6 @@ public class Mock {
 			bestellung.setKunde(kunde);
 			bestellungen.add(bestellung);
 		}
-		kunde.setBestellungen(bestellungen);
 
 		return bestellungen;
 	}
