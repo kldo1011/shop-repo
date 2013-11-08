@@ -14,7 +14,7 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({ @Type(value = Fahrrad.class, name = AbstractArtikel.FAHRRAD),
 		@Type(value = Ersatzteile.class, name = AbstractArtikel.ERSATZTEILE) })
-public class AbstractArtikel {
+public abstract class  AbstractArtikel {
 
 	private long id;
 	private double preis;
@@ -81,7 +81,8 @@ public class AbstractArtikel {
 		if (artikelUri == null) {
 			if (other.artikelUri != null)
 				return false;
-		} else if (!artikelUri.equals(other.artikelUri))
+		} 
+		else if (!artikelUri.equals(other.artikelUri))
 			return false;
 		if (id != other.id)
 			return false;
@@ -91,7 +92,8 @@ public class AbstractArtikel {
 		if (typ == null) {
 			if (other.typ != null)
 				return false;
-		} else if (!typ.equals(other.typ))
+		}
+		else if (!typ.equals(other.typ))
 			return false;
 		return true;
 	}

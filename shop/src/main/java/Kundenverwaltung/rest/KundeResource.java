@@ -122,7 +122,7 @@ public class KundeResource {
 								kunde.getId(), uriInfo)).rel(REMOVE_LINK)
 				.build();
 
-		return new Link[] { self, add, update, remove };
+		return new Link[] {self, add, update, remove };
 	}
 
 	public URI getUriKunde(AbstractKunde kunde, UriInfo uriInfo) {
@@ -141,7 +141,8 @@ public class KundeResource {
 				throw new NotFoundException("Kein Kunde mit Nachname "
 						+ nachname + " gefunden.");
 			}
-		} else {
+		} else
+		{
 			// TODO Anwendungskern statt Mock, Verwendung von Locale
 			kunden = Mock.findAllKunden();
 			if (kunden.isEmpty()) {
@@ -171,7 +172,7 @@ public class KundeResource {
 				.fromUri(getUriKunde(kunden.get(lastPos), uriInfo))
 				.rel(LAST_LINK).build();
 
-		return new Link[] { first, last };
+		return new Link[] {first, last };
 	}
 
 	@GET
@@ -220,7 +221,7 @@ public class KundeResource {
 								bestellungen.get(lastPos), uriInfo))
 				.rel(LAST_LINK).build();
 
-		return new Link[] { self, first, last };
+		return new Link[] {self, first, last };
 	}
 
 	@POST

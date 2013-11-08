@@ -34,7 +34,8 @@ public class Mock {
 			kunde = new Privatkunde();
 			((Privatkunde) kunde).setVorname("Hans");
 
-		} else {
+		} else
+		{
 			kunde = new Firmenkunde();
 			((Firmenkunde) kunde).setFirmenname("Benz");
 		}
@@ -114,7 +115,8 @@ public class Mock {
 			((Privatkunde) kundeAlt).setVorname(((Privatkunde) kunde)
 					.getVorname());
 
-		} else {
+		} else 
+		{
 			((Firmenkunde) kundeAlt).setFirmenname(((Firmenkunde) kunde)
 					.getFirmenname());
 
@@ -273,13 +275,14 @@ public class Mock {
 			((Fahrrad) artikelAlt).setBezeichnung(((Fahrrad) artikel)
 					.getBezeichnung());
 			((Fahrrad) artikelAlt).setRahmen(((Fahrrad) artikel).getRahmen());
-		} else {
+		} else 
+		{
 
 			((Ersatzteile) artikelAlt).setFahrrad(((Ersatzteile) artikel)
 					.getFahrrad());
 		}
 		
-		System.out.println("Aktualisierter Artikel  "+artikel);
+		System.out.println("Aktualisierter Artikel  " + artikel);
 
 	}
 

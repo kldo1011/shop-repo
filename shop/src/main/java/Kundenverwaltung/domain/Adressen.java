@@ -83,29 +83,34 @@ public class Adressen {
 		if (bundesland == null) {
 			if (other.bundesland != null)
 				return false;
-		} else if (!bundesland.equals(other.bundesland))
+		}
+		else if (!bundesland.equals(other.bundesland))
 			return false;
 		if (hausnummer != other.hausnummer)
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} 
+		else if (!id.equals(other.id))
 			return false;
 		if (ort == null) {
 			if (other.ort != null)
 				return false;
-		} else if (!ort.equals(other.ort))
+		}
+		else if (!ort.equals(other.ort))
 			return false;
 		if (plz == null) {
 			if (other.plz != null)
 				return false;
-		} else if (!plz.equals(other.plz))
+		}
+		else if (!plz.equals(other.plz))
 			return false;
 		if (strasse == null) {
 			if (other.strasse != null)
 				return false;
-		} else if (!strasse.equals(other.strasse))
+		}
+		else if (!strasse.equals(other.strasse))
 			return false;
 		return true;
 	}

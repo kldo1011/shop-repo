@@ -69,17 +69,20 @@ public class Position {
 		if (artikel == null) {
 			if (other.artikel != null)
 				return false;
-		} else if (!artikel.equals(other.artikel))
+		} 
+		else if (!artikel.equals(other.artikel))
 			return false;
 		if (bestellid == null) {
 			if (other.bestellid != null)
 				return false;
-		} else if (!bestellid.equals(other.bestellid))
+		} 
+		else if (!bestellid.equals(other.bestellid))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} 
+		else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
