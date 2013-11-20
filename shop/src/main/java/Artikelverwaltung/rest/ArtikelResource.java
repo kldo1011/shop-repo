@@ -25,6 +25,7 @@ import javax.ws.rs.core.UriInfo;
 import Artikelverwaltung.domain.AbstractArtikel;
 import Artikelverwaltung.domain.Ersatzteile;
 import Artikelverwaltung.domain.Fahrrad;
+import Artikelverwaltung.service.ArtikelService;
 import util.Mock;
 import util.rest.NotFoundException;
 import util.rest.UriHelper;
@@ -35,8 +36,12 @@ import util.rest.UriHelper;
 @Consumes
 public class ArtikelResource {
 
+	@Inject 
+	private ArtikelService as;
+	
 	@Context
 	private UriInfo uriInfo;
+	
 	@Inject
 	private UriHelper uriHelper;
 
@@ -44,7 +49,7 @@ public class ArtikelResource {
 	public Response findAllArtikel() {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 
-		final List<AbstractArtikel> artikelList = Mock.findAllArtikel();
+		final List<AbstractArtikel> artikelList = as.findeAlleArtikel();
 		if (artikelList.isEmpty())
 			throw new NotFoundException("Es Wurden keine Artikel geunden");
 		return Response
@@ -57,7 +62,7 @@ public class ArtikelResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findArtikelById(@PathParam("id") long id) {
-		final AbstractArtikel artikel = Mock.findArtikelById(id);
+		final AbstractArtikel artikel = as.findeArtikelById(id);
 		if (artikel == null)
 			throw new NotFoundException("Es Wurden keine Artikel mit der " + id
 					+ "geunden");
@@ -83,7 +88,7 @@ public class ArtikelResource {
 	@Produces
 	public Response createFahrrad(Fahrrad fahrrad) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		fahrrad = Mock.createFahrrad(fahrrad);
+		fahrrad = as.createFahrrad(fahrrad);
 		return Response.created(getUriArtikel(fahrrad, uriInfo)).build();
 	}
 
@@ -93,7 +98,7 @@ public class ArtikelResource {
 	@Produces
 	public Response createErsatzteil(Ersatzteile ersatzteil) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		ersatzteil = Mock.createErsatzteile(ersatzteil);
+		ersatzteil = as.createErsatzteile(ersatzteil);
 		return Response.created(getUriArtikel(ersatzteil, uriInfo)).build();
 	}
 
@@ -101,7 +106,7 @@ public class ArtikelResource {
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	public void updateArtikel(AbstractArtikel artikel) {
-		Mock.updateArtikel(artikel);
+		as.updateArtikel(artikel);
 	}
 
 }
