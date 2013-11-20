@@ -26,7 +26,6 @@ import Artikelverwaltung.domain.AbstractArtikel;
 import Artikelverwaltung.domain.Ersatzteile;
 import Artikelverwaltung.domain.Fahrrad;
 import Artikelverwaltung.service.ArtikelService;
-import util.Mock;
 import util.rest.NotFoundException;
 import util.rest.UriHelper;
 
