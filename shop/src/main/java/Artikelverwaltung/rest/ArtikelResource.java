@@ -26,6 +26,7 @@ import Artikelverwaltung.domain.AbstractArtikel;
 import Artikelverwaltung.domain.Ersatzteile;
 import Artikelverwaltung.domain.Fahrrad;
 import Artikelverwaltung.service.ArtikelService;
+import util.interceptor.Log;
 import util.rest.NotFoundException;
 import util.rest.UriHelper;
 
@@ -33,6 +34,7 @@ import util.rest.UriHelper;
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75",
 		TEXT_XML + ";qs=0.5" })
 @Consumes
+@Log
 public class ArtikelResource {
 
 	@Inject 
