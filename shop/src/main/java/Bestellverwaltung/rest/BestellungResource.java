@@ -5,8 +5,11 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
+import java.lang.invoke.MethodHandles;
 import java.net.URI;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,10 +24,13 @@ import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.jboss.logging.Logger;
+
 import Bestellverwaltung.domain.Bestellung;
+import Bestellverwaltung.service.BestellungService;
 import Kundenverwaltung.domain.AbstractKunde;
 import Kundenverwaltung.rest.KundeResource;
-import util.Mock;
+import util.interceptor.Log;
 import util.rest.NotFoundException;
 import util.rest.UriHelper;
 
@@ -32,8 +38,10 @@ import util.rest.UriHelper;
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75",
 		TEXT_XML + ";qs=0.5" })
 @Consumes
+@Log
 public class BestellungResource {
-
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
+	
 	@Context
 	private UriInfo uriInfo;
 
@@ -42,12 +50,25 @@ public class BestellungResource {
 
 	@Inject
 	private KundeResource kundeResource;
+	
+	@Inject
+	private BestellungService bs;
+	
+	@PostConstruct
+	private void postConstruct() {
+		LOGGER.debugf("CDI-faehiges Bean %s wurde erzeugt", this);
+	}
+	
+	@PreDestroy
+	private void preDestroy() {
+		LOGGER.debugf("CDI-faehiges Bean %s wird geloescht", this);
+	}
 
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		final Bestellung bestellung = Mock.findBestellungById(id);
+		final Bestellung bestellung = bs.findBestellungById(id);
 		if (bestellung == null) {
 			throw new NotFoundException("Keine Bestellung mit der ID " + id
 					+ " gefunden.");
@@ -87,8 +108,7 @@ public class BestellungResource {
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	public Response createBestellung(Bestellung bestellung) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		bestellung = Mock.createBestellung(bestellung);
+		bestellung = bs.createBestellung(bestellung);
 		return Response.created(getUriBestellung(bestellung, uriInfo)).build();
 	}
 
@@ -96,13 +116,13 @@ public class BestellungResource {
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	public void updateBestellung(Bestellung bestellung) {
-		Mock.updateBestellung(bestellung);
+		bs.updateBestellung(bestellung);
 	}
 
 	@DELETE
 	@Path("{id:[1-9][0-9]*}")
 	@Produces
 	public void deleteBestellung(@PathParam("id") Long id) {
-		Mock.deleteBestellung(id);
+		bs.deleteBestellung(id);
 	}
 }

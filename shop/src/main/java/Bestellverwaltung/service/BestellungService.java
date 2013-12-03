@@ -1,33 +1,15 @@
 package Bestellverwaltung.service;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.MediaType.APPLICATION_XML;
-import static javax.ws.rs.core.MediaType.TEXT_XML;
-import static util.Constants.SELF_LINK;
-
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
-import java.net.URI;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Link;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 
 import org.jboss.logging.Logger;
 
 import Bestellverwaltung.domain.Bestellung;
-import Bestellverwaltung.rest.BestellungResource;
-import Kundenverwaltung.domain.AbstractKunde;
+
 import util.Mock;
 import util.interceptor.Log;
 import util.rest.NotFoundException;
@@ -48,35 +30,40 @@ public class BestellungService implements Serializable{
 	}
 
 	
-	public Response findBestellungById(@PathParam("id") Long id) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
+	public Bestellung findBestellungById(Long id) {
+		// TODO Anwendungskern statt Mock
 		final Bestellung bestellung = Mock.findBestellungById(id);
 		if (bestellung == null) {
 			throw new NotFoundException("Keine Bestellung mit der ID " + id
 					+ " gefunden.");
 		}
+		
+		return bestellung;
 
-		setStructuralLinks(bestellung, uriInfo);
-
-		// Link-Header setzen
-		final Response response = Response.ok(bestellung)
-				.links(getTransitionalLinks(bestellung, uriInfo)).build();
-
-		return response;
 	}
 
 
-	public Response createBestellung(Bestellung bestellung) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
+	public Bestellung createBestellung(Bestellung bestellung) {
+		// TODO Anwendungskern statt Mock
 		bestellung = Mock.createBestellung(bestellung);
-		return Response.created(getUriBestellung(bestellung, uriInfo)).build();
+		return bestellung;
 	}
 
-	public void updateBestellung(Bestellung bestellung) {
+	public Bestellung updateBestellung(Bestellung bestellung) {
+		if (bestellung == null) {
+			return null;
+		}
+		//TODO Prüfen ob Bestellung schon vorhanden
+		
+		//TODO Anwendungskern statt Mock
 		Mock.updateBestellung(bestellung);
+		
+		return bestellung;
+		
 	}
 
-	public void deleteBestellung(@PathParam("id") Long id) {
+	public void deleteBestellung(Long id) {
+		//TODO Anwendungskern statt Mock
 		Mock.deleteBestellung(id);
 	}
 
