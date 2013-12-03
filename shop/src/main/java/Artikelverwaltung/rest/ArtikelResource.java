@@ -1,13 +1,18 @@
 package Artikelverwaltung.rest;
 
+import org.jboss.logging.Logger;
+
 import static util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
+import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -36,6 +41,7 @@ import util.rest.UriHelper;
 @Consumes
 @Log
 public class ArtikelResource {
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 
 	@Inject 
 	private ArtikelService as;
@@ -45,6 +51,16 @@ public class ArtikelResource {
 	
 	@Inject
 	private UriHelper uriHelper;
+	
+	@PostConstruct
+	private void postConstruct() {
+		LOGGER.debugf("CDI-faehiges Bean %s wurde erzeugt", this);
+	}
+	
+	@PreDestroy
+	private void preDestroy() {
+		LOGGER.debugf("CDI-faehiges Bean %s wird geloescht", this);
+	}
 
 	@GET
 	public Response findAllArtikel() {
