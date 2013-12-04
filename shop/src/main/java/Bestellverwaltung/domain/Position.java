@@ -3,6 +3,7 @@ package Bestellverwaltung.domain;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import Artikelverwaltung.domain.AbstractArtikel;
 
@@ -12,6 +13,8 @@ public class Position implements Serializable{
 	
 	private Long id;
 	private Long bestellid;
+	
+	@XmlTransient
 	private AbstractArtikel artikel;
 	
 	private int anzahl;

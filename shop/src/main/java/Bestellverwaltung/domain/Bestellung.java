@@ -4,12 +4,16 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import Kundenverwaltung.domain.AbstractKunde;
 
-//test
+
 @XmlRootElement
 public class Bestellung implements Serializable{
 	private static final long serialVersionUID = -4453553403647894462L;
@@ -17,7 +21,12 @@ public class Bestellung implements Serializable{
 	private Long id;
 	private boolean ausgeliefert;
 	
+	@Past
 	private String bestelldatum;
+	
+	@NotNull
+	@Size(min = 1)
+	@Valid
 	private List<Position> positionen;
 
 	@XmlTransient
