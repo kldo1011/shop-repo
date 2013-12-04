@@ -23,21 +23,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-
 import Bestellverwaltung.domain.Bestellung;
-
-
-
-
-
-
-
-
-
-
-
 import javax.xml.bind.annotation.XmlTransient;
-
 import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
@@ -61,7 +48,7 @@ public abstract class AbstractKunde implements Serializable {
 	public static final String FIRMENKUNDE = "F";
 	
 	//Pattern mit UTF-8 (statt Latin-1 bzw. ISO-8859-1) Schreibweise fuer Umlaute:
-	private static final String NACHNAME_PATTERN = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+";
+	public static final String NACHNAME_PATTERN = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+";
 	private static final int NACHNAME_LENGTH_MIN = 2;
 	private static final int NACHNAME_LENGTH_MAX = 32;
 	private static final int EMAIL_LENGTH_MAX = 128;
