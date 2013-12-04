@@ -35,6 +35,7 @@ import Bestellverwaltung.domain.Bestellung;
 
 
 
+
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonSubTypes;
@@ -86,9 +87,9 @@ public abstract class AbstractKunde implements Serializable {
 	
 	@Inject
 	@XmlTransient
-	//private List<Bestellung> bestellungen;
+	private List<Bestellung> bestellungen;
 	private URI bestellungenUri;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -128,6 +129,16 @@ public abstract class AbstractKunde implements Serializable {
 	public void setBestellungenUri(URI bestellungenUri) {
 		this.bestellungenUri = bestellungenUri;
 	}
+	
+	
+
+	public List<Bestellung> getBestellungen() {
+		return bestellungen;
+	}
+
+	public void setBestellungen(List<Bestellung> bestellungen) {
+		this.bestellungen = bestellungen;
+	}
 
 	@Override
 	public int hashCode() {
@@ -135,7 +146,7 @@ public abstract class AbstractKunde implements Serializable {
 		int result = 1;
 		result = prime * result + ((adresse == null) ? 0 : adresse.hashCode());
 		result = prime * result
-				+ ((bestellungenUri == null) ? 0 : bestellungenUri.hashCode());
+				+ ((bestellungen == null) ? 0 : bestellungen.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
@@ -147,7 +158,7 @@ public abstract class AbstractKunde implements Serializable {
 	public String toString() {
 		return "AbstractKunde [id=" + id + ", nachname=" + nachname
 				+ ", email=" + email + ", adresse=" + adresse
-				+ ", bestellungenUri=" + bestellungenUri + "]";
+				+ ", bestellungen=" + bestellungen + "]";
 	}
 
 	@Override
@@ -164,10 +175,10 @@ public abstract class AbstractKunde implements Serializable {
 				return false;
 		} else if (!adresse.equals(other.adresse))
 			return false;
-		if (bestellungenUri == null) {
-			if (other.bestellungenUri != null)
+		if (bestellungen == null) {
+			if (other.bestellungen != null)
 				return false;
-		} else if (!bestellungenUri.equals(other.bestellungenUri))
+		} else if (!bestellungen.equals(other.bestellungen))
 			return false;
 		if (email == null) {
 			if (other.email != null)
