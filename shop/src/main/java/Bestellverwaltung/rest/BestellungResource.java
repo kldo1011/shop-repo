@@ -1,6 +1,7 @@
 package Bestellverwaltung.rest;
 
 import static util.Constants.SELF_LINK;
+import static util.Constants.ADD_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
@@ -10,6 +11,7 @@ import java.net.URI;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -24,24 +26,24 @@ import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.jboss.logging.Logger;
+//import org.jboss.logging.Logger;
 
 import Bestellverwaltung.domain.Bestellung;
 import Bestellverwaltung.service.BestellungService;
 import Kundenverwaltung.domain.AbstractKunde;
 import Kundenverwaltung.rest.KundeResource;
 import util.interceptor.Log;
-import util.rest.NotFoundException;
+//import util.rest.NotFoundException;
 import util.rest.UriHelper;
 
 @Path("/bestellungen")
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75",
 		TEXT_XML + ";qs=0.5" })
 @Consumes
+@RequestScoped
 @Log
 public class BestellungResource {
-	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
-	
+
 	@Context
 	private UriInfo uriInfo;
 
@@ -50,29 +52,14 @@ public class BestellungResource {
 
 	@Inject
 	private KundeResource kundeResource;
-	
+
 	@Inject
 	private BestellungService bs;
-	
-	@PostConstruct
-	private void postConstruct() {
-		LOGGER.debugf("CDI-faehiges Bean %s wurde erzeugt", this);
-	}
-	
-	@PreDestroy
-	private void preDestroy() {
-		LOGGER.debugf("CDI-faehiges Bean %s wird geloescht", this);
-	}
 
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
 		final Bestellung bestellung = bs.findBestellungById(id);
-		if (bestellung == null) {
-			throw new NotFoundException("Keine Bestellung mit der ID " + id
-					+ " gefunden.");
-		}
-
 		setStructuralLinks(bestellung, uriInfo);
 
 		// Link-Header setzen
@@ -94,8 +81,13 @@ public class BestellungResource {
 
 	private Link[] getTransitionalLinks(Bestellung bestellung, UriInfo uriInfo) {
 		final Link self = Link.fromUri(getUriBestellung(bestellung, uriInfo))
-				.rel(SELF_LINK).build();
-		return new Link[] { self };
+                              .rel(SELF_LINK)
+                              .build();
+		final Link add = Link.fromUri(uriHelper.getUri(BestellungResource.class, uriInfo))
+                             .rel(ADD_LINK)
+                             .build();
+
+		return new Link[] { self, add };
 	}
 
 	public URI getUriBestellung(Bestellung bestellung, UriInfo uriInfo) {
@@ -103,6 +95,7 @@ public class BestellungResource {
 				bestellung.getId(), uriInfo);
 	}
 
+	/*
 	@POST
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
@@ -124,4 +117,5 @@ public class BestellungResource {
 	public void deleteBestellung(@PathParam("id") Long id) {
 		bs.deleteBestellung(id);
 	}
+	*/
 }
