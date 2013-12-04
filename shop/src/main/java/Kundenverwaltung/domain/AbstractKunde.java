@@ -1,34 +1,92 @@
 package Kundenverwaltung.domain;
 
+import java.io.Serializable;
 import java.net.URI;
 
 
+
+
+
+
+
+
+
+
+
+import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+import Bestellverwaltung.domain.Bestellung;
+
+
+
+
+
+
+
+
+
+
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
+import org.hibernate.validator.constraints.Email;
 
 
-
+@Dependent
 @XmlRootElement
 @XmlSeeAlso({ Firmenkunde.class, Privatkunde.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
 		@Type(value = Privatkunde.class, name = AbstractKunde.PRIVATKUNDE),
 		@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE) })
-public abstract class AbstractKunde {
+public abstract class AbstractKunde implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3893137497122036519L;
 	public static final String PRIVATKUNDE = "P";
 	public static final String FIRMENKUNDE = "F";
+	
+	//Pattern mit UTF-8 (statt Latin-1 bzw. ISO-8859-1) Schreibweise fuer Umlaute:
+	private static final String NACHNAME_PATTERN = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+";
+	private static final int NACHNAME_LENGTH_MIN = 2;
+	private static final int NACHNAME_LENGTH_MAX = 32;
+	private static final int EMAIL_LENGTH_MAX = 128;
+	
+	
 
 	private Long id;
+	
+	@NotNull(message = "{kunde.nachname.notNull}")
+	@Size(min = NACHNAME_LENGTH_MIN, max = NACHNAME_LENGTH_MAX,
+	      message = "{kunde.nachname.length}")
+	@Pattern(regexp = NACHNAME_PATTERN, message = "{kunde.nachname.pattern}")
 	private String nachname;
+	
+	@Email(message = "{kunde.email.pattern}")
+	@NotNull(message = "{kunde.email.notNull}")
+	@Size(max = EMAIL_LENGTH_MAX, message = "{kunde.email.length}")
 	private String email;
+	
+	@Valid
+	@NotNull(message = "{kunde.adresse.notNull}")
 	private Adressen adresse;
 	
+	@Inject
+	@XmlTransient
+	//private List<Bestellung> bestellungen;
 	private URI bestellungenUri;
 
 	public Long getId() {
