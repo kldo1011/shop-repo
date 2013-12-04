@@ -1,9 +1,12 @@
 package util;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.jboss.logging.Logger;
 
 import Bestellverwaltung.domain.Bestellung;
 import Bestellverwaltung.domain.Position;
@@ -16,7 +19,9 @@ import Artikelverwaltung.domain.AbstractArtikel;
 import Artikelverwaltung.domain.Ersatzteile;
 import Artikelverwaltung.domain.Fahrrad;
 
+
 public class Mock {
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	private static final int MAX_ID = 99;
 	private static final int MAX_KUNDEN = 8;
 	private static final int MAX_BESTELLUNGEN = 4;
@@ -46,7 +51,6 @@ public class Mock {
 		adresse.setId(id + 1); // andere ID fuer die Adresse
 		adresse.setPlz("12345");
 		adresse.setOrt("Testort");
-		adresse.setBundesland("BW");
 		adresse.setHausnummer(4);
 		adresse.setStrasse("TestStrasse");
 		kunde.setAdresse(adresse);
@@ -81,7 +85,53 @@ public class Mock {
 		}
 		return kunden;
 	}
-
+	
+	
+	
+	public static AbstractKunde findKundeByEmail(String email) {
+		if (email.startsWith("x")) {
+			return null;
+		}
+		
+		final AbstractKunde kunde = email.length() % 2 == 1 ? new Privatkunde() : new Firmenkunde();
+		kunde.setId(Long.valueOf(email.length()));
+		kunde.setNachname("Nachname");
+		kunde.setEmail(email);
+		
+		final Adressen adresse = new Adressen();
+		adresse.setId(kunde.getId() + 1);        // andere ID fuer die Adresse
+		adresse.setPlz("12345");
+		adresse.setOrt("Testort");
+		adresse.setKunde(kunde);
+		kunde.setAdresse(adresse);
+		
+		if (kunde.getClass().equals(Privatkunde.class)) {
+			final Privatkunde privatkunde = (Privatkunde) kunde;
+			final Set<Kategorie> kategorie = new HashSet<>();
+			kategorie.add(Kategorie.ELEKTRO);
+			kategorie.add(Kategorie.MOUNTAINBIKE);
+			privatkunde.setKategorie(kategorie);
+		}
+		
+		return kunde;
+	}
+	
+	public static <T extends AbstractKunde> T createKunde(T kunde) {
+		// Neue IDs fuer Kunde und zugehoerige Adresse
+		// Ein neuer Kunde hat auch keine Bestellungen
+		final String nachname = kunde.getNachname();
+		kunde.setId(Long.valueOf(nachname.length()));
+		final Adressen adresse = kunde.getAdresse();
+		adresse.setId((Long.valueOf(nachname.length())) + 1);
+		adresse.setKunde(kunde);
+		kunde.setBestellungen(null);
+		
+		LOGGER.infof("Neuer Kunde: %s", kunde);
+		return kunde;
+	}
+	
+	
+/*
 	public static Privatkunde createPrivatkunde(Privatkunde pkunde) {
 
 		final String nachname = pkunde.getNachname();
@@ -103,6 +153,7 @@ public class Mock {
 		return fkunde;
 
 	}
+	*/
 
 	public static void updateKunde(AbstractKunde kunde) {
 
