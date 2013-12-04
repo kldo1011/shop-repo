@@ -1,7 +1,13 @@
 package Artikelverwaltung.domain;
 
+import java.io.Serializable;
 import java.net.URI;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
@@ -14,12 +20,23 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({ @Type(value = Fahrrad.class, name = AbstractArtikel.FAHRRAD),
 		@Type(value = Ersatzteile.class, name = AbstractArtikel.ERSATZTEILE) })
-public abstract class  AbstractArtikel {
+public abstract class  AbstractArtikel implements Serializable{
+	private static final long serialVersionUID = 6487111749377747617L;
 
 	private long id;
+	
+	@NotNull
+	@Min(0)
+	@Max(100)
 	private double preis;
+	
+	@NotNull
+	@Size(min = 1, max = 32)
+	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
 	private String typ;
+
 	private URI artikelUri;
+	
 	public static final String ERSATZTEILE = "E";
 	public static final String FAHRRAD = "F";
 

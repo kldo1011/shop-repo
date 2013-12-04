@@ -1,14 +1,19 @@
 package Bestellverwaltung.domain;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 import Artikelverwaltung.domain.AbstractArtikel;
 
 @XmlRootElement
-public class Position {
+public class Position implements Serializable{
+	private static final long serialVersionUID = -8814289873349242733L;
+	
 	private Long id;
 	private Long bestellid;
 	private AbstractArtikel artikel;
+	
 	private int anzahl;
 
 	public Long getId() {

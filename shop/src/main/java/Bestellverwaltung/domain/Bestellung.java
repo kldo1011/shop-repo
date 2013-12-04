@@ -1,5 +1,6 @@
 package Bestellverwaltung.domain;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
 
@@ -10,10 +11,12 @@ import Kundenverwaltung.domain.AbstractKunde;
 
 //test
 @XmlRootElement
-public class Bestellung {
-
+public class Bestellung implements Serializable{
+	private static final long serialVersionUID = -4453553403647894462L;
+	
 	private Long id;
 	private boolean ausgeliefert;
+	
 	private String bestelldatum;
 	private List<Position> positionen;
 

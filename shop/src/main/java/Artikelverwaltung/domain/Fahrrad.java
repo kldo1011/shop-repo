@@ -1,10 +1,22 @@
 package Artikelverwaltung.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Fahrrad extends AbstractArtikel {
+	private static final long serialVersionUID = 8523531902178696161L;
+
+	@NotNull
+	@Size(min = 2, max = 32)
+	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
 	private String bezeichnung;
+	
+	@NotNull
+	@Size(min = 0, max = 32)
+	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
 	private String rahmen;
 
 	public String getBezeichnung() {

@@ -17,7 +17,7 @@ import Artikelverwaltung.domain.Fahrrad;
 
 @Log
 public class ArtikelService implements Serializable {
-	private static final long serialVersionUID = 3188789767052580247L;
+	private static final long serialVersionUID = 3330465848834099609L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
 	@PostConstruct

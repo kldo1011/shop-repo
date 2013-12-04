@@ -1,6 +1,7 @@
 package Artikelverwaltung.domain;
 
 public class Ersatzteile extends AbstractArtikel {
+	private static final long serialVersionUID = -5257961499883829075L;
 	private Fahrrad fahrrad;
 
 	public Fahrrad getFahrrad() {
