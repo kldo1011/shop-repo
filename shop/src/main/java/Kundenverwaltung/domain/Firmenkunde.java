@@ -1,7 +1,17 @@
 package Kundenverwaltung.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Firmenkunde extends AbstractKunde {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5884239544950839039L;
+	
+	@NotNull (message = "{firmenkunde.firmenname.notNull}")
+    @Size(min = 2, max = 64, message = "{firmenkunde.firmenname.length}")
 	private String firmenname;
 
 	public String getFirmenname() {
