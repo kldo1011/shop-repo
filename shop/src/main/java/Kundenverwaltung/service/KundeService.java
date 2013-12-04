@@ -1,20 +1,10 @@
 package Kundenverwaltung.service;
-
 import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.jboss.logging.Logger;
-
 import util.Mock;
 import Kundenverwaltung.domain.AbstractKunde;
-import Kundenverwaltung.domain.Firmenkunde;
-import Kundenverwaltung.domain.Privatkunde;
 
 public class KundeService implements Serializable {
 

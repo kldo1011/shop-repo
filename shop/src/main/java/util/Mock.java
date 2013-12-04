@@ -154,8 +154,9 @@ public class Mock {
 
 	}
 	*/
-
+/*
 	public static void updateKunde(AbstractKunde kunde) {
+
 
 		final AbstractKunde kundeAlt = findKundeById(kunde.getId());
 		kundeAlt.setNachname(kunde.getNachname());
@@ -171,10 +172,15 @@ public class Mock {
 
 		}
 		System.out.println("Aktualisierter Kunde: " + kunde);
+	}*/
+	
+	public static void updateKunde(AbstractKunde kunde) {
+		
+		LOGGER.infof("Aktualisierter Kunde: %s", kunde);
 	}
 
-	public static void deleteKunde(Long kundeId) {
-		System.out.println("Kunde mit ID=" + kundeId + " geloescht");
+	public static void deleteKunde(AbstractKunde kunde) {
+		LOGGER.infof("Geloeschter Kunde: %s", kunde);
 	}
 
 	public static List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
@@ -191,6 +197,7 @@ public class Mock {
 			bestellung.setKunde(kunde);
 			bestellungen.add(bestellung);
 		}
+		kunde.setBestellungen(bestellungen);
 
 		return bestellungen;
 	}
@@ -250,7 +257,7 @@ public class Mock {
 		return positionList;
 
 	}
-
+      /*
 	public static Bestellung createBestellung(Bestellung bestellung) {
 
 		final int nummer = bestellung.getBestelldatum().hashCode();
@@ -258,7 +265,13 @@ public class Mock {
 		System.out.println("Neue Bestellung:" + bestellung);
 		return bestellung;
 	}
-
+*/
+	
+	public static Bestellung createBestellung(Bestellung bestellung, AbstractKunde kunde) {
+		LOGGER.infof("Neue Bestellung: %s fuer Kunde: %s", bestellung, kunde);
+		return bestellung;
+	}
+	
 	public static AbstractArtikel findArtikelById(Long id) {
 		if (id > MAX_ARTIKEL) {
 			return null;
@@ -285,6 +298,7 @@ public class Mock {
 		return artikel;
 	}
 
+	
 	public static List<AbstractArtikel> findAllArtikel() {
 
 		final int anzahl = MAX_ARTIKEL;
