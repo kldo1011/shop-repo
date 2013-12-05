@@ -82,7 +82,7 @@ public class BestellungResource {
                              .rel(ADD_LINK)
                              .build();
 
-		return new Link[] { self, add };
+		return new Link[] {self, add };
 	}
 
 	public URI getUriBestellung(Bestellung bestellung, UriInfo uriInfo) {

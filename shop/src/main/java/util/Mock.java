@@ -39,8 +39,7 @@ public class  Mock {
 			kunde = new Privatkunde();
 			((Privatkunde) kunde).setVorname("Hans");
 		} 
-		else
-		{
+		else{
 			kunde = new Firmenkunde();
 			((Firmenkunde) kunde).setFirmenname("Benz");
 		}
@@ -338,8 +337,7 @@ public class  Mock {
 					.getBezeichnung());
 			((Fahrrad) artikelAlt).setRahmen(((Fahrrad) artikel).getRahmen());
 		} 
-		else 
-		{
+		else {
 			((Ersatzteile) artikelAlt).setFahrrad(((Ersatzteile) artikel)
 					.getFahrrad());
 		}
