@@ -91,7 +91,7 @@ public class ArtikelResource {
 		final Link self = Link.fromUri(getUriArtikel(artikel, uriInfo))
 				.rel(SELF_LINK).build();
 
-		return new Link[] { self };
+		return new Link[] {self };
 	}
 
 	public URI getUriArtikel(AbstractArtikel artikel, UriInfo uriInfo) {

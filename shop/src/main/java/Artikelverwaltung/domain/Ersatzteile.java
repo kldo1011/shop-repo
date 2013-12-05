@@ -32,7 +32,8 @@ public class Ersatzteile extends AbstractArtikel {
 		if (fahrrad == null) {
 			if (other.fahrrad != null)
 				return false;
-		} else if (!fahrrad.equals(other.fahrrad))
+		} 
+		else if (!fahrrad.equals(other.fahrrad))
 			return false;
 		return true;
 	}
