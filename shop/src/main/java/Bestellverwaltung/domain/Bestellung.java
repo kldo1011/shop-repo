@@ -124,27 +124,32 @@ public class Bestellung implements Serializable {
 		if (bestelldatum == null) {
 			if (other.bestelldatum != null)
 				return false;
-		} else if (!bestelldatum.equals(other.bestelldatum))
+		} 
+		else if (!bestelldatum.equals(other.bestelldatum))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} 
+		else if (!id.equals(other.id))
 			return false;
 		if (kunde == null) {
 			if (other.kunde != null)
 				return false;
-		} else if (!kunde.equals(other.kunde))
+		} 
+		else if (!kunde.equals(other.kunde))
 			return false;
 		if (kundeUri == null) {
 			if (other.kundeUri != null)
 				return false;
-		} else if (!kundeUri.equals(other.kundeUri))
+		} 
+		else if (!kundeUri.equals(other.kundeUri))
 			return false;
 		if (positionen == null) {
 			if (other.positionen != null)
 				return false;
-		} else if (!positionen.equals(other.positionen))
+		} 
+		else if (!positionen.equals(other.positionen))
 			return false;
 		return true;
 	}
