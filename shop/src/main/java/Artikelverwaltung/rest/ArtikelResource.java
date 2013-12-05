@@ -1,18 +1,14 @@
 package Artikelverwaltung.rest;
 
-import org.jboss.logging.Logger;
-
 import static util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
-import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -39,10 +35,10 @@ import util.rest.UriHelper;
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75",
 		TEXT_XML + ";qs=0.5" })
 @Consumes
+@RequestScoped
 @Log
 public class ArtikelResource {
-	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
-
+	
 	@Inject 
 	private ArtikelService as;
 	

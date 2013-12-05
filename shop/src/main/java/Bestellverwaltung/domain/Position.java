@@ -2,6 +2,9 @@ package Bestellverwaltung.domain;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -17,6 +20,9 @@ public class Position implements Serializable{
 	@XmlTransient
 	private AbstractArtikel artikel;
 	
+	@Min(0)
+	@Max(20)
+	@NotNull(message = "{position.notFound.anzahl}")
 	private int anzahl;
 
 	public Long getId() {

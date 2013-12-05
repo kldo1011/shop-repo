@@ -1,13 +1,10 @@
 package Artikelverwaltung.service;
 
 import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
-import org.jboss.logging.Logger;
+import javax.enterprise.context.Dependent;
+import javax.validation.constraints.NotNull;
 
 import util.Mock;
 import util.interceptor.Log;
@@ -15,21 +12,12 @@ import Artikelverwaltung.domain.AbstractArtikel;
 import Artikelverwaltung.domain.Ersatzteile;
 import Artikelverwaltung.domain.Fahrrad;
 
+@Dependent
 @Log
 public class ArtikelService implements Serializable {
 	private static final long serialVersionUID = 3330465848834099609L;
-	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
-	@PostConstruct
-	private void postConstruct() {
-		LOGGER.debugf("CDI-faehiges Bean %s wurde erzeugt", this);
-	}
-	
-	@PreDestroy
-	private void preDestroy() {
-		LOGGER.debugf("CDI-faehiges Bean %s wird geloescht", this);
-	}
-		
+	@NotNull(message = "{artikel.notFound.id}")
 	public AbstractArtikel findeArtikelById(Long id) {
 		if (id == null) {
 			return null;
