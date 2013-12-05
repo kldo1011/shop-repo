@@ -60,12 +60,14 @@ public class Privatkunde extends AbstractKunde {
 		if (kategorie == null) {
 			if (other.kategorie != null)
 				return false;
-		} else if (!kategorie.equals(other.kategorie))
+		} 
+		else if (!kategorie.equals(other.kategorie))
 			return false;
 		if (vorname == null) {
 			if (other.vorname != null)
 				return false;
-		} else if (!vorname.equals(other.vorname))
+		} 
+		else if (!vorname.equals(other.vorname))
 			return false;
 		return true;
 	}

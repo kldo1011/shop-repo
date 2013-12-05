@@ -141,7 +141,7 @@ public class KundeResource {
 								kunde.getId(), uriInfo)).rel(REMOVE_LINK)
 				.build();
 
-		return new Link[] { self, list, add, update, remove };
+		return new Link[] {self, list, add, update, remove };
 	}
 
 	public URI getUriKunde(AbstractKunde kunde, UriInfo uriInfo) {
@@ -182,20 +182,24 @@ public class KundeResource {
 
 	@GET
 	public Response findKunden(
-			@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) @Pattern(regexp = AbstractKunde.NACHNAME_PATTERN, message = "{kunde.nachname.pattern}") String nachname,
+			@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) @Pattern(regexp = AbstractKunde.NACHNAME_PATTERN,
+			             message = "{kunde.nachname.pattern}") String nachname,
 			@QueryParam(KUNDEN_EMAIL_QUERY_PARAM) @Email(message = "{kunde.email}") String email,
 			@QueryParam(KUNDEN_PLZ_QUERY_PARAM) @Pattern(regexp = "\\d{5}", message = "{adresse.plz}") String plz) {
 		List<? extends AbstractKunde> kunden = null;
 		AbstractKunde kunde = null;
 		if (nachname != null) {
 			kunden = ks.findKundenByNachname(nachname);
-		} else if (email != null) {
+		} 
+		else if (email != null) {
 			kunde = ks.findKundeByEmail(email);
-		} else if (plz != null) {
+		} 
+		else if (plz != null) {
 			// TODO Beispiel fuer ein TODO bei fehlender Implementierung
 			throw new RuntimeException(
 					"Suche nach PLZ noch nicht implementiert");
-		} else {
+		} 
+		else {
 			kunden = ks.findAllKunden();
 		}
 
@@ -212,7 +216,8 @@ public class KundeResource {
 			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden) {
 			};
 			links = getTransitionalLinksKunden(kunden, uriInfo);
-		} else if (kunde != null) {
+		} 
+		else if (kunde != null) {
 			entity = kunde;
 			links = getTransitionalLinks(kunde, uriInfo);
 		}
@@ -233,7 +238,7 @@ public class KundeResource {
 				.fromUri(getUriKunde(kunden.get(lastPos), uriInfo))
 				.rel(LAST_LINK).build();
 
-		return new Link[] { first, last };
+		return new Link[] {first, last };
 	}
 
 	@GET
@@ -281,7 +286,7 @@ public class KundeResource {
 								bestellungen.get(lastPos), uriInfo))
 				.rel(LAST_LINK).build();
 
-		return new Link[] { self, first, last };
+		return new Link[] {self, first, last };
 	}
 /*
 	@POST
