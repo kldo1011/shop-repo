@@ -38,7 +38,6 @@ public class  Mock {
 
 			kunde = new Privatkunde();
 			((Privatkunde) kunde).setVorname("Hans");
-
 		} 
 		else
 		{
@@ -341,7 +340,6 @@ public class  Mock {
 		} 
 		else 
 		{
-
 			((Ersatzteile) artikelAlt).setFahrrad(((Ersatzteile) artikel)
 					.getFahrrad());
 		}

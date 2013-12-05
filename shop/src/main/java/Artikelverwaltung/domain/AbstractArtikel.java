@@ -20,7 +20,7 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({ @Type(value = Fahrrad.class, name = AbstractArtikel.FAHRRAD),
 		@Type(value = Ersatzteile.class, name = AbstractArtikel.ERSATZTEILE) })
-public abstract class  AbstractArtikel implements Serializable{
+public abstract class  AbstractArtikel implements Serializable {
 	private static final long serialVersionUID = 6487111749377747617L;
 
 	private long id;

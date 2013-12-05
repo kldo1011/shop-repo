@@ -57,12 +57,14 @@ public class Fahrrad extends AbstractArtikel {
 		if (bezeichnung == null) {
 			if (other.bezeichnung != null)
 				return false;
-		} else if (!bezeichnung.equals(other.bezeichnung))
+		} 
+		else if (!bezeichnung.equals(other.bezeichnung))
 			return false;
 		if (rahmen == null) {
 			if (other.rahmen != null)
 				return false;
-		} else if (!rahmen.equals(other.rahmen))
+		} 
+		else if (!rahmen.equals(other.rahmen))
 			return false;
 		return true;
 	}
