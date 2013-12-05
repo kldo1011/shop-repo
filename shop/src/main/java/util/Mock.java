@@ -20,7 +20,7 @@ import Artikelverwaltung.domain.Ersatzteile;
 import Artikelverwaltung.domain.Fahrrad;
 
 
-public class Mock {
+public class  Mock {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	private static final int MAX_ID = 99;
 	private static final int MAX_KUNDEN = 8;
@@ -39,7 +39,8 @@ public class Mock {
 			kunde = new Privatkunde();
 			((Privatkunde) kunde).setVorname("Hans");
 
-		} else
+		} 
+		else
 		{
 			kunde = new Firmenkunde();
 			((Firmenkunde) kunde).setFirmenname("Benz");
@@ -337,7 +338,8 @@ public class Mock {
 			((Fahrrad) artikelAlt).setBezeichnung(((Fahrrad) artikel)
 					.getBezeichnung());
 			((Fahrrad) artikelAlt).setRahmen(((Fahrrad) artikel).getRahmen());
-		} else 
+		} 
+		else 
 		{
 
 			((Ersatzteile) artikelAlt).setFahrrad(((Ersatzteile) artikel)

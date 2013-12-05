@@ -17,12 +17,12 @@ public class Producers implements Serializable {
 	
 	
 	private static final long serialVersionUID = 4876956078345734210L;
- @Resource(name="absenderMail")
+ @Resource(name = "absenderMail")
  @Produces
  @AbsenderMail
  private String absenderMail;
  
- @Resource(name="absenderName")
+ @Resource(name = "absenderName")
  @Produces 
  @AbsenderName
  private String absenderName;
