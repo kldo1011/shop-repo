@@ -9,12 +9,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Fahrrad extends AbstractArtikel {
 	private static final long serialVersionUID = 8523531902178696161L;
 
-	@NotNull
+	@NotNull(message = "{fahrrad.notNull.bezeichnung}")
 	@Size(min = 2, max = 32 , message ="{fahrrad.bezeichnung.pattern}")
 	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
 	private String bezeichnung;
 	
-	@NotNull
+	@NotNull(message = "{fahrrad.notNull.rahmen}")
 	@Size(min = 0, max = 32 , message ="{fahrrad.rahmen.pattern}")
 	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
 	private String rahmen;
