@@ -6,6 +6,7 @@ import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.net.URI;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -22,6 +23,7 @@ import Bestellverwaltung.domain.Bestellung;
 import Kundenverwaltung.domain.AbstractKunde;
 import Kundenverwaltung.rest.KundeResource;
 import util.Mock;
+import util.interceptor.Log;
 import util.rest.NotFoundException;
 import util.rest.UriHelper;
 
@@ -29,7 +31,8 @@ import util.rest.UriHelper;
 @Path("/bestellungen")
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
-
+@RequestScoped
+@Log
 public class BestellungResource {
 	
 	@Context
