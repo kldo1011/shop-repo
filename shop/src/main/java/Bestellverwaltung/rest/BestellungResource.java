@@ -28,7 +28,6 @@ import Bestellverwaltung.service.BestellungService;
 import Kundenverwaltung.domain.AbstractKunde;
 import Kundenverwaltung.rest.KundeResource;
 import util.interceptor.Log;
-//import util.rest.NotFoundException;
 import util.rest.UriHelper;
 
 @Path("/bestellungen")

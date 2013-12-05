@@ -4,31 +4,43 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
 
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.validation.constraints.AssertFalse;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import Kundenverwaltung.domain.AbstractKunde;
-
-
+//test
 @XmlRootElement
-public class Bestellung implements Serializable{
+@RequestScoped
+@Dependent
+public class Bestellung implements Serializable {
 	private static final long serialVersionUID = -4453553403647894462L;
 	
 	private Long id;
-	private boolean ausgeliefert;
 	
 	@Past
+	@NotNull(message = "{bestellung.bestelldatum.notNull}")
 	private String bestelldatum;
+
+
 	
 	@NotNull
 	@Size(min = 1)
-	@Valid
+	@Valid	
+	@AssertFalse(message = "{bestellung.ausgeliefert.assertFalse}")
+	private boolean ausgeliefert;
+	@Inject
 	private List<Position> positionen;
-
 	@XmlTransient
 	private AbstractKunde kunde;
 
