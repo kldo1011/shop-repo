@@ -52,15 +52,6 @@ public class ArtikelResource {
 	@Inject
 	private UriHelper uriHelper;
 	
-	@PostConstruct
-	private void postConstruct() {
-		LOGGER.debugf("CDI-faehiges Bean %s wurde erzeugt", this);
-	}
-	
-	@PreDestroy
-	private void preDestroy() {
-		LOGGER.debugf("CDI-faehiges Bean %s wird geloescht", this);
-	}
 
 	@GET
 	public Response findAllArtikel() {

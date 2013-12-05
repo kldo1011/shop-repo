@@ -10,12 +10,12 @@ public class Fahrrad extends AbstractArtikel {
 	private static final long serialVersionUID = 8523531902178696161L;
 
 	@NotNull
-	@Size(min = 2, max = 32)
+	@Size(min = 2, max = 32 , message ="{fahrrad.bezeichnung.pattern}")
 	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
 	private String bezeichnung;
 	
 	@NotNull
-	@Size(min = 0, max = 32)
+	@Size(min = 0, max = 32 , message ="{fahrrad.rahmen.pattern}")
 	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
 	private String rahmen;
 
