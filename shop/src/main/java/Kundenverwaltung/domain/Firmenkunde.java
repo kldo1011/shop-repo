@@ -43,7 +43,8 @@ public class Firmenkunde extends AbstractKunde {
 		if (firmenname == null) {
 			if (other.firmenname != null)
 				return false;
-		} else if (!firmenname.equals(other.firmenname))
+		} 
+		else if (!firmenname.equals(other.firmenname))
 			return false;
 		return true;
 	}

@@ -38,7 +38,8 @@ public class Adressen implements Serializable {
 
 	@Size(min = 1, max = 32, message = "{kundenverwaltung.adresse.ort.length}")
 	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+"
-			+ "(-[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+)?", message = "{kundenverwaltung.adresse.ort.pattern}")
+			+ "(-[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+)?",
+			message = "{kundenverwaltung.adresse.ort.pattern}")
 	private String ort;
 
 	
@@ -122,27 +123,32 @@ public class Adressen implements Serializable {
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} 
+		else if (!id.equals(other.id))
 			return false;
 		if (kunde == null) {
 			if (other.kunde != null)
 				return false;
-		} else if (!kunde.equals(other.kunde))
+		} 
+		else if (!kunde.equals(other.kunde))
 			return false;
 		if (ort == null) {
 			if (other.ort != null)
 				return false;
-		} else if (!ort.equals(other.ort))
+		} 
+		else if (!ort.equals(other.ort))
 			return false;
 		if (plz == null) {
 			if (other.plz != null)
 				return false;
-		} else if (!plz.equals(other.plz))
+		} 
+		else if (!plz.equals(other.plz))
 			return false;
 		if (strasse == null) {
 			if (other.strasse != null)
 				return false;
-		} else if (!strasse.equals(other.strasse))
+		} 
+		else if (!strasse.equals(other.strasse))
 			return false;
 		return true;
 	}
