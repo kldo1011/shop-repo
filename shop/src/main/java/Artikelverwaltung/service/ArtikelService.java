@@ -23,52 +23,42 @@ public class ArtikelService implements Serializable {
 			return null;
 		}
 		// TODO Datenbanzugriffsschicht statt Mock
-		final AbstractArtikel kunde = Mock.findArtikelById(id);
-		return kunde;
+		return Mock.findArtikelById(id);
+		
 	}
 	
+	@NotNull(message="{artikel.notFound.all}")
 	public List<AbstractArtikel> findeAlleArtikel() {
 		// TODO Datenbanzugriffsschicht statt Mock
-		final List<AbstractArtikel> kunden = Mock.findAllArtikel();
-		return kunden;
+		return Mock.findAllArtikel();
+		
 	}
 	
 	public  Fahrrad createFahrrad(Fahrrad fahrrad) {
-		if (fahrrad == null) {
-			return fahrrad;
-		}
+		
+
 		
 		//TODO Prüfen ob schon vorhanden
 
-		fahrrad = Mock.createFahrrad(fahrrad);
+		return Mock.createFahrrad(fahrrad);
 
-		return fahrrad;
+		
 	}
 	
 	public  Ersatzteile createErsatzteile(Ersatzteile ersatzteile) {
-		if (ersatzteile == null) {
-			return ersatzteile;
-		}
+
 
 		//TODO Prüfen ob schon vorhanden
 		
-		ersatzteile = Mock.createErsatzteile(ersatzteile);
+		return Mock.createErsatzteile(ersatzteile);
 
-		return ersatzteile;
+		
 	}
 	
-	public <A extends AbstractArtikel> A updateArtikel(A artikel) {
-		if (artikel == null) {
-			return null;
-		}
-		
-		//TODO Prüfen ob Artikel vorhanden
-		
-		// TODO Datenbanzugriffsschicht statt Mock
-		Mock.updateArtikel(artikel);
-		
-		return artikel;
-	}
+  public void updateArtikel (AbstractArtikel artikel) {
+	  
+	  Mock.updateArtikel(artikel);
+  }
 	
 
 }
