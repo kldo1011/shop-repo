@@ -6,7 +6,10 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
+
+
 import java.net.URI;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -17,11 +20,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-//import org.jboss.logging.Logger;
 
 
 
@@ -56,6 +59,17 @@ public class BestellungResource {
 
 	@Inject
 	private BestellungService bs;
+	
+	@GET
+	public Response findAllBestellungen() {
+		
+		final List<Bestellung> bestellung=bs.findAllBestellungen();
+		return Response.ok(new GenericEntity<List<Bestellung>>(bestellung) {
+        }).build();
+
+}
+	
+
 
 	@GET
 	@Path("{" +BESTELLUNG_ID_PATH_PARAM + ":[1-9][0-9]*}")
