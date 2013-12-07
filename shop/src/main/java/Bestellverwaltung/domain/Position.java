@@ -2,11 +2,13 @@ package Bestellverwaltung.domain;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
+
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
+
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import Artikelverwaltung.domain.AbstractArtikel;
 
@@ -17,12 +19,10 @@ public class Position implements Serializable{
 	private Long id;
 	private Long bestellid;
 	
-	@XmlTransient
+	@Valid
 	private AbstractArtikel artikel;
 	
-	@Min(0)
-	@Max(20)
-	@NotNull(message = "{position.notFound.anzahl}")
+    @NotEmpty(message="{position.anzahl.notNull}")
 	private int anzahl;
 
 	public Long getId() {

@@ -3,9 +3,8 @@ package Bestellverwaltung.service;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.invoke.MethodHandles;
-
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.mail.Message.RecipientType;
@@ -17,7 +16,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.jboss.logging.Logger;
 
-import Bestellverwaltung.domain.Position;
 import Bestellverwaltung.domain.Bestellung;
 import Kundenverwaltung.domain.AbstractKunde;
 import util.interceptor.Log;
@@ -27,76 +25,73 @@ import util.mail.AbsenderName;
 /**
  * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
  */
-@ApplicationScoped
 @Log
+@Dependent
 public class BestellungObserver implements Serializable {
-	private static final long serialVersionUID = -1567643645881819340L;
-	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
-	private static final String NEWLINE = System.getProperty("line.separator");
-	
-	@Inject
-	private transient Session session;
-	
-	@Inject
-	@AbsenderMail
-	private String absenderMail;
-	
-	@Inject
-	@AbsenderName
-	private String absenderName;
+        
+        /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3117574765051788607L;
 
-	@PostConstruct
-	private void init() {
-		if (absenderMail == null) {
-			LOGGER.warn("Der Absender fuer Bestellung-Emails ist nicht gesetzt.");
-			return;
-		}
-		LOGGER.infof("Absender fuer Bestellung-Emails: %s <%s>", absenderName, absenderMail);
-	}
-	
-	public void onCreateBestellung(@Observes @NeueBestellung Bestellung bestellung) {
-		final AbstractKunde kunde = bestellung.getKunde();
-		final String empfaengerMail = kunde.getEmail();
-		if (absenderMail == null || empfaengerMail == null) {
-			return;
-		}
-		final String vorname = AbstractKunde.PRIVATKUNDE == null ? "" : AbstractKunde.FIRMENKUNDE;
-		final String empfaengerName = vorname + " " + kunde.getNachname();
-		
-		final MimeMessage message = new MimeMessage(session);
+		private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
+        
+        @Inject
+        private transient Session session;
+        
+        @Inject
+        @AbsenderMail
+        private String absenderMail;
+        
+        @Inject
+        @AbsenderName
+        private String absenderName;
 
-		try {
-			// Absender setzen
-			final InternetAddress absenderObj = new InternetAddress(absenderMail, absenderName);
-			message.setFrom(absenderObj);
-			
-			// Empfaenger setzen
-			final InternetAddress empfaenger = new InternetAddress(empfaengerMail, empfaengerName);
-			message.setRecipient(RecipientType.TO, empfaenger);   // RecipientType: TO, CC, BCC
+        @PostConstruct
+        private void postConstruct() {
+                if (absenderMail == null) {
+                        LOGGER.warn("Der Absender fuer Bestellung-Emails ist nicht gesetzt.");
+                        return;
+                }
+        }
+        
+        public void onCreateBestellung(@Observes @NeueBestellung Bestellung bestellung) {
+                final AbstractKunde kunde = bestellung.getKunde();
+                final String empfaengerMail = kunde.getEmail();
+                if (absenderMail == null || empfaengerMail == null) {
+                        return;
+                }
+                final String empfaengerName = kunde.getNachname();
+                
+                final MimeMessage message = new MimeMessage(session);
 
-			// Subject setzen
-			message.setSubject("Neue Bestellung Nr. " + bestellung.getId());
-			
-			// Text setzen mit MIME Type "text/plain"
-			final StringBuilder sb = new StringBuilder(256);
-			sb.append("<h3>Neue Bestellung Nr. <b>" + bestellung.getId() + "</b></h3>" + NEWLINE);
-			for (Position bp : bestellung.getPositionen()) {
-				sb.append(bp.getAnzahl() + "\t" + bp.getArtikel().getTyp() + "<br/>" + NEWLINE);
-			}
-			final String text = sb.toString();
-			LOGGER.trace(text);
-			message.setContent(text, "text/html;charset=iso-8859-1");
+                try {
+                        // Absender setzen
+                        final InternetAddress absenderObj = new InternetAddress(absenderMail, absenderName);
+                        message.setFrom(absenderObj);
+                        
+                        // Empfaenger setzen
+                        final InternetAddress empfaenger = new InternetAddress(empfaengerMail, empfaengerName);
+                        message.setRecipient(RecipientType.TO, empfaenger); // RecipientType: TO, CC, BCC
 
-			// Hohe Prioritaet einstellen
-			//message.setHeader("Importance", "high");
-			//message.setHeader("Priority", "urgent");
-			//message.setHeader("X-Priority", "1");
+                        // Subject setzen
+                        message.setSubject("Neue Bestellung Nr. " + bestellung.getId());
+                        
+                        // Text setzen mit MIME Type "text/plain"
+                        final String text = "<h3>Neue Bestellung Nr. <b>" + bestellung.getId()+ "</b></h3>";
+                        LOGGER.trace(text);
+                        message.setContent(text, "text/html;charset=iso-8859-1");
 
-			Transport.send(message);
-		}
-		catch (MessagingException | UnsupportedEncodingException e) {
-			LOGGER.error(e.getMessage());
-			return;
-		}
-	}
+                        // Hohe Prioritaet einstellen
+                        //message.setHeader("Importance", "high");
+                        //message.setHeader("Priority", "urgent");
+                        //message.setHeader("X-Priority", "1");
+
+                        Transport.send(message);
+                }
+                catch (MessagingException | UnsupportedEncodingException e) {
+                        LOGGER.error(e.getMessage());
+                        return;
+                }
+        }
 }

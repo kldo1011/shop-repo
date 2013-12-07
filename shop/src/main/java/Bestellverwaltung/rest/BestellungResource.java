@@ -12,6 +12,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -21,6 +22,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 //import org.jboss.logging.Logger;
+
 
 
 import Bestellverwaltung.domain.Bestellung;
@@ -37,6 +39,11 @@ import util.rest.UriHelper;
 @RequestScoped
 @Log
 public class BestellungResource {
+	
+    public static final String BESTELLUNG_ID_PATH_PARAM = "id";
+
+    public static final String BESTELLUNG_NOT_FOUND = "bestellung.notFound.all";
+    public static final String BESTELLUNG_NOT_FOUND_ID = "bestellung.notFound.id";
 
 	@Context
 	private UriInfo uriInfo;
@@ -51,7 +58,7 @@ public class BestellungResource {
 	private BestellungService bs;
 
 	@GET
-	@Path("{id:[1-9][0-9]*}")
+	@Path("{" +BESTELLUNG_ID_PATH_PARAM + ":[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
 		final Bestellung bestellung = bs.findBestellungById(id);
 		setStructuralLinks(bestellung, uriInfo);
@@ -89,7 +96,7 @@ public class BestellungResource {
 				bestellung.getId(), uriInfo);
 	}
 
-	/*
+	
 	@POST
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
@@ -97,6 +104,7 @@ public class BestellungResource {
 		bestellung = bs.createBestellung(bestellung);
 		return Response.created(getUriBestellung(bestellung, uriInfo)).build();
 	}
+	/*
 
 	@PUT
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })

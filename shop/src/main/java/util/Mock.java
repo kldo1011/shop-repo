@@ -214,6 +214,7 @@ public class  Mock {
 		bestellung.setBestelldatum("06.11.13");
 		bestellung.setAusgeliefert(false);
 		bestellung.setKunde(kunde);
+		bestellung.setPositionen(findAllPositionen(id));
 
 		return bestellung;
 	}
@@ -256,20 +257,18 @@ public class  Mock {
 		return positionList;
 
 	}
-      /*
+      
 	public static Bestellung createBestellung(Bestellung bestellung) {
 
 		final int nummer = bestellung.getBestelldatum().hashCode();
 		bestellung.setId(Long.valueOf(nummer));
 		System.out.println("Neue Bestellung:" + bestellung);
+		LOGGER.infof("Neue BEstellung erzeugt", bestellung);
 		return bestellung;
 	}
-*/
+
 	
-	public static Bestellung createBestellung(Bestellung bestellung, AbstractKunde kunde) {
-		LOGGER.infof("Neue Bestellung: %s fuer Kunde: %s", bestellung, kunde);
-		return bestellung;
-	}
+
 	
 	public static AbstractArtikel findArtikelById(Long id) {
 		if (id > MAX_ARTIKEL) {
