@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -28,7 +29,7 @@ import Artikelverwaltung.domain.Ersatzteile;
 import Artikelverwaltung.domain.Fahrrad;
 import Artikelverwaltung.service.ArtikelService;
 import util.interceptor.Log;
-import util.rest.NotFoundException;
+
 import util.rest.UriHelper;
 
 @Path("/artikel")
@@ -38,6 +39,10 @@ import util.rest.UriHelper;
 @RequestScoped
 @Log
 public class ArtikelResource {
+	
+	public static final String ARTIKEL_ID_PATH_PARAM="id";
+	public static final String ARTIKEL_NOT_FOUND="artikel.notFound.all";
+	public static final String ARTIKEL_NOT_FOUND_ID="artikel.notFound.id";
 	
 	@Inject 
 	private ArtikelService as;
@@ -54,8 +59,6 @@ public class ArtikelResource {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 
 		final List<AbstractArtikel> artikelList = as.findeAlleArtikel();
-		if (artikelList.isEmpty())
-			throw new NotFoundException("Es Wurden keine Artikel geunden");
 		return Response
 				.ok(new GenericEntity<List<? extends AbstractArtikel>>(
 						artikelList) {
@@ -64,12 +67,9 @@ public class ArtikelResource {
 	}
 
 	@GET
-	@Path("{id:[1-9][0-9]*}")
+	@Path("{"+ARTIKEL_ID_PATH_PARAM+":[1-9][0-9]*}")
 	public Response findArtikelById(@PathParam("id") long id) {
 		final AbstractArtikel artikel = as.findeArtikelById(id);
-		if (artikel == null)
-			throw new NotFoundException("Es Wurden keine Artikel mit der " + id
-					+ "geunden");
 		return Response.ok(artikel)
 				.links(getTransitionalLinks(artikel, uriInfo)).build();
 	}
@@ -90,7 +90,7 @@ public class ArtikelResource {
 	@Path("/fahrrad")
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public Response createFahrrad(Fahrrad fahrrad) {
+	public Response createFahrrad(@Valid Fahrrad fahrrad) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		fahrrad = as.createFahrrad(fahrrad);
 		return Response.created(getUriArtikel(fahrrad, uriInfo)).build();
@@ -100,7 +100,7 @@ public class ArtikelResource {
 	@Path("/ersatzteil")
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public Response createErsatzteil(Ersatzteile ersatzteil) {
+	public Response createErsatzteil(@Valid Ersatzteile ersatzteil) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		ersatzteil = as.createErsatzteile(ersatzteil);
 		return Response.created(getUriArtikel(ersatzteil, uriInfo)).build();
@@ -109,7 +109,7 @@ public class ArtikelResource {
 	@PUT
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public void updateArtikel(AbstractArtikel artikel) {
+	public void updateArtikel(@Valid AbstractArtikel artikel) {
 		as.updateArtikel(artikel);
 	}
 

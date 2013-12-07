@@ -1,7 +1,10 @@
 package Artikelverwaltung.domain;
 
+import javax.validation.Valid;
+
 public class Ersatzteile extends AbstractArtikel {
 	private static final long serialVersionUID = -5257961499883829075L;
+	@Valid
 	private Fahrrad fahrrad;
 
 	public Fahrrad getFahrrad() {
