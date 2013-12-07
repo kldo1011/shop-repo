@@ -314,7 +314,7 @@ public class  Mock {
 
 		final String bezeichnung = fahrrad.getBezeichnung();
 		fahrrad.setId(bezeichnung.length());
-		System.out.println("Neues Fahrrad" + fahrrad);
+		LOGGER.infof("Neues Fahrrad ", fahrrad);
 		return fahrrad;
 	}
 
@@ -322,7 +322,7 @@ public class  Mock {
 
 		final String typ = ersatz.getTyp();
 		ersatz.setId(typ.length());
-		System.out.println("Neues Ersatzteil" + ersatz);
+		LOGGER.infof("Neues Ersatzteil ", ersatz);
 		return ersatz;
 	}
 
@@ -342,16 +342,16 @@ public class  Mock {
 					.getFahrrad());
 		}
 		
-		System.out.println("Aktualisierter Artikel  " + artikel);
+		LOGGER.infof("Aktualisierter Artikel  " + artikel);
 
 	}
 
 	public static void updateBestellung(Bestellung bestellung) {
-		System.out.println("Aktualisierte Bestellung: " + bestellung);
+		LOGGER.infof("Aktualisierte Bestellung: " + bestellung);
 	}
 
 	public static void deleteBestellung(Long id) {
-		System.out.println("Bestellung mit ID=" + id + " geloescht");
+		LOGGER.infof("Bestellung mit ID geloescht" + id  );
 	}
 
 	private Mock() { /**/
