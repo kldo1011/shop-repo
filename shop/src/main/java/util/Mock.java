@@ -114,7 +114,7 @@ public class  Mock {
 		
 		return kunde;
 	}
-	
+	/*
 	public static <T extends AbstractKunde> T createKunde(T kunde) {
 		// Neue IDs fuer Kunde und zugehoerige Adresse
 		// Ein neuer Kunde hat auch keine Bestellungen
@@ -128,6 +128,7 @@ public class  Mock {
 		LOGGER.infof("Neuer Kunde: %s", kunde);
 		return kunde;
 	}
+	*/
 	
 	
 
@@ -153,7 +154,7 @@ public class  Mock {
 
 	}
 	
-/*
+
 	public static void updateKunde(AbstractKunde kunde) {
 
 
@@ -170,13 +171,9 @@ public class  Mock {
 					.getFirmenname());
 
 		}
-		System.out.println("Aktualisierter Kunde: " + kunde);
-	}*/
-	
-	public static void updateKunde(AbstractKunde kunde) {
-		
-		LOGGER.infof("Aktualisierter Kunde: %s", kunde);
+		LOGGER.infof("Aktualisierter Kunde: " + kunde);
 	}
+	
 
 	public static void deleteKunde(AbstractKunde kunde) {
 		LOGGER.infof("Geloeschter Kunde: %s", kunde);
