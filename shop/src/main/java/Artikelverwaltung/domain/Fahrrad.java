@@ -15,7 +15,7 @@ public class Fahrrad extends AbstractArtikel {
 	
 	@NotNull(message = "{Artikelverwaltung.fahrrad.notNull.rahmen}")
 	@Size(min = 0, max = 32 , message ="{Artikelverwaltung.fahrrad.rahmen.pattern}")
-	@Pattern(regexp = "[M,W,U]", message = "{artikelverwaltung.fahrrad.rahmen.pattern}")
+	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+", message = "{Artikelverwaltung.fahrrad.rahmen.pattern}")
 	private String rahmen;
 
 	public String getBezeichnung() {
