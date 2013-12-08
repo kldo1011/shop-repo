@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -24,27 +23,27 @@ public class Adressen implements Serializable {
 
 	private Long id;
 
-	@NotNull(message = "{adressen.plz.notNull}")
-	@Pattern(regexp = "\\d{5}", message = "{adressen.plz}")
+	@NotNull(message = "{Kundenverwaltung.adressen.plz.notNull}")
+	@Pattern(regexp = "\\d{5}", message = "{Kundenverwaltung.adressen.plz}")
 	private String plz;
 
-	@Size(min = 1, max = 4, message = "{adressen.length}")
-	@Pattern(regexp = "[1-9][0-9]{0,2}[a-z]?", message = "{adressen.hausnummer.pattern}")
+	@Size(min = 1, max = 4, message = "{Kundenverwaltung.adressen.length}")
+	@Pattern(regexp = "[1-9][0-9]{0,2}[a-z]?", message = "{Kundenverwaltung.adressen.hausnummer.pattern}")
 	private int hausnummer;
 
-	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+", message = "{adressen.strasse.pattern}")
-	@Size(min = 2, max = 40, message = "{adressen.strasse.length}")
+	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+", message = "{Kundenverwaltung.adressen.strasse.pattern}")
+	@Size(min = 2, max = 40, message = "{Kundenverwaltung.adressen.strasse.length}")
 	private String strasse;
 
-	@Size(min = 1, max = 32, message = "{kundenverwaltung.adresse.ort.length}")
+	@Size(min = 1, max = 32, message = "{Kundenverwaltung.adresse.ort.length}")
 	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+"
 			+ "(-[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+)?",
-			message = "{kundenverwaltung.adresse.ort.pattern}")
+			message = "{Kundenverwaltung.adresse.ort.pattern}")
 	private String ort;
 
 	
 	@Valid
-	@Inject
+	
 	private AbstractKunde kunde;
 	
 	public Long getId() {

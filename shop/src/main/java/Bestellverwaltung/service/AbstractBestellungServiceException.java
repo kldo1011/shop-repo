@@ -8,9 +8,14 @@ import util.interceptor.Log;
 @Log
 @Dependent
 public abstract class AbstractBestellungServiceException extends AbstractShopException {
-        private static final long serialVersionUID = -2849585609393128387L;
+  
 
-        public AbstractBestellungServiceException(String msg) {
+        /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2487454948182083792L;
+
+		public AbstractBestellungServiceException(String msg) {
                 super(msg);
         }
         

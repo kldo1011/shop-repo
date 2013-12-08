@@ -9,14 +9,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Fahrrad extends AbstractArtikel {
 	private static final long serialVersionUID = 8523531902178696161L;
 
-	@NotNull(message = "{fahrrad.notNull.bezeichnung}")
-	@Size(min = 2, max = 32 , message ="{fahrrad.bezeichnung.pattern}")
-	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
+	@NotNull(message = "{Artikelverwaltung.fahrrad.notNull.bezeichnung}")
+	@Size(min = 2, max = 32 , message ="{Artikelverwaltung.fahrrad.bezeichnung.size}")
 	private String bezeichnung;
 	
-	@NotNull(message = "{fahrrad.notNull.rahmen}")
-	@Size(min = 0, max = 32 , message ="{fahrrad.rahmen.pattern}")
-	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+")
+	@NotNull(message = "{Artikelverwaltung.fahrrad.notNull.rahmen}")
+	@Size(min = 0, max = 32 , message ="{Artikelverwaltung.fahrrad.rahmen.pattern}")
+	@Pattern(regexp = "[M,W,U]", message = "{artikelverwaltung.fahrrad.rahmen.pattern}")
 	private String rahmen;
 
 	public String getBezeichnung() {

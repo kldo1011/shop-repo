@@ -14,10 +14,10 @@ public class Privatkunde extends AbstractKunde {
 	 */
 	private static final long serialVersionUID = -4816467594027084622L;
 	
-	@NotNull(message = "{privatkunde.vorname.notNull}")
-    @Size(min = 2, max = 32, message = "{privatkunde.vorname.size}")
+	@NotNull(message = "{Kundenverwaltung.privatkunde.vorname.notNull}")
+    @Size(min = 2, max = 32, message = "{Kundenverwaltung.privatkunde.vorname.size}")
     @Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+",
-    message = "{privatkunde.vorname.pattern}")
+    message = "{Kundenverwaltung.privatkunde.vorname.pattern}")
     private String vorname;
 
 	private Set<Kategorie> kategorie;

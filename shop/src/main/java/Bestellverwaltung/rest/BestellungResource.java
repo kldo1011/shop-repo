@@ -73,7 +73,7 @@ public class BestellungResource {
 
 	@GET
 	@Path("{" +BESTELLUNG_ID_PATH_PARAM + ":[1-9][0-9]*}")
-	public Response findBestellungById(@PathParam("id") Long id) {
+	public Response findBestellungById(@PathParam(BESTELLUNG_ID_PATH_PARAM) Long id) {
 		final Bestellung bestellung = bs.findBestellungById(id);
 		setStructuralLinks(bestellung, uriInfo);
 

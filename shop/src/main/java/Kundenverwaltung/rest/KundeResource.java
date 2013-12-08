@@ -38,10 +38,14 @@ import javax.ws.rs.core.UriInfo;
 
 import org.hibernate.validator.constraints.Email;
 
+import com.google.common.base.Strings;
+
 import Bestellverwaltung.domain.Bestellung;
 import Bestellverwaltung.rest.BestellungResource;
 import Bestellverwaltung.service.BestellungService;
 import Kundenverwaltung.domain.AbstractKunde;
+import Kundenverwaltung.domain.Firmenkunde;
+import Kundenverwaltung.domain.Privatkunde;
 //import Kundenverwaltung.domain.Firmenkunde;
 //import Kundenverwaltung.domain.Privatkunde;
 import Kundenverwaltung.service.KundeService;
@@ -181,49 +185,42 @@ public class KundeResource {
 	 */
 
 	@GET
-	public Response findKunden(
-			@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) @Pattern(regexp = AbstractKunde.NACHNAME_PATTERN,
-			             message = "{kunde.nachname.pattern}") String nachname,
-			@QueryParam(KUNDEN_EMAIL_QUERY_PARAM) @Email(message = "{kunde.email}") String email,
-			@QueryParam(KUNDEN_PLZ_QUERY_PARAM) @Pattern(regexp = "\\d{5}", message = "{adresse.plz}") String plz) {
-		List<? extends AbstractKunde> kunden = null;
-		AbstractKunde kunde = null;
-		if (nachname != null) {
-			kunden = ks.findKundenByNachname(nachname);
-		} 
-		else if (email != null) {
-			kunde = ks.findKundeByEmail(email);
-		} 
-		else if (plz != null) {
-			// TODO Beispiel fuer ein TODO bei fehlender Implementierung
-			throw new RuntimeException(
-					"Suche nach PLZ noch nicht implementiert");
-		} 
-		else {
-			kunden = ks.findAllKunden();
-		}
+    public Response findKunden(
+                    @QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) @Pattern(regexp = AbstractKunde.NACHNAME_PATTERN, message = "{kunde.nachname.pattern}") String nachname,
+                    @QueryParam(KUNDEN_EMAIL_QUERY_PARAM) @Email(message = "{kunde.email.pattern}") String email) {
+            List<? extends AbstractKunde> kunden = null;
+            AbstractKunde kunde = null;
+            if(Strings.isNullOrEmpty(nachname) && Strings.isNullOrEmpty(email)) {
+                    kunden = ks.findAllKunden();
+            }
+            else if(Strings.isNullOrEmpty(email)) {
+                    kunden = ks.findKundenByNachname(nachname);
+            }
+            else {
+                    kunde = ks.findKundeByEmail(email);
+            }
+            
 
-		Object entity = null;
-		Link[] links = null;
-		if (kunden != null) {
-			for (AbstractKunde k : kunden) {
-				setStructuralLinks(k, uriInfo);
-			}
-			// FIXME JDK 8 hat Lambda-Ausdruecke, aber Proxy-Klassen von Weld
-			// funktionieren noch nicht mit Lambda-Ausdruecken
-			// kunden.parallelStream()
-			// .forEach(k -> setStructuralLinks(k, uriInfo));
-			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden) {
-			};
-			links = getTransitionalLinksKunden(kunden, uriInfo);
-		} 
-		else if (kunde != null) {
-			entity = kunde;
-			links = getTransitionalLinks(kunde, uriInfo);
-		}
+            Object entity = null;
+            Link[] links = null;
+            if (kunden != null) {
+                    for (AbstractKunde k : kunden) {
+                            setStructuralLinks(k, uriInfo);
+                    }
+                    // FIXME JDK 8 hat Lambda-Ausdruecke, aber Proxy-Klassen von Weld
+                    // funktionieren noch nicht mit Lambda-Ausdruecken
+                    // kunden.parallelStream()
+                    // .forEach(k -> setStructuralLinks(k, uriInfo));
+                    entity = new GenericEntity<List<? extends AbstractKunde>>(kunden) {
+                    };
+                    links = getTransitionalLinksKunden(kunden, uriInfo);
+            } else if (kunde != null) {
+                    entity = kunde;
+                    links = getTransitionalLinks(kunde, uriInfo);
+            }
 
-		return Response.ok(entity).links(links).build();
-	}
+            return Response.ok(entity).links(links).build();
+    }
 
 	private Link[] getTransitionalLinksKunden(
 			List<? extends AbstractKunde> kunden, UriInfo uriInfo) {
@@ -243,7 +240,7 @@ public class KundeResource {
 
 	@GET
 	@Path("{id:[1-9][0-9]*}/bestellungen")
-	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
+	public Response findBestellungenByKundeId(@PathParam(KUNDEN_ID_PATH_PARAM) Long kundeId) {
 		final AbstractKunde kunde = ks.findKundeById(kundeId);
 		final List<Bestellung> bestellungen = bs.findBestellungenByKunde(kunde);
 		// URIs innerhalb der gefundenen Bestellungen anpassen
@@ -288,13 +285,13 @@ public class KundeResource {
 
 		return new Link[] {self, first, last };
 	}
-/*
+
 	@POST
 	@Path("/privat")
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	public Response createPrivatKunde(Privatkunde pkunde) {
-		pkunde = Mock.createPrivatkunde(pkunde);
+		pkunde = ks.createPrivatkunde(pkunde);
 		return Response.created(getUriKunde(pkunde, uriInfo)).build();
 	}
 
@@ -303,11 +300,11 @@ public class KundeResource {
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	public Response createFirmenKunde(Firmenkunde fkunde) {
-		fkunde = Mock.createFirmenkunde(fkunde);
+		fkunde = ks.createFirmenkunde(fkunde);
 		return Response.created(getUriKunde(fkunde, uriInfo)).build();
 	}
-*/
-	
+
+	/*
 	@POST
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
@@ -319,6 +316,7 @@ public class KundeResource {
 		return Response.created(getUriKunde(kunde, uriInfo))
 			           .build();
 	}
+	*/
 	
 	
 	@PUT

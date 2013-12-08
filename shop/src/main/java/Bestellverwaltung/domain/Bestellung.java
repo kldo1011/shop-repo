@@ -28,13 +28,13 @@ public class Bestellung implements Serializable {
 	private Long id;
 	
 
-	@NotNull(message = "{bestellung.bestelldatum.notNull}")
+	@NotNull(message = "{Bestellverwaltung.bestellung.bestelldatum.notNull}")
 	private String bestelldatum;
 
 
 	
 
-	@AssertFalse(message = "{bestellung.ausgeliefert.assertFalse}")
+	@AssertFalse(message = "{Bestellverwaltung.bestellung.ausgeliefert.assertFalse}")
 	private boolean ausgeliefert;
 	
 	private List<Position> positionen;

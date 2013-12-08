@@ -7,7 +7,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
@@ -25,14 +24,13 @@ public abstract class  AbstractArtikel implements Serializable {
 
 	private long id;
 	
-	@NotNull(message = "{artikel.notNull.preis}")
+	@NotNull(message = "{Artikelverwaltung.artikel.notNull.preis}")
 	@Min(0)
 	@Max(100000)
 	private double preis;
 	
-	@NotNull(message = "{artikel.notNull.typ}")
-	@Size(min = 1, max = 32 , message = "{artikel.typ.size}")
-	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+", message = "{artikel.typ.pattern")
+	@NotNull(message = "{Artikelverwaltung.artikel.notNull.typ}")
+	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+", message = "{Artikelverwaltung.artikel.typ.pattern")
 	private String typ;
 
 	private URI artikelUri;

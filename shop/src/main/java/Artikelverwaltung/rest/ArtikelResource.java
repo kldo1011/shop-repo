@@ -68,7 +68,7 @@ public class ArtikelResource {
 
 	@GET
 	@Path("{"+ARTIKEL_ID_PATH_PARAM+":[1-9][0-9]*}")
-	public Response findArtikelById(@PathParam("id") long id) {
+	public Response findArtikelById(@PathParam(ARTIKEL_ID_PATH_PARAM) long id) {
 		final AbstractArtikel artikel = as.findeArtikelById(id);
 		return Response.ok(artikel)
 				.links(getTransitionalLinks(artikel, uriInfo)).build();

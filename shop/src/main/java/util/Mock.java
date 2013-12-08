@@ -130,14 +130,14 @@ public class  Mock {
 	}
 	
 	
-/*
+
 	public static Privatkunde createPrivatkunde(Privatkunde pkunde) {
 
 		final String nachname = pkunde.getNachname();
 		pkunde.setId(Long.valueOf(nachname.length()));
 		final Adressen adresse = pkunde.getAdresse();
 		adresse.setId(Long.valueOf(nachname.length()));
-		System.out.println("Neuer Kunde:" + pkunde);
+		LOGGER.infof("Neuer Kunde", pkunde);
 		return pkunde;
 
 	}
@@ -148,11 +148,11 @@ public class  Mock {
 		fkunde.setId(Long.valueOf(nachname.length()));
 		final Adressen adresse = fkunde.getAdresse();
 		adresse.setId(Long.valueOf(nachname.length()));
-		System.out.println("Neuer Kunde:" + fkunde);
+		LOGGER.infof("Neuer Kunde", fkunde);;
 		return fkunde;
 
 	}
-	*/
+	
 /*
 	public static void updateKunde(AbstractKunde kunde) {
 

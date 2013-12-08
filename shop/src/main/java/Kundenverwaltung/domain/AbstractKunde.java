@@ -57,9 +57,9 @@ public abstract class AbstractKunde implements Serializable {
 
 	private Long id;
 	
-	@NotNull(message = "{kunde.nachname.notNull}")
+	@NotNull(message = "{Kundenverwaltung.kunde.nachname.notNull}")
 	@Size(min = NACHNAME_LENGTH_MIN, max = NACHNAME_LENGTH_MAX,
-	      message = "{kunde.nachname.length}")
+	      message = "{Kundenverwaltung.kunde.nachname.length}")
 	@Pattern(regexp = NACHNAME_PATTERN, message = "{kunde.nachname.pattern}")
 	private String nachname;
 	
@@ -69,7 +69,7 @@ public abstract class AbstractKunde implements Serializable {
 	private String email;
 	
 	@Valid
-	@NotNull(message = "{kunde.adresse.notNull}")
+	@NotNull(message = "{Kundenverwaltung.kunde.adresse.notNull}")
 	private Adressen adresse;
 	
 	@Inject

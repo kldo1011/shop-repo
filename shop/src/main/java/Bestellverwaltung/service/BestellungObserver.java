@@ -28,8 +28,9 @@ import util.mail.AbsenderName;
 @Log
 @Dependent
 public class BestellungObserver implements Serializable {
-        
-        /**
+
+
+		/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3117574765051788607L;
