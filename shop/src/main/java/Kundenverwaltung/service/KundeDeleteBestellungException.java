@@ -1,7 +1,9 @@
 package Kundenverwaltung.service;
 
 import javax.ejb.ApplicationException;
+import javax.enterprise.context.Dependent;
 
+import util.interceptor.Log;
 import Kundenverwaltung.domain.AbstractKunde;
 
 
@@ -10,6 +12,8 @@ import Kundenverwaltung.domain.AbstractKunde;
 /**
  * Exception, die ausgel&ouml;st wird, wenn ein Kunde gel&ouml;scht werden soll, aber mindestens eine Bestellung hat
  */
+@Log
+@Dependent
 @ApplicationException(rollback = true)
 public class KundeDeleteBestellungException extends AbstractKundeServiceException {
 	private static final long serialVersionUID = 2237194289969083093L;

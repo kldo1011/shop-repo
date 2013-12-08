@@ -1,8 +1,12 @@
 package Kundenverwaltung.service;
 
 import javax.ejb.ApplicationException;
+import javax.enterprise.context.Dependent;
 
+import util.interceptor.Log;
+@Log
 @ApplicationException(rollback = true)
+@Dependent
 public class EmailExistsException extends AbstractKundeServiceException {
 
 	
