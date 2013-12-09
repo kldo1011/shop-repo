@@ -120,3 +120,4 @@ public abstract class  AbstractArtikel implements Serializable {
 	}
 
 }
+

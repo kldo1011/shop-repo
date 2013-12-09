@@ -63,7 +63,7 @@ public class BestellungResource {
 	@GET
 	public Response findAllBestellungen() {
 		
-		final List<Bestellung> bestellung=bs.findAllBestellungen();
+		final List<Bestellung> bestellung = bs.findAllBestellungen();
 		return Response.ok(new GenericEntity<List<Bestellung>>(bestellung) {
         }).build();
 
@@ -72,7 +72,7 @@ public class BestellungResource {
 
 
 	@GET
-	@Path("{" +BESTELLUNG_ID_PATH_PARAM + ":[1-9][0-9]*}")
+	@Path("{" + BESTELLUNG_ID_PATH_PARAM + ":[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam(BESTELLUNG_ID_PATH_PARAM) Long id) {
 		final Bestellung bestellung = bs.findBestellungById(id);
 		setStructuralLinks(bestellung, uriInfo);

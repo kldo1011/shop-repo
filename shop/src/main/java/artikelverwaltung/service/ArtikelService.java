@@ -27,7 +27,7 @@ public class ArtikelService implements Serializable {
 		
 	}
 	
-	@NotNull(message="{artikel.notFound.all}")
+	@NotNull(message = "{artikel.notFound.all}")
 	public List<AbstractArtikel> findeAlleArtikel() {
 		// TODO Datenbanzugriffsschicht statt Mock
 		return Mock.findAllArtikel();
