@@ -187,8 +187,8 @@ public class KundeResource {
 	@GET
     public Response findKunden(
                     @QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) @Pattern(regexp = AbstractKunde.NACHNAME_PATTERN,
-                    message = "{kunde.nachname.pattern}") String nachname,
-                    @QueryParam(KUNDEN_EMAIL_QUERY_PARAM) @Email(message = "{kunde.email.pattern}") String email) {
+                    message = "{kundenverwaltung.kunde.nachname.pattern}") String nachname,
+                    @QueryParam(KUNDEN_EMAIL_QUERY_PARAM) @Email(message = "{kundenverwaltung.kunde.email.pattern}") String email) {
             List<? extends AbstractKunde> kunden = null;
             AbstractKunde kunde = null;
             if (Strings.isNullOrEmpty(nachname) && Strings.isNullOrEmpty(email)) {
