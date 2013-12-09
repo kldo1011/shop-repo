@@ -1,5 +1,6 @@
 package util.rest;
 
+
 import java.lang.invoke.MethodHandles;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -91,9 +92,7 @@ public class Messages {
 	}
 	
 	public String getMessage(HttpHeaders headers, String key, Object... args) {
-		final List<Locale> acceptableLocales = headers == null 
-				?
-				new ArrayList<Locale>(0) : headers.getAcceptableLanguages();
+		final List<Locale> acceptableLocales = headers == null ? new ArrayList<Locale>(0) : headers.getAcceptableLanguages();
 		final ResourceBundle bundle = getBundle(acceptableLocales);
 		
 		final String pattern = bundle.getString(key);
