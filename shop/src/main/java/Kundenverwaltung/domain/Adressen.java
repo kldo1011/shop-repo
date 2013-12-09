@@ -12,8 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @XmlRootElement
-@RequestScoped
-@Dependent
 public class Adressen implements Serializable {
 
 	/**

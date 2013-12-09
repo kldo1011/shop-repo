@@ -20,8 +20,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import Kundenverwaltung.domain.AbstractKunde;
 //test
 @XmlRootElement
-@RequestScoped
-@Dependent
 public class Bestellung implements Serializable {
 	private static final long serialVersionUID = -4453553403647894462L;
 	

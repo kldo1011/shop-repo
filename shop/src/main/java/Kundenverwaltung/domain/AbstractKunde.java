@@ -31,7 +31,6 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
 import org.hibernate.validator.constraints.Email;
 
 
-@Dependent
 @XmlRootElement
 @XmlSeeAlso({ Firmenkunde.class, Privatkunde.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
@@ -72,7 +71,6 @@ public abstract class AbstractKunde implements Serializable {
 	@NotNull(message = "{Kundenverwaltung.kunde.adresse.notNull}")
 	private Adressen adresse;
 	
-	@Inject
 	@XmlTransient
 	private List<Bestellung> bestellungen;
 	private URI bestellungenUri;
