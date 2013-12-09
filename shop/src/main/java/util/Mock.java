@@ -8,16 +8,16 @@ import java.util.Set;
 
 import org.jboss.logging.Logger;
 
-import Bestellverwaltung.domain.Bestellung;
-import Bestellverwaltung.domain.Position;
-import Kundenverwaltung.domain.AbstractKunde;
-import Kundenverwaltung.domain.Adressen;
-import Kundenverwaltung.domain.Firmenkunde;
-import Kundenverwaltung.domain.Kategorie;
-import Kundenverwaltung.domain.Privatkunde;
-import Artikelverwaltung.domain.AbstractArtikel;
-import Artikelverwaltung.domain.Ersatzteile;
-import Artikelverwaltung.domain.Fahrrad;
+import bestellverwaltung.domain.Bestellung;
+import bestellverwaltung.domain.Position;
+import kundenverwaltung.domain.AbstractKunde;
+import kundenverwaltung.domain.Adresse;
+import kundenverwaltung.domain.Firmenkunde;
+import kundenverwaltung.domain.Kategorie;
+import kundenverwaltung.domain.Privatkunde;
+import artikelverwaltung.domain.AbstractArtikel;
+import artikelverwaltung.domain.Ersatzteil;
+import artikelverwaltung.domain.Fahrrad;
 
 
 public class  Mock {
@@ -46,7 +46,7 @@ public class  Mock {
 		kunde.setId(id);
 		kunde.setNachname("Maier");
 
-		final Adressen adresse = new Adressen();
+		final Adresse adresse = new Adresse();
 		adresse.setId(id + 1); // andere ID fuer die Adresse
 		adresse.setPlz("12345");
 		adresse.setOrt("Testort");
@@ -97,7 +97,7 @@ public class  Mock {
 		kunde.setNachname("Nachname");
 		kunde.setEmail(email);
 		
-		final Adressen adresse = new Adressen();
+		final Adresse adresse = new Adresse();
 		adresse.setId(kunde.getId() + 1);        // andere ID fuer die Adresse
 		adresse.setPlz("12345");
 		adresse.setOrt("Testort");
@@ -136,7 +136,7 @@ public class  Mock {
 
 		final String nachname = pkunde.getNachname();
 		pkunde.setId(Long.valueOf(nachname.length()));
-		final Adressen adresse = pkunde.getAdresse();
+		final Adresse adresse = pkunde.getAdresse();
 		adresse.setId(Long.valueOf(nachname.length()));
 		LOGGER.infof("Neuer Kunde", pkunde);
 		return pkunde;
@@ -147,7 +147,7 @@ public class  Mock {
 
 		final String nachname = fkunde.getNachname();
 		fkunde.setId(Long.valueOf(nachname.length()));
-		final Adressen adresse = fkunde.getAdresse();
+		final Adresse adresse = fkunde.getAdresse();
 		adresse.setId(Long.valueOf(nachname.length()));
 		LOGGER.infof("Neuer Kunde", fkunde);;
 		return fkunde;
@@ -284,7 +284,7 @@ public class  Mock {
 
 		else {
 
-			artikel = new Ersatzteile();
+			artikel = new Ersatzteil();
 			artikel.setTyp("Bremse");
 		}
 
@@ -314,7 +314,7 @@ public class  Mock {
 		return fahrrad;
 	}
 
-	public static Ersatzteile createErsatzteile(Ersatzteile ersatz) {
+	public static Ersatzteil createErsatzteile(Ersatzteil ersatz) {
 
 		final String typ = ersatz.getTyp();
 		ersatz.setId(typ.length());
@@ -334,7 +334,7 @@ public class  Mock {
 			((Fahrrad) artikelAlt).setRahmen(((Fahrrad) artikel).getRahmen());
 		} 
 		else {
-			((Ersatzteile) artikelAlt).setFahrrad(((Ersatzteile) artikel)
+			((Ersatzteil) artikelAlt).setFahrrad(((Ersatzteil) artikel)
 					.getFahrrad());
 		}
 		
