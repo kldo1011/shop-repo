@@ -79,7 +79,7 @@ public class BestellungObserver implements Serializable {
                         message.setSubject("Neue Bestellung Nr. " + bestellung.getId());
                         
                         // Text setzen mit MIME Type "text/plain"
-                        final String text = "<h3>Neue Bestellung Nr. <b>" + bestellung.getId()+ "</b></h3>";
+                        final String text = "<h3>Neue Bestellung Nr. <b>" + bestellung.getId() + "</b></h3>";
                         LOGGER.trace(text);
                         message.setContent(text, "text/html;charset=iso-8859-1");
 

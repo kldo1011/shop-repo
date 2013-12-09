@@ -51,7 +51,7 @@ public class KundeService implements Serializable {
 		return Mock.findKundeByEmail(email);
 	}
 	
-    @NotNull(message=KUNDE_NOT_FOUND)
+    @NotNull(message = KUNDE_NOT_FOUND)
 	public List<AbstractKunde> findAllKunden() {
 		// TODO Datenbanzugriffsschicht statt Mock
 		return Mock.findAllKunden();

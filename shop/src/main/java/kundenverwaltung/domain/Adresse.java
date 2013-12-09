@@ -27,7 +27,8 @@ public class Adresse implements Serializable {
     @Pattern(regexp = "[1-9][0-9]{0,2}[a-z]?", message = "{kundenverwaltung.adresse.hausnummer.pattern}")
 	private int hausnummer;
 
-	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+", message = "{Kundenverwaltung.adressen.strasse.pattern}")
+	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+",
+			message = "{Kundenverwaltung.adressen.strasse.pattern}")
 	@Size(min = 2, max = 40, message = "{kundenverwaltung.adresse.strasse.length}")
 	private String strasse;
 

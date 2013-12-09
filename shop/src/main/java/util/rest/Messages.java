@@ -91,7 +91,8 @@ public class Messages {
 	}
 	
 	public String getMessage(HttpHeaders headers, String key, Object... args) {
-		final List<Locale> acceptableLocales = headers == null ?
+		final List<Locale> acceptableLocales = headers == null 
+				?
 				new ArrayList<Locale>(0) : headers.getAcceptableLanguages();
 		final ResourceBundle bundle = getBundle(acceptableLocales);
 		

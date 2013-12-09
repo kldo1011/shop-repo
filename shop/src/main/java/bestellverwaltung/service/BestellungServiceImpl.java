@@ -26,7 +26,7 @@ public class BestellungServiceImpl implements BestellungService, Serializable {
 	@NeueBestellung
 	private transient Event<Bestellung> event;
 	
-	private static final int MAX_BESTELLUNGEN=10;
+	private static final int MAX_BESTELLUNGEN = 10;
 	
    @Override
    @NotNull(message = "{bestellung.notFound.id}")

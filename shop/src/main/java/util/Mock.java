@@ -39,7 +39,7 @@ public class  Mock {
 			kunde = new Privatkunde();
 			((Privatkunde) kunde).setVorname("Hans");
 		} 
-		else{
+		else {
 			kunde = new Firmenkunde();
 			((Firmenkunde) kunde).setFirmenname("Benz");
 		}
@@ -165,7 +165,8 @@ public class  Mock {
 			((Privatkunde) kundeAlt).setVorname(((Privatkunde) kunde)
 					.getVorname());
 
-		} else 
+		} 
+		else 
 		{
 			((Firmenkunde) kundeAlt).setFirmenname(((Firmenkunde) kunde)
 					.getFirmenname());
@@ -347,7 +348,7 @@ public class  Mock {
 	}
 
 	public static void deleteBestellung(Long id) {
-		LOGGER.infof("Bestellung mit ID geloescht" + id  );
+		LOGGER.infof("Bestellung mit ID geloescht" + id);
 	}
 
 	private Mock() { /**/

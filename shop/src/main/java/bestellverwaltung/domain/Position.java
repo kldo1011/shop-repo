@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import artikelverwaltung.domain.AbstractArtikel;
 
 @XmlRootElement
-public class Position implements Serializable{
+public class Position implements Serializable {
 	private static final long serialVersionUID = -8814289873349242733L;
 	
 	private Long id;
@@ -22,7 +22,7 @@ public class Position implements Serializable{
 	@Valid
 	private AbstractArtikel artikel;
 	
-    @NotEmpty(message="{bestellverwaltung.position.anzahl.notNull}")
+    @NotEmpty(message = "{bestellverwaltung.position.anzahl.notNull}")
 	private int anzahl;
 
 	public Long getId() {

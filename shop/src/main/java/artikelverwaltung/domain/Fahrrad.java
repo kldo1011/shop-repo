@@ -10,12 +10,13 @@ public class Fahrrad extends AbstractArtikel {
 	private static final long serialVersionUID = 8523531902178696161L;
 
 	@NotNull(message = "{artikelverwaltung.fahrrad.notNull.bezeichnung}")
-	@Size(min = 2, max = 32 , message ="{artikelverwaltung.fahrrad.bezeichnung.size}")
+	@Size(min = 2, max = 32 , message = "{artikelverwaltung.fahrrad.bezeichnung.size}")
 	private String bezeichnung;
 	
 	@NotNull(message = "{artikelverwaltung.fahrrad.notNull.rahmen}")
-	@Size(min = 0, max = 32 , message ="{artikelverwaltung.fahrrad.rahmen.pattern}")
-	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+", message = "{artikelverwaltung.fahrrad.rahmen.pattern}")
+	@Size(min = 0, max = 32 , message = "{artikelverwaltung.fahrrad.rahmen.pattern}")
+	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+",
+	message = "{artikelverwaltung.fahrrad.rahmen.pattern}")
 	private String rahmen;
 
 	public String getBezeichnung() {
