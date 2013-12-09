@@ -186,14 +186,15 @@ public class KundeResource {
 
 	@GET
     public Response findKunden(
-                    @QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) @Pattern(regexp = AbstractKunde.NACHNAME_PATTERN, message = "{kunde.nachname.pattern}") String nachname,
+                    @QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) @Pattern(regexp = AbstractKunde.NACHNAME_PATTERN,
+                    message = "{kunde.nachname.pattern}") String nachname,
                     @QueryParam(KUNDEN_EMAIL_QUERY_PARAM) @Email(message = "{kunde.email.pattern}") String email) {
             List<? extends AbstractKunde> kunden = null;
             AbstractKunde kunde = null;
-            if(Strings.isNullOrEmpty(nachname) && Strings.isNullOrEmpty(email)) {
+            if (Strings.isNullOrEmpty(nachname) && Strings.isNullOrEmpty(email)) {
                     kunden = ks.findAllKunden();
             }
-            else if(Strings.isNullOrEmpty(email)) {
+            else if (Strings.isNullOrEmpty(email)) {
                     kunden = ks.findKundenByNachname(nachname);
             }
             else {
@@ -214,7 +215,8 @@ public class KundeResource {
                     entity = new GenericEntity<List<? extends AbstractKunde>>(kunden) {
                     };
                     links = getTransitionalLinksKunden(kunden, uriInfo);
-            } else if (kunde != null) {
+            } 
+            else if (kunde != null) {
                     entity = kunde;
                     links = getTransitionalLinks(kunde, uriInfo);
             }

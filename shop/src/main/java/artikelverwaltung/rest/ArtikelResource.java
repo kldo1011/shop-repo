@@ -40,9 +40,9 @@ import util.rest.UriHelper;
 @Log
 public class ArtikelResource {
 	
-	public static final String ARTIKEL_ID_PATH_PARAM="id";
-	public static final String ARTIKEL_NOT_FOUND="artikel.notFound.all";
-	public static final String ARTIKEL_NOT_FOUND_ID="artikel.notFound.id";
+	public static final String ARTIKEL_ID_PATH_PARAM = "id";
+	public static final String ARTIKEL_NOT_FOUND = "artikel.notFound.all";
+	public static final String ARTIKEL_NOT_FOUND_ID = "artikel.notFound.id";
 	
 	@Inject 
 	private ArtikelService as;
@@ -67,7 +67,7 @@ public class ArtikelResource {
 	}
 
 	@GET
-	@Path("{"+ARTIKEL_ID_PATH_PARAM+":[1-9][0-9]*}")
+	@Path("{" + ARTIKEL_ID_PATH_PARAM + ":[1-9][0-9]*}")
 	public Response findArtikelById(@PathParam(ARTIKEL_ID_PATH_PARAM) long id) {
 		final AbstractArtikel artikel = as.findeArtikelById(id);
 		return Response.ok(artikel)
