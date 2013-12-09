@@ -15,8 +15,6 @@ import java.net.URI;
 
 import java.util.List;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;

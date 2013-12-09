@@ -2,8 +2,6 @@ package Kundenverwaltung.domain;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;

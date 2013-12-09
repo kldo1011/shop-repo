@@ -9,8 +9,6 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
 
 import javax.validation.constraints.AssertFalse;
 
