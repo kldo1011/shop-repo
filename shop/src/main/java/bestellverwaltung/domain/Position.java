@@ -22,7 +22,7 @@ public class Position implements Serializable{
 	@Valid
 	private AbstractArtikel artikel;
 	
-    @NotEmpty(message="{Bestellverwaltung.position.anzahl.notNull}")
+    @NotEmpty(message="{bestellverwaltung.position.anzahl.notNull}")
 	private int anzahl;
 
 	public Long getId() {

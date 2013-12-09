@@ -24,13 +24,13 @@ public abstract class  AbstractArtikel implements Serializable {
 
 	private long id;
 	
-	@NotNull(message = "{Artikelverwaltung.artikel.notNull.preis}")
+	@NotNull(message = "{artikelverwaltung.artikel.notNull.preis}")
 	@Min(0)
 	@Max(100000)
 	private double preis;
 	
-	@NotNull(message = "{Artikelverwaltung.artikel.notNull.typ}")
-	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+", message = "{Artikelverwaltung.artikel.typ.pattern")
+	@NotNull(message = "{artikelverwaltung.artikel.notNull.typ}")
+	@Pattern(regexp = "[A-ZÄÖÜ][a-zäöüß]+", message = "{artikelverwaltung.artikel.typ.pattern")
 	private String typ;
 
 	private URI artikelUri;

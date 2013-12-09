@@ -19,22 +19,22 @@ public class Adresse implements Serializable {
 
 	private Long id;
 	
-    @NotNull (message = "{Kundenverwaltung.adressen.plz.notNull}")
-    @Pattern(regexp = "\\d{5}", message = "{Kundenverwaltung.adressen.plz.pattern}")
+    @NotNull (message = "{kundenverwaltung.adresse.plz.notNull}")
+    @Pattern(regexp = "\\d{5}", message = "{kundenverwaltung.adresse.plz.pattern}")
 	private String plz;
 
-    @Size(min = 1, max = 4, message = "{Kundenverwaltung.adressen.length}")
-    @Pattern(regexp = "[1-9][0-9]{0,2}[a-z]?", message = "{Kundenverwaltung.adressen.hausnummer.pattern}")
+    @Size(min = 1, max = 4, message = "{kundenverwaltung.adresse.length}")
+    @Pattern(regexp = "[1-9][0-9]{0,2}[a-z]?", message = "{kundenverwaltung.adresse.hausnummer.pattern}")
 	private int hausnummer;
 
 	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+", message = "{Kundenverwaltung.adressen.strasse.pattern}")
-	@Size(min = 2, max = 40, message = "{Kundenverwaltung.adressen.strasse.length}")
+	@Size(min = 2, max = 40, message = "{kundenverwaltung.adresse.strasse.length}")
 	private String strasse;
 
-    @Size(min = 1, max = 32, message = "{Kundenverwaltung.adressen.ort.length}")
+    @Size(min = 1, max = 32, message = "{kundenverwaltung.adresse.ort.length}")
     @Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+"
                     + "(-[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+)?",
-                    message = "{Kundenverwaltung.adressen.ort.pattern}")
+                    message = "{kundenverwaltung.adresse.ort.pattern}")
 	private String ort;
 
 	

@@ -10,8 +10,8 @@ public class Firmenkunde extends AbstractKunde {
 	 */
 	private static final long serialVersionUID = -5884239544950839039L;
 	
-	@NotNull (message = "{Kundenverwaltung.firmenkunde.firmenname.notNull}")
-    @Size(min = 2, max = 64, message = "{Kundenverwaltung.firmenkunde.firmenname.length}")
+	@NotNull (message = "{kundenverwaltung.firmenkunde.firmenname.notNull}")
+    @Size(min = 2, max = 64, message = "{kundenverwaltung.firmenkunde.firmenname.length}")
 	private String firmenname;
 
 	public String getFirmenname() {
