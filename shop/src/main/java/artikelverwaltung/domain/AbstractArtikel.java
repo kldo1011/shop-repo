@@ -18,7 +18,7 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
 @XmlSeeAlso({ Fahrrad.class, Ersatzteil.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({ @Type(value = Fahrrad.class, name = AbstractArtikel.FAHRRAD),
-		@Type(value = Ersatzteil.class, name = AbstractArtikel.ERSATZTEILE) })
+		@Type(value = Ersatzteil.class, name = AbstractArtikel.ERSATZTEIL) })
 public abstract class  AbstractArtikel implements Serializable {
 	private static final long serialVersionUID = 6487111749377747617L;
 
@@ -35,7 +35,7 @@ public abstract class  AbstractArtikel implements Serializable {
 
 	private URI artikelUri;
 	
-	public static final String ERSATZTEILE = "E";
+	public static final String ERSATZTEIL = "E";
 	public static final String FAHRRAD = "F";
 
 	public long getId() {
@@ -92,7 +92,7 @@ public abstract class  AbstractArtikel implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AbstractArtikel other = (AbstractArtikel) obj;
+		final AbstractArtikel other = (AbstractArtikel) obj;
 		if (artikelUri == null) {
 			if (other.artikelUri != null)
 				return false;
@@ -120,4 +120,3 @@ public abstract class  AbstractArtikel implements Serializable {
 	}
 
 }
-
