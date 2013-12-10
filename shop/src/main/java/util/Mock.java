@@ -46,6 +46,7 @@ public class  Mock {
 		kunde.setId(id);
 		kunde.setNachname("Maier");
 
+		kunde.setEmail("Test.Tester@web.de");
 		final Adresse adresse = new Adresse();
 		adresse.setId(id + 1); // andere ID fuer die Adresse
 		adresse.setPlz("12345");
