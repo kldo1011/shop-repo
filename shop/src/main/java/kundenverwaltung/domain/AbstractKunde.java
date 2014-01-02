@@ -131,7 +131,14 @@ import util.persistence.AbstractAuditable;
 					  attributeNodes = @NamedAttributeNode("wartungsvertraege"))
 })
 public abstract class AbstractKunde extends AbstractAuditable {
-	private static final long serialVersionUID = 5685115602958386843L;
+	
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8408194730022165222L;
+
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
 	//Pattern mit UTF-8 (statt Latin-1 bzw. ISO-8859-1) Schreibweise fuer Umlaute:

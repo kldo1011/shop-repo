@@ -1,81 +1,69 @@
 package kundenverwaltung.domain;
+import static kundenverwaltung.domain.AbstractKunde.PRIVATKUNDE;
+import static javax.persistence.FetchType.EAGER;
 
 import java.util.Set;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.persistence.Cacheable;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
+ */
 @XmlRootElement
+@Entity
+@DiscriminatorValue(PRIVATKUNDE)
+@Cacheable
 public class Privatkunde extends AbstractKunde {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4816467594027084622L;
+	private static final long serialVersionUID = 133152931415808605L;
 	
-	@NotNull(message = "{kundenverwaltung.privatkunde.vorname.notNull}")
-    @Size(min = 2, max = 32, message = "{kundenverwaltung.privatkunde.vorname.size}")
-    @Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+",
-    message = "{kundenverwaltung.privatkunde.vorname.pattern}")
-    private String vorname;
+	@Column(length = 2)
+	//@Convert(converter = FamilienstandTypeConverter.class)
+	private FamilienstandType familienstand = FamilienstandType.VERHEIRATET;
+	
+	@Column(length = 1)
+	private GeschlechtType geschlecht = GeschlechtType.WEIBLICH;
+	
+	@ElementCollection(fetch = EAGER)
+	@CollectionTable(name = "kunde_hobby",
+	                 joinColumns = @JoinColumn(name = "kunde_fk", nullable = false),
+	                 uniqueConstraints =  @UniqueConstraint(columnNames = { "kunde_fk", "hobby" }),
+	                 indexes = @Index(columnList = "kunde_fk"))
+	@Column(table = "kunde_hobby", name = "hobby", length = 2, nullable = false)
+	private Set<HobbyType> hobbies;
 
-	private Set<Kategorie> kategorie;
-
-	public String getVorname() {
-		return vorname;
+	public FamilienstandType getFamilienstand() {
+		return familienstand;
+	}
+	public void setFamilienstand(FamilienstandType familienstand) {
+		this.familienstand = familienstand;
 	}
 
-	public void setVorname(String vorname) {
-		this.vorname = vorname;
+	public GeschlechtType getGeschlecht() {
+		return geschlecht;
 	}
-
-	public Set<Kategorie> getKategorie() {
-		return kategorie;
+	public void setGeschlecht(GeschlechtType geschlecht) {
+		this.geschlecht = geschlecht;
 	}
-
-	public void setKategorie(Set<Kategorie> kategorie) {
-		this.kategorie = kategorie;
+	public Set<HobbyType> getHobbies() {
+		return hobbies;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result
-				+ ((kategorie == null) ? 0 : kategorie.hashCode());
-		result = prime * result + ((vorname == null) ? 0 : vorname.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Privatkunde other = (Privatkunde) obj;
-		if (kategorie == null) {
-			if (other.kategorie != null)
-				return false;
-		} 
-		else if (!kategorie.equals(other.kategorie))
-			return false;
-		if (vorname == null) {
-			if (other.vorname != null)
-				return false;
-		} 
-		else if (!vorname.equals(other.vorname))
-			return false;
-		return true;
+	
+	public void setHobbies(Set<HobbyType> hobbies) {
+		this.hobbies = hobbies;
 	}
 
 	@Override
 	public String toString() {
-		return "Privatkunde [vorname=" + vorname + ", kategorie=" + kategorie
-				+ "]";
+		return "Privatkunde [" + super.toString() + ", familienstand=" + familienstand
+			   + ", geschlecht=" + geschlecht + ", hobbies=" + hobbies + ']';
 	}
-
 }
