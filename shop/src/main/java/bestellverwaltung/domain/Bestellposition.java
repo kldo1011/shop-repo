@@ -16,6 +16,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -24,9 +25,7 @@ import org.jboss.logging.Logger;
 import artikelverwaltung.domain.Artikel;
 import util.persistence.AbstractAuditable;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @Entity
 // TODO MySQL 5.7 kann einen Index nicht 2x anlegen
 @Table(indexes =  {
@@ -60,6 +59,7 @@ public class Bestellposition extends AbstractAuditable {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "artikel_fk", nullable = false)
 	@XmlTransient
+	@Valid
 	private Artikel artikel;
 
 	@Transient
