@@ -15,7 +15,7 @@ import kundenverwaltung.domain.Adresse;
 import kundenverwaltung.domain.Firmenkunde;
 import kundenverwaltung.domain.Kategorie;
 import kundenverwaltung.domain.Privatkunde;
-import artikelverwaltung.domain.AbstractArtikel;
+import artikelverwaltung.domain.Artikel;
 import artikelverwaltung.domain.Ersatzteil;
 import artikelverwaltung.domain.Fahrrad;
 
@@ -269,11 +269,11 @@ public class  Mock {
 	
 
 	
-	public static AbstractArtikel findArtikelById(Long id) {
+	public static Artikel findArtikelById(Long id) {
 		if (id > MAX_ARTIKEL) {
 			return null;
 		}
-		final AbstractArtikel artikel;
+		final Artikel artikel;
 
 		if (id % 2 == 0) {
 
@@ -296,13 +296,13 @@ public class  Mock {
 	}
 
 	
-	public static List<AbstractArtikel> findAllArtikel() {
+	public static List<Artikel> findAllArtikel() {
 
 		final int anzahl = MAX_ARTIKEL;
-		final List<AbstractArtikel> artikelList = new ArrayList<>(anzahl);
+		final List<Artikel> artikelList = new ArrayList<>(anzahl);
 
 		for (int i = 1; i <= anzahl; i++) {
-			final AbstractArtikel artikel = findArtikelById(Long.valueOf(i));
+			final Artikel artikel = findArtikelById(Long.valueOf(i));
 			artikelList.add(artikel);
 		}
 		return artikelList;
@@ -324,9 +324,9 @@ public class  Mock {
 		return ersatz;
 	}
 
-	public static void updateArtikel(AbstractArtikel artikel) {
+	public static void updateArtikel(Artikel artikel) {
 
-		final AbstractArtikel artikelAlt = findArtikelById(artikel.getId());
+		final Artikel artikelAlt = findArtikelById(artikel.getId());
 		artikelAlt.setPreis(artikel.getPreis());
 		artikelAlt.setTyp(artikel.getTyp());
 		if (artikel.getId() % 2 == 0) {
