@@ -6,9 +6,7 @@ import bestellverwaltung.domain.Bestellung;
 import bestellverwaltung.domain.Lieferung;
 import kundenverwaltung.domain.AbstractKunde;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 public interface BestellungService {
 	public enum FetchType { NUR_BESTELLUNG, MIT_LIEFERUNGEN }
 

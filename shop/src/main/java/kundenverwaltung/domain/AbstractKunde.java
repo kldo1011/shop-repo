@@ -127,8 +127,8 @@ import util.persistence.AbstractAuditable;
 @NamedEntityGraphs({
 	@NamedEntityGraph(name = AbstractKunde.GRAPH_BESTELLUNGEN,
 					  attributeNodes = @NamedAttributeNode("bestellungen")),
-	@NamedEntityGraph(name = AbstractKunde.GRAPH_WARTUNGSVERTRAEGE,
-					  attributeNodes = @NamedAttributeNode("wartungsvertraege"))
+	//@NamedEntityGraph(name = AbstractKunde.GRAPH_WARTUNGSVERTRAEGE,
+					  //attributeNodes = @NamedAttributeNode("wartungsvertraege"))
 })
 public abstract class AbstractKunde extends AbstractAuditable {
 	
