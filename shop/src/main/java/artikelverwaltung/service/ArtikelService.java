@@ -129,4 +129,21 @@ public class ArtikelService implements Serializable {
 				 .setParameter(Artikel.PARAM_PREIS, preis)
 				 .getResultList();
 	}
+	
+	/**
+	 * Einen neuen Kunden in der DB anlegen.
+	 * @param kunde Der anzulegende Kunde.
+	 * @return Der neue Kunde einschliesslich generierter ID.
+	 */
+	public <T extends Artikel> T createArtikel(T artikel) {
+		if (artikel == null) {
+			return artikel;
+		}
+
+		// Pruefung, ob bezeichnung
+		//final Artikel tmp=findArtikelById(artikel.getId());   // Kein Aufruf als Business-Methode
+		
+		em.persist(artikel);
+		return artikel;		
+	}
 }

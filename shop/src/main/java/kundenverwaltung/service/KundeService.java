@@ -1,4 +1,5 @@
 package kundenverwaltung.service;
+
 import static util.Constants.LOADGRAPH;
 
 import java.io.Serializable;
@@ -30,18 +31,16 @@ import bestellverwaltung.domain.Bestellung_;
 import kundenverwaltung.domain.AbstractKunde;
 import kundenverwaltung.domain.AbstractKunde_;
 import kundenverwaltung.domain.Adresse_;
+import kundenverwaltung.domain.Wartungsvertrag;
 import util.interceptor.Log;
+
+
 
 @Dependent
 @Log
 public class KundeService implements Serializable {
+	private static final long serialVersionUID = -5520738420154763865L;
 	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6579524153252046328L;
-
 	public enum FetchType {
 		NUR_KUNDE,
 		MIT_BESTELLUNGEN,
@@ -410,5 +409,35 @@ public class KundeService implements Serializable {
 		em.remove(kunde);
 	}
 
+	/**
+	 * Wartungsvertrage zu einem Kunden suchen
+	 * @param kundeId ID des Kunden
+	 * @return Liste der Wartungsvertraege des Kunden
+	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
+	 */
+	@Size(min = 1, message = "{wartungsvertrag.notFound.kundeId}")
+	public List<Wartungsvertrag> findWartungsvertraege(Long kundeId) {
+		return em.createNamedQuery(Wartungsvertrag.FIND_WARTUNGSVERTRAEGE_BY_KUNDE_ID, Wartungsvertrag.class)
+                 .setParameter(Wartungsvertrag.PARAM_KUNDE_ID, kundeId)
+                 .getResultList();
+	}
 	
+	/**
+	 * Einen neuen Wartungsvertrag in der DB anlegen.
+	 * @param wartungsvertrag Der neu anzulegende Wartungsvertrag
+	 * @param kunde Der zugehoerige Kunde
+	 * @return Der neu angelegte Wartungsvertrag
+	 */
+	public Wartungsvertrag createWartungsvertrag(Wartungsvertrag wartungsvertrag, AbstractKunde kunde) {
+		if (wartungsvertrag == null || kunde == null) {
+			return null;
+		}
+		
+		kunde = findKundeById(kunde.getId(), FetchType.NUR_KUNDE);
+		wartungsvertrag.setKunde(kunde);
+		kunde.addWartungsvertrag(wartungsvertrag);
+		
+		em.persist(wartungsvertrag);
+		return wartungsvertrag;
+	}
 }

@@ -1,4 +1,5 @@
 package artikelverwaltung.rest;
+import static util.Constants.KEINE_ID;
 import static util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
@@ -9,8 +10,10 @@ import java.net.URI;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -18,7 +21,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
 import artikelverwaltung.domain.Artikel;
 import artikelverwaltung.service.ArtikelService;
 import util.interceptor.Log;
@@ -62,5 +64,15 @@ public class ArtikelResource {
 	
 	public URI getUriArtikel(Artikel artikel, UriInfo uriInfo) {
 		return uriHelper.getUri(ArtikelResource.class, "findArtikelById", artikel.getId(), uriInfo);
+	}
+	
+	@POST
+	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Produces
+	public Response createArtikel(@Valid Artikel artikel) {
+		artikel.setId(KEINE_ID);
+		artikel = as.createArtikel(artikel);
+		return Response.created(getUriArtikel(artikel, uriInfo))
+				       .build();
 	}
 }

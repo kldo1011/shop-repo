@@ -1,4 +1,5 @@
 package kundenverwaltung.rest;
+
 import static util.Constants.ADD_LINK;
 import static util.Constants.FIRST_LINK;
 import static util.Constants.KEINE_ID;
@@ -54,6 +55,7 @@ import kundenverwaltung.service.KundeService.FetchType;
 import kundenverwaltung.service.KundeService.OrderType;
 import util.interceptor.Log;
 import util.rest.UriHelper;
+
 
 
 @Path("/kunden")

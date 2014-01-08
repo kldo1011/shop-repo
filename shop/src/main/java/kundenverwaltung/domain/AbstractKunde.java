@@ -61,9 +61,6 @@ import bestellverwaltung.domain.Bestellung;
 import util.persistence.AbstractAuditable;
 
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @ScriptAssert(lang = "javascript",
               script = "_this.password != null && !_this.password.equals(\"\")"
                        + " && _this.password.equals(_this.passwordWdh)",
@@ -127,17 +124,15 @@ import util.persistence.AbstractAuditable;
 @NamedEntityGraphs({
 	@NamedEntityGraph(name = AbstractKunde.GRAPH_BESTELLUNGEN,
 					  attributeNodes = @NamedAttributeNode("bestellungen")),
-	//@NamedEntityGraph(name = AbstractKunde.GRAPH_WARTUNGSVERTRAEGE,
-					  //attributeNodes = @NamedAttributeNode("wartungsvertraege"))
+	@NamedEntityGraph(name = AbstractKunde.GRAPH_WARTUNGSVERTRAEGE,
+					  attributeNodes = @NamedAttributeNode("wartungsvertraege"))
 })
 public abstract class AbstractKunde extends AbstractAuditable {
 	
-
-
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8408194730022165222L;
+	private static final long serialVersionUID = 2598924246578054743L;
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
@@ -240,7 +235,11 @@ public abstract class AbstractKunde extends AbstractAuditable {
 	@Transient
 	private URI bestellungenUri;
 
-
+	@OneToMany
+	@JoinColumn(name = "kunde_fk", nullable = false)
+	@OrderColumn(name = "idx", nullable = false)
+	@XmlTransient
+	private List<Wartungsvertrag> wartungsvertraege;
 
 	@PostPersist
 	protected void postPersist() {
@@ -404,6 +403,34 @@ public abstract class AbstractKunde extends AbstractAuditable {
 		this.bestellungenUri = bestellungenUri;
 	}
 
+	public List<Wartungsvertrag> getWartungsvertraege() {
+		if (wartungsvertraege == null) {
+			return null;
+		}
+		
+		return Collections.unmodifiableList(wartungsvertraege);
+	}
+
+	public void setWartungsvertraege(List<Wartungsvertrag> wartungsvertraege) {
+		if (this.wartungsvertraege == null) {
+			this.wartungsvertraege = wartungsvertraege;
+			return;
+		}
+		
+		// Wiederverwendung der vorhandenen Collection
+		this.wartungsvertraege.clear();
+		if (wartungsvertraege != null) {
+			this.wartungsvertraege.addAll(wartungsvertraege);
+		}
+	}
+	
+	public AbstractKunde addWartungsvertrag(Wartungsvertrag wartungsvertrag) {
+		if (wartungsvertraege == null) {
+			wartungsvertraege = new ArrayList<>();
+		}
+		wartungsvertraege.add(wartungsvertrag);
+		return this;
+	}
 
 
 	@Override
