@@ -33,16 +33,10 @@ import kundenverwaltung.domain.AbstractKunde;
 import kundenverwaltung.service.KundeService;
 import util.interceptor.Log;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @Dependent
 @Log
 public class BestellungServiceImpl implements Serializable, BestellungService {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 8018753630046588221L;
 
 	@Inject
@@ -54,11 +48,10 @@ public class BestellungServiceImpl implements Serializable, BestellungService {
 	@Inject
 	@NeueBestellung
 	private transient Event<Bestellung> event;
+
+
 	
-	/**
-	 * {inheritDoc}
-	 * @exception ConstraintViolationException zu @NotNull, falls keine Bestellung gefunden wurde
-	 */
+	
 	@Override
 	@NotNull(message = "{bestellung.notFound.id}")
 	public Bestellung findBestellungById(Long id, FetchType fetch) {
@@ -88,10 +81,7 @@ public class BestellungServiceImpl implements Serializable, BestellungService {
 		return bestellung;
 	}
 
-	/**
-	 * {inheritDoc}
-	 * @exception ConstraintViolationException zu @NotNull, falls kein Kunde gefunden wurde
-	 */
+
 	@Override
 	@NotNull(message = "{bestellung.kunde.notFound.id}")
 	public AbstractKunde findKundeById(Long id) {
@@ -161,49 +151,38 @@ public class BestellungServiceImpl implements Serializable, BestellungService {
 		return query.getResultList();
 	}
 
-	/**
-	 * Zuordnung einer neuen, transienten Bestellung zu einem existierenden, persistenten Kunden.
-	 * Der Kunde ist fuer den EntityManager bekannt, die Bestellung dagegen nicht. Das Zusammenbauen
-	 * wird sowohl fuer einen Web Service aus auch fuer eine Webanwendung benoetigt.
-	 */
+
 	@Override
 	public Bestellung createBestellung(Bestellung bestellung, Long kundeId) {
 		if (bestellung == null) {
 			return null;
 		}
 		
-		// Den persistenten Kunden mit der transienten Bestellung verknuepfen
+		
 		final AbstractKunde kunde = ks.findKundeById(kundeId, KundeService.FetchType.MIT_BESTELLUNGEN);
 		return createBestellung(bestellung, kunde);
 	}
 	
-	/**
-	 * Zuordnung einer neuen, transienten Bestellung zu einem existierenden, persistenten Kunden.
-	 * Der Kunde ist fuer den EntityManager bekannt, die Bestellung dagegen nicht. Das Zusammenbauen
-	 * wird sowohl fuer einen Web Service aus auch fuer eine Webanwendung benoetigt.
-	 */
+
 	@Override
 	public Bestellung createBestellung(Bestellung bestellung, AbstractKunde kunde) {
 		if (bestellung == null) {
 			return null;
 		}
 		
-		// Den persistenten Kunden mit der transienten Bestellung verknuepfen
+		
 		if (!em.contains(kunde)) {
 			kunde = ks.findKundeById(kunde.getId(), KundeService.FetchType.MIT_BESTELLUNGEN);
 		}
 		kunde.addBestellung(bestellung);
 		bestellung.setKunde(kunde);
 		
-		// Vor dem Abspeichern IDs zuruecksetzen:
-		// IDs koennten einen Wert != null haben, wenn sie durch einen Web Service uebertragen wurden
+		
 		bestellung.setId(KEINE_ID);
 		for (Bestellposition bp : bestellung.getBestellpositionen()) {
 			bp.setId(KEINE_ID);
 		}
-		// FIXME JDK 8 hat Lambda-Ausdruecke
-		//bestellung.getBestellpositionen()
-		//          .forEach(bp -> bp.setId(KEINE_ID));
+		
 		
 		em.persist(bestellung);
 		event.fire(bestellung);
@@ -211,9 +190,17 @@ public class BestellungServiceImpl implements Serializable, BestellungService {
 		return bestellung;
 	}
 	
-	/**
-	 * {inheritDoc}
-	 */
+	@Override
+	public Bestellung updateBestellung(Bestellung bestellung) {
+		
+		if(bestellung==null)
+			return null;
+		//TODO
+		
+		return bestellung;
+	}
+	
+
 	@Override
 	public List<Artikel> ladenhueter(int anzahl) {
 		return em.createNamedQuery(Bestellposition.FIND_LADENHUETER, Artikel.class)
@@ -221,10 +208,7 @@ public class BestellungServiceImpl implements Serializable, BestellungService {
 				 .getResultList();
 	}
 	
-	/**
-	 * {inheritDoc}
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+
 	@Override
 	@Size(min = 1, message = "{lieferung.notFound.nr}")
 	public List<Lieferung> findLieferungen(String nr) {
@@ -235,32 +219,25 @@ public class BestellungServiceImpl implements Serializable, BestellungService {
                  .getResultList();
 	}
 
-	/**
-	 * {inheritDoc}
-	 */
+
 	@Override
 	public Lieferung createLieferung(Lieferung lieferung, List<Bestellung> bestellungen) {
 		if (lieferung == null || bestellungen == null || bestellungen.isEmpty()) {
 			return null;
 		}
 		
-		// Beziehungen zu existierenden Bestellungen aktualisieren
-		
-		// Ids ermitteln
+
 		final List<Long> ids = new ArrayList<>();
 		for (Bestellung b : bestellungen) {
 			ids.add(b.getId());
 		}
-		// FIXME JDK 8 hat Lambda-Ausdruecke
-		//bestellungen.forEach(b -> ids.add(b.getId()));
-		
+
 		bestellungen = findBestellungenByIds(ids, FetchType.MIT_LIEFERUNGEN);
 		lieferung.setBestellungenAsList(bestellungen);
 		for (Bestellung bestellung : bestellungen) {
 			bestellung.addLieferung(lieferung);
 		}
-		// FIXME JDK 8 hat Lambda-Ausdruecke
-		//bestellungen.forEach(b -> b.addLieferung(lieferung));
+
 		
 		lieferung.setId(KEINE_ID);
 		em.persist(lieferung);		

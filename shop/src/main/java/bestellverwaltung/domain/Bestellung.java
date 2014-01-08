@@ -44,12 +44,9 @@ import kundenverwaltung.domain.AbstractKunde;
 import util.persistence.AbstractAuditable;
 
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @XmlRootElement
 @Entity
-// TODO MySQL 5.7 kann einen Index nicht 2x anlegen
 @Table(indexes = {
 	@Index(columnList = "kunde_fk"),
 	@Index(columnList = "erzeugt")

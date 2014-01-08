@@ -24,10 +24,7 @@ import util.interceptor.Log;
 @Dependent
 @Log
 public class ArtikelService implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 8533713475926007214L;
 	@Inject
 	private transient EntityManager em;
@@ -130,20 +127,19 @@ public class ArtikelService implements Serializable {
 				 .getResultList();
 	}
 	
-	/**
-	 * Einen neuen Kunden in der DB anlegen.
-	 * @param kunde Der anzulegende Kunde.
-	 * @return Der neue Kunde einschliesslich generierter ID.
-	 */
-	public <T extends Artikel> T createArtikel(T artikel) {
+
+	public Artikel createArtikel( Artikel artikel) {
 		if (artikel == null) {
 			return artikel;
 		}
-
-		// Pruefung, ob bezeichnung
-		//final Artikel tmp=findArtikelById(artikel.getId());   // Kein Aufruf als Business-Methode
-		
+	
 		em.persist(artikel);
 		return artikel;		
 	}
-}
+	
+	public void updateArtikel(Artikel artikel)
+	{
+		//ToDO Update Aritkel
+	}
+	
+	}

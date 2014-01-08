@@ -128,10 +128,7 @@ import util.persistence.AbstractAuditable;
 					  attributeNodes = @NamedAttributeNode("wartungsvertraege"))
 })
 public abstract class AbstractKunde extends AbstractAuditable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 2598924246578054743L;
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
@@ -182,8 +179,10 @@ public abstract class AbstractKunde extends AbstractAuditable {
 	@Size(min = NACHNAME_LENGTH_MIN, max = NACHNAME_LENGTH_MAX, message = "{kunde.nachname.length}")
 	@Pattern(regexp = NACHNAME_PATTERN, message = "{kunde.nachname.pattern}")
 	private String nachname;
-
+    
+	@NotNull(message = "{kunde.vorname.notNull}")
 	@Size(max = VORNAME_LENGTH_MAX, message = "{kunde.vorname.length}")
+	@Pattern(regexp = NACHNAME_PATTERN, message = "{kunde.vorname.pattern}")
 	private String vorname;
 	
 	@Temporal(DATE)

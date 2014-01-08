@@ -35,9 +35,7 @@ import org.jboss.logging.Logger;
 import util.persistence.AbstractAuditable;
 
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @XmlRootElement
 @Entity
 @NamedQueries({

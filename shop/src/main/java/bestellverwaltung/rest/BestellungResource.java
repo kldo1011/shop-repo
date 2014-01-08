@@ -42,10 +42,6 @@ import kundenverwaltung.rest.KundeResource;
 import util.interceptor.Log;
 import util.rest.UriHelper;
 
-
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @Path("/bestellungen")
 @Produces({APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes

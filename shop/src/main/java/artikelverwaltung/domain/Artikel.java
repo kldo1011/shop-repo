@@ -15,7 +15,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -26,9 +25,7 @@ import org.jboss.logging.Logger;
 import util.persistence.AbstractAuditable;
 
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @XmlRootElement
 @Entity
 @Table(indexes = @Index(columnList = "bezeichnung"))
@@ -76,7 +73,7 @@ public class Artikel extends AbstractAuditable {
 	private String bezeichnung = "";
     @NotNull(message = "{artikelverwaltung.artikel.preis.notnull}")
     @DecimalMin(value = "0.0", message = "{artikelverwaltung.artikel.preis.min}")
-	@Digits(integer = 10, fraction = 2, message = "{artikel.preis.digits}")
+	//@Digits(integer = 10, fraction = 2, message = "{artikel.preis.digits}")
 	private BigDecimal preis;
 	
 	@Basic(optional = false)
@@ -88,13 +85,23 @@ public class Artikel extends AbstractAuditable {
 	
 	public Artikel(String bezeichnung, BigDecimal preis) {
 		super();
-		this.bezeichnung = bezeichnung;
-		this.preis = preis;
+		this.setBezeichnung(bezeichnung);
+		
+		this.setPreis(preis);
 	}
 
 	@PostPersist
 	private void postPersist() {
 		LOGGER.debugf("Neuer Artikel mit ID=%d", id);
+	}
+	
+	public void setValues(Artikel a) 
+	{
+		
+		bezeichnung=a.bezeichnung;
+		preis=a.preis;
+		ausgesondert=a.ausgesondert;
+		
 	}
 
 	public Long getId() {

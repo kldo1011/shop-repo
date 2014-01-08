@@ -5,7 +5,10 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
+import java.lang.invoke.MethodHandles;
 import java.net.URI;
+
+import util.interceptor.Log;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -14,6 +17,7 @@ import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -21,9 +25,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import org.jboss.logging.Logger;
 import artikelverwaltung.domain.Artikel;
 import artikelverwaltung.service.ArtikelService;
-import util.interceptor.Log;
 import util.rest.UriHelper;
 
 
@@ -35,6 +39,9 @@ import util.rest.UriHelper;
 @Transactional
 @Log
 public class ArtikelResource {
+	
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
+	
 	@Context
 	private UriInfo uriInfo;
 	
@@ -72,7 +79,18 @@ public class ArtikelResource {
 	public Response createArtikel(@Valid Artikel artikel) {
 		artikel.setId(KEINE_ID);
 		artikel = as.createArtikel(artikel);
+		LOGGER.tracef("Artikel: %s", artikel);
 		return Response.created(getUriArtikel(artikel, uriInfo))
 				       .build();
+	}
+	@PUT
+	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Produces
+	public void updateArtikel(@Valid Artikel artikel) {
+		final Artikel orgArtikel=as.findArtikelById(artikel.getId());
+		LOGGER.tracef("Artikel vorher: %s", orgArtikel);
+		orgArtikel.setValues(artikel);
+		LOGGER.tracef("Artikel aktualisiert: %s", orgArtikel);
+		as.updateArtikel(artikel);
 	}
 }
