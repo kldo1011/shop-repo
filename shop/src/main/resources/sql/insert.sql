@@ -43,11 +43,11 @@ INSERT INTO wartungsvertrag (nr, datum, inhalt, kunde_fk, idx, erzeugt, aktualis
 --
 -- artikel
 --
-INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (300,'Fahrrad',80,0,'01.08.2006 00:00:00','01.08.2006 00:00:00');
-INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (301,'Sattel',10,0,'02.08.2006 00:00:00','02.08.2006 00:00:00');
-INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (302,'Reifen',300,0,'03.08.2006 00:00:00','03.08.2006 00:00:00');
-INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (303,'Schlauch',150,0,'04.08.2006 00:00:00','04.08.2006 00:00:00');
-INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (304,'Mountainbike',60,0,'05.08.2006 00:00:00','05.08.2006 00:00:00');
+INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (300,'Fahrrad',500,0,'01.08.2006 00:00:00','01.08.2006 00:00:00');
+INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (301,'Sattel',30,0,'02.08.2006 00:00:00','02.08.2006 00:00:00');
+INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (302,'Reifen',25,0,'03.08.2006 00:00:00','03.08.2006 00:00:00');
+INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (303,'Schlauch',20,0,'04.08.2006 00:00:00','04.08.2006 00:00:00');
+INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (304,'Mountainbike',600,0,'05.08.2006 00:00:00','05.08.2006 00:00:00');
 
 
 --
@@ -67,7 +67,6 @@ INSERT INTO bestellposition (id, bestellung_fk, artikel_fk, anzahl, erzeugt, akt
 INSERT INTO bestellposition (id, bestellung_fk, artikel_fk, anzahl, erzeugt, aktualisiert) VALUES (502,401,302,5,'02.08.2006 00:00:00','02.08.2006 00:00:00');
 INSERT INTO bestellposition (id, bestellung_fk, artikel_fk, anzahl, erzeugt, aktualisiert) VALUES (503,402,303,3,'03.08.2006 00:00:00','03.08.2006 00:00:00');
 INSERT INTO bestellposition (id, bestellung_fk, artikel_fk, anzahl, erzeugt, aktualisiert) VALUES (504,402,304,2,'03.08.2006 00:00:00','03.08.2006 00:00:00');
-INSERT INTO bestellposition (id, bestellung_fk, artikel_fk, anzahl, erzeugt, aktualisiert) VALUES (505,403,305,1,'04.08.2006 00:00:00','04.08.2006 00:00:00');
 INSERT INTO bestellposition (id, bestellung_fk, artikel_fk, anzahl, erzeugt, aktualisiert) VALUES (506,404,300,5,'05.08.2006 00:00:00','05.08.2006 00:00:00');
 INSERT INTO bestellposition (id, bestellung_fk, artikel_fk, anzahl, erzeugt, aktualisiert) VALUES (507,404,301,2,'05.08.2006 00:00:00','05.08.2006 00:00:00');
 INSERT INTO bestellposition (id, bestellung_fk, artikel_fk, anzahl, erzeugt, aktualisiert) VALUES (508,404,302,8,'05.08.2006 00:00:00','05.08.2006 00:00:00');
