@@ -31,7 +31,7 @@ public class BestellungObserver implements Serializable {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	private static final String NEWLINE = System.getProperty("line.separator");
 	
-	//@Inject
+	@Inject
 	private transient Session session;
 	
 	@Inject
