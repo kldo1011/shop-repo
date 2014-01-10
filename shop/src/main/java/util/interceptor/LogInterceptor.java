@@ -162,7 +162,6 @@ public class LogInterceptor implements Serializable {
 			if (arr.length > MAX_ELEM) {
 				return COUNT + arr.length;
 			}
-
 			final StringBuilder sbEnd = new StringBuilder("[");
 			final int anzahl = arr.length;
 			for (int i = 0; i < anzahl; i++) {

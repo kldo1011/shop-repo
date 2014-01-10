@@ -192,7 +192,7 @@ public class KundeResource {
 			//kunden.parallelStream()
 			//      .forEach(k -> setStructuralLinks(k, uriInfo));
 
-			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden){};
+			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden) { };
 
 			links = getTransitionalLinksKunden(kunden, uriInfo);
 		}
@@ -270,7 +270,7 @@ public class KundeResource {
 		}
 		
 
-		final Response response = Response.ok(new GenericEntity<List<Bestellung>>(bestellungen) {} )
+		final Response response = Response.ok(new GenericEntity<List<Bestellung>>(bestellungen) { })
 
                                           .links(getTransitionalLinksBestellungen(bestellungen, kunde, uriInfo))
                                           .build();
@@ -323,7 +323,7 @@ public class KundeResource {
 		//            .forEach(id -> bestellungenIds.add(id));
 		
 
-		return Response.ok(new GenericEntity<Collection<Long>>(bestellungenIds) {} )
+		return Response.ok(new GenericEntity<Collection<Long>>(bestellungenIds) { })
 
 				       .build();
 	}
