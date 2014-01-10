@@ -73,12 +73,9 @@ import util.persistence.AbstractAuditable;
 	@Type(value = Privatkunde.class, name = AbstractKunde.PRIVATKUNDE),
 	@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE)
 })
-// Alternativen bei @Inheritance
-//   strategy=SINGLE_TABLE (=default), TABLE_PER_CLASS, JOINED
-// Alternativen bei @DiscriminatorColumn
-//   discriminatorType=STRING (=default), CHAR, INTEGER
+
 @Entity
-//Zu email wird unten ein UNIQUE Index definiert
+
 @Table(name = "kunde", indexes = @Index(columnList = "nachname"))
 @Inheritance
 @DiscriminatorColumn(name = "art", length = 1)
@@ -133,7 +130,7 @@ public abstract class AbstractKunde extends AbstractAuditable {
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
-	//Pattern mit UTF-8 (statt Latin-1 bzw. ISO-8859-1) Schreibweise fuer Umlaute:
+	
 	private static final String NAME_PATTERN = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+";
 	private static final String PREFIX_ADEL = "(o'|von|von der|von und zu|van)?";
 	
@@ -211,20 +208,14 @@ public abstract class AbstractKunde extends AbstractAuditable {
 	@Transient
 	private String passwordWdh;
 	
-//	@AssertTrue(groups = PasswordGroup.class, message = "{kunde.password.notEqual}")
-//	public boolean isPasswordEqual() {
-//		if (password == null) {
-//			return passwordWdh == null;
-//		}
-//		return password.equals(passwordWdh);
-//	}
+
 	
 	@OneToOne(cascade = { PERSIST, REMOVE }, mappedBy = "kunde")
 	@Valid
 	@NotNull(message = "{kunde.adresse.notNull}")
 	private Adresse adresse;
 
-	// Default: fetch=LAZY
+	
 	@OneToMany
 	@JoinColumn(name = "kunde_fk", nullable = false)
 	@OrderColumn(name = "idx", nullable = false)
@@ -289,8 +280,7 @@ public abstract class AbstractKunde extends AbstractAuditable {
 		this.seit = seit == null ? null : (Date) seit.clone();
 	}
 
-	// Parameter, z.B. DateFormat.MEDIUM, Locale.GERMANY
-	// MEDIUM fuer Format dd.MM.yyyy
+	
 	public String getSeitAsString(int style, Locale locale) {
 		Date temp = seit;
 		if (temp == null) {
@@ -300,8 +290,7 @@ public abstract class AbstractKunde extends AbstractAuditable {
 		return f.format(temp);
 	}
 	
-	// Parameter, z.B. DateFormat.MEDIUM, Locale.GERMANY
-	// MEDIUM fuer Format dd.MM.yyyy
+	
 	public void setSeit(String seitStr, int style, Locale locale) {
 		final DateFormat f = DateFormat.getDateInstance(style, locale);
 		try {
@@ -379,7 +368,7 @@ public abstract class AbstractKunde extends AbstractAuditable {
 			return;
 		}
 		
-		// Wiederverwendung der vorhandenen Collection
+		
 		this.bestellungen.clear();
 		if (bestellungen != null) {
 			this.bestellungen.addAll(bestellungen);
@@ -416,7 +405,7 @@ public abstract class AbstractKunde extends AbstractAuditable {
 			return;
 		}
 		
-		// Wiederverwendung der vorhandenen Collection
+		
 		this.wartungsvertraege.clear();
 		if (wartungsvertraege != null) {
 			this.wartungsvertraege.addAll(wartungsvertraege);
@@ -444,8 +433,7 @@ public abstract class AbstractKunde extends AbstractAuditable {
 			   + ", " + super.toString() + "]";
 	}
 
-	/**
-	 */
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -454,8 +442,7 @@ public abstract class AbstractKunde extends AbstractAuditable {
 		return result;
 	}
 
-	/**
-	 */
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

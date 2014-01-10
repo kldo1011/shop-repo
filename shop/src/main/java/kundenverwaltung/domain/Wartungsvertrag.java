@@ -31,7 +31,7 @@ import util.persistence.AbstractAuditable;
 
 @XmlRootElement
 @Entity
-// TODO MySQL 5.7 kann einen Index nicht 2x anlegen
+
 @Table(indexes = @Index(columnList = "kunde_fk"))
 @NamedQueries({
 	@NamedQuery(name  = Wartungsvertrag.FIND_WARTUNGSVERTRAEGE_BY_KUNDE_ID,
@@ -165,9 +165,7 @@ public class Wartungsvertrag extends AbstractAuditable {
 		return true;
 	}
 	
-	/**
-	 * Klasse f&uuml;r den zusammengesetzten Prim&auml;rschl&uuml;ssel bei Wartungsvertr&auml;gen 
-	 */
+	
 	@Embeddable
 	public static class WartungsvertragId implements Serializable {
 		private static final long serialVersionUID = 5524909768642735623L;

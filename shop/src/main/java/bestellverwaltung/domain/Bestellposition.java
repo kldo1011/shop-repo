@@ -150,8 +150,7 @@ public class Bestellposition extends AbstractAuditable {
 		}
 		final Bestellposition other = (Bestellposition) obj;
 		
-		// Bei persistenten Bestellpositionen koennen zu verschiedenen Bestellungen gehoeren
-		// und deshalb den gleichen Artikel (s.u.) referenzieren, deshalb wird Id hier beruecksichtigt
+		
 		if (id == null) {
 			if (other.id != null) {
 				return false;
@@ -161,8 +160,7 @@ public class Bestellposition extends AbstractAuditable {
 			return false;
 		}
 
-		// Wenn eine neue Bestellung angelegt wird, dann wird jeder zu bestellende Artikel
-		// genau 1x referenziert (nicht zu verwechseln mit der "anzahl")
+		
 		if (artikel == null) {
 			if (other.artikel != null) {
 				return false;

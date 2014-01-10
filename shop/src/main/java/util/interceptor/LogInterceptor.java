@@ -15,20 +15,18 @@ import org.jboss.logging.Logger;
 
 @Interceptor
 @Log
-@Dependent    // FIXME https://issues.jboss.org/browse/WELD-1540
+@Dependent    
 public class LogInterceptor implements Serializable {
 	
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -7570420482877223941L;
 	private static final String COUNT = "Anzahl = ";
-	private static final int MAX_ELEM = 4;  // bei Collections wird ab 5 Elementen nur die Anzahl ausgegeben
+	private static final int MAX_ELEM = 4;  
 	
-	private static final int CHAR_POS_AFTER_SET = 3; // getX...
-	private static final int CHAR_POS_AFTER_IS = 2; // isX...
-	private static final int CHAR_POS_AFTER_GET = 3; // setX...
+	private static final int CHAR_POS_AFTER_SET = 3; 
+	private static final int CHAR_POS_AFTER_IS = 2; 
+	private static final int CHAR_POS_AFTER_GET = 3; 
 	
 	@AroundConstruct
 	public void logConstructor(InvocationContext ctx) throws Exception {
@@ -75,7 +73,7 @@ public class LogInterceptor implements Serializable {
 		
 		final Object[] params = ctx.getParameters();
 
-		// Methodenaufruf protokollieren
+		
 		final StringBuilder sb = new StringBuilder();
 		if (params != null) {
 			final int anzahlParams = params.length;
@@ -96,22 +94,10 @@ public class LogInterceptor implements Serializable {
 		logger.debug(methodName + " BEGINN" + sb);
 		
 		Object result = null;
-//		try {
-			// Eigentlicher Methodenaufruf
+
 			result = ctx.proceed();
 			
-		// Keine Protokollierung der geworfenen Exception:
-		// 1) Stacktrace wuerde abgeschnitten werden
-		// 2) Exception wird an der Ursprungsstelle bereits protokolliert.
-		//    Wenn der LoggingInterceptor in ejb-jar.xml abgeklemmt wird,
-		//    muss naemlich immer noch eine Protokollierung stattfinden.
 
-//		}
-//		catch (Exception e) {
-//			// Methode hat eine Exception geworfen
-//			log.error(methodName + ": " + e.getMessage());
-//			throw e;
-//		}
 
 		if (result == null) {
 			// Methode vom Typ void oder Rueckgabewert null
@@ -125,12 +111,10 @@ public class LogInterceptor implements Serializable {
 		return result;
 	}
 	
-	/**
-	 * Collection oder Array oder Objekt in einen String konvertieren
-	 */
+	
 	private static String toString(Object obj) {
 		if (obj instanceof Collection<?>) {
-			// Collection: Elemente bei kleiner Anzahl ausgeben; sonst nur die Anzahl
+			
 			final Collection<?> coll = (Collection<?>) obj;
 			final int anzahl = coll.size();
 			if (anzahl > MAX_ELEM) {
@@ -141,23 +125,21 @@ public class LogInterceptor implements Serializable {
 		}
 		
 		if (obj.getClass().isArray()) {
-			// Array in String konvertieren: Element fuer Element
+			
 			final String str = arrayToString(obj);
 			return str;
 		}
 
-		// Objekt, aber keine Collection und kein Array
+		
 		return obj.toString();
 	}
 	
-	/**
-	 * Array in einen String konvertieren
-	 */
+	
 	private static String arrayToString(Object obj) {
 		final Class<?> componentClass = obj.getClass().getComponentType();
 
 		if (!componentClass.isPrimitive()) {
-			// Array von Objekten
+			
 			final Object[] arr = (Object[]) obj;
 			if (arr.length > MAX_ELEM) {
 				return COUNT + arr.length;
@@ -181,7 +163,7 @@ public class LogInterceptor implements Serializable {
 			return sbEnd.toString();
 		}
 		
-		// Array von primitiven Werten: byte, short, int, long, ..., float, double, boolean, char
+		
 		
 		if ("short".equals(componentClass.getName())) {
 			final short[] arr = (short[]) obj;

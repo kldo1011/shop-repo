@@ -189,7 +189,7 @@ public class Bestellung extends AbstractAuditable {
 			return;
 		}
 		
-		// Wiederverwendung der vorhandenen Collection
+		
 		this.lieferungen.clear();
 		if (lieferungen != null) {
 			this.lieferungen.addAll(lieferungen);

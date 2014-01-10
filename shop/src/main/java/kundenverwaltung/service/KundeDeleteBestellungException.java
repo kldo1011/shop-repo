@@ -6,9 +6,7 @@ import javax.enterprise.context.Dependent;
 import util.interceptor.Log;
 import kundenverwaltung.domain.AbstractKunde;
 
-/**
- * Exception, die ausgel&ouml;st wird, wenn ein Kunde gel&ouml;scht werden soll, aber mindestens eine Bestellung hat
- */
+
 @Log
 @Dependent
 @ApplicationException(rollback = true)

@@ -95,11 +95,7 @@ public class KundeResource {
 		return VERSION;
 	}
 	
-	/**
-	 * Mit der URL /kunden/{id} einen Kunden ermitteln
-	 * @param id ID des Kunden
-	 * @return Objekt mit Kundendaten, falls die ID vorhanden ist
-	 */
+	
 	@GET
 	@Path("{" + KUNDEN_ID_PATH_PARAM + ":[1-9][0-9]*}")
 	public Response findKundeById(@PathParam(KUNDEN_ID_PATH_PARAM) Long id) {
@@ -150,12 +146,7 @@ public class KundeResource {
 	}
 
 
-	/**
-	 * Mit der URL /kunden werden alle Kunden ermittelt oder
-	 * mit kundenverwaltung/kunden?nachname=... diejenigen mit einem bestimmten Nachnamen.
-	 * @param nachname Nachname der gesuchten Kunden
-	 * @return Collection mit den gefundenen Kundendaten
-	 */
+	
 	@GET
 	public Response findKunden(@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM)
                                @Pattern(regexp = AbstractKunde.NACHNAME_PATTERN, message = "{kunde.nachname.pattern}")
@@ -188,9 +179,7 @@ public class KundeResource {
 			for (AbstractKunde k : kunden) {
 				setStructuralLinks(k, uriInfo);
 			}
-			// FIXME JDK 8 hat Lambda-Ausdruecke
-			//kunden.parallelStream()
-			//      .forEach(k -> setStructuralLinks(k, uriInfo));
+			
 
 			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden) { };
 
@@ -222,11 +211,7 @@ public class KundeResource {
 		return new Link[] {first, last };
 	}
 	
-	/**
-	 * IDs mit gleichem Praefix suchen
-	 * @param idPrefix Der gemeinsame Praefix
-	 * @return Collection der IDs mit gleichem Praefix
-	 */
+	
 	@GET
 	@Path("/prefix/id/{id:[1-9][0-9]*}")
 	public Collection<Long> findIdsByPrefix(@PathParam("id") String idPrefix) {
@@ -234,11 +219,7 @@ public class KundeResource {
 		return ids;
 	}
 	
-	/**
-	 * Nachnamen mit gleichem Praefix suchen
-	 * @param nachnamePrefix Der gemeinsame Praefix
-	 * @return Collection der Nachnamen mit gleichem Praefix
-	 */
+	
 	@GET
 	@Path("/prefix/nachname/{nachname}")
 	@Produces({ APPLICATION_JSON, TEXT_PLAIN + ";qs=0.75" })
@@ -248,11 +229,7 @@ public class KundeResource {
 	}
 
 	
-	/**
-	 * Mit der URL /kunden/{id}/bestellungen die Bestellungen zu eine Kunden ermitteln
-	 * @param kundeId ID des Kunden
-	 * @return Objekt mit Bestellungsdaten, falls die ID vorhanden ist
-	 */
+	
 	@GET
 	@Path("{id:[1-9][0-9]*}/bestellungen")
 	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
@@ -264,9 +241,7 @@ public class KundeResource {
 			for (Bestellung bestellung : bestellungen) {
 				bestellungResource.setStructuralLinks(bestellung, uriInfo);
 			}
-			// FIXME JDK 8 hat Lambda-Ausdruecke
-			//bestellungen.parallelStream()
-			//            .forEach(b -> bestellungResource.setStructuralLinks(b, uriInfo));
+			
 		}
 		
 
@@ -300,11 +275,7 @@ public class KundeResource {
 	}
 	
 
-	/**
-	 * Bestellung-IDs zu einem Kunden suchen
-	 * @param kundeId ID des Kunden
-	 * @return Liste der Bestellung-IDs
-	 */
+	
 	@GET
 	@Path("{id:[1-9][0-9]*}/bestellungenIds")
 	@Produces({ APPLICATION_JSON, TEXT_PLAIN + ";qs=0.75", APPLICATION_XML + ";qs=0.5" })
@@ -317,10 +288,7 @@ public class KundeResource {
 		for (Bestellung bestellung : bestellungen) {
 			bestellungenIds.add(bestellung.getId());
 		}
-		// FIXME JDK 8 hat Lambda-Ausdruecke
-		//bestellungen.parallelStream()
-		//            .map(Bestellung::getId)
-		//            .forEach(id -> bestellungenIds.add(id));
+		
 		
 
 		return Response.ok(new GenericEntity<Collection<Long>>(bestellungenIds) { })
@@ -328,23 +296,11 @@ public class KundeResource {
 				       .build();
 	}
 	
-	/**
-	 * Mit der URL /kunden/{id}/wartungsvertraege die Wartungsvertraege ermitteln
-	 * zu einem bestimmten Kunden ermitteln
-	 * @param id ID des Kunden
-	 * @return Wartungsvertraege, falls die ID vorhanden ist
-	 */
+	
 	@GET
 	@Path("{id:[1-9][0-9]*}/wartungsvertraege")
 	public Response findWartungsvertraegeByKundeId(@PathParam("id") Long id) {
-		// Diese Methode ist bewusst NICHT implementiert, um zu zeigen,
-		// wie man Methodensignaturen an der Schnittstelle fuer andere
-		// Teammitglieder schon mal bereitstellt, indem einfach ein "Internal
-		// Server Error (500)" produziert wird.
-		// Die Kolleg/inn/en koennen nun weiterarbeiten, waehrend man selbst
-		// gerade keine Zeit hat, weil andere Aufgaben Vorrang haben.
 		
-		// TODO findWartungsvertraegeByKundeId noch nicht implementiert
 		return Response.status(INTERNAL_SERVER_ERROR)
 				       .entity("findWartungsvertraegeByKundeId: NOT YET IMPLEMENTED")
 				       .type(TEXT_PLAIN)
@@ -352,11 +308,7 @@ public class KundeResource {
 	}
 	
 
-	/**
-	 * Mit der URL /kunden einen Privatkunden per POST anlegen.
-	 * @param kunde neuer Kunde
-	 * @return Response-Objekt mit URL des neuen Privatkunden
-	 */
+	
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
@@ -376,10 +328,7 @@ public class KundeResource {
 	}
 	
 	
-	/**
-	 * Mit der URL /kunden einen Kunden per PUT aktualisieren
-	 * @param kunde zu aktualisierende Daten des Kunden
-	 */
+	
 	@PUT
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
@@ -397,10 +346,7 @@ public class KundeResource {
 	}
 	
 	
-	/**
-	 * Mit der URL /kunden{id} einen Kunden per DELETE l&ouml;schen
-	 * @param kundeId des zu l&ouml;schenden Kunden
-	 */
+	
 	@Path("{id:[0-9]+}")
 	@DELETE
 	@Produces

@@ -127,7 +127,7 @@ public class Lieferung extends AbstractAuditable {
 			return;
 		}
 		
-		// Wiederverwendung der vorhandenen Collection
+		
 		this.bestellungen.clear();
 		if (bestellungen != null) {
 			this.bestellungen.addAll(bestellungen);

@@ -55,13 +55,7 @@ public class KundeService implements Serializable {
 	@Inject
 	private transient EntityManager em;
 
-	/**
-	 * Suche einen Kunden zu gegebener ID.
-	 * @param id Die gegebene ID.
-	 * @param fetch Angabe, welche Objekte aus der DB mitgeladen werden sollen, z.B. Bestellungen.
-	 * @return Der gefundene Kunde.
-	 * @exception ConstraintViolationException zu @NotNull, falls kein Kunde gefunden wurde
-	 */
+	
 	@NotNull(message = "{kunde.notFound.id}")
 	public AbstractKunde findKundeById(Long id, FetchType fetch) {
 		if (id == null) {
@@ -96,23 +90,14 @@ public class KundeService implements Serializable {
 		return kunde;
 	}
 
-	/**
-	 * Suche nach IDs mit gleichem Praefix.
-	 * @param idPrefix Der gemeinsame Praefix.
-	 * @return Liste der passenden Praefixe.
-	 */
+	
 	public List<Long> findIdsByPrefix(String idPrefix) {
 		return em.createNamedQuery(AbstractKunde.FIND_IDS_BY_PREFIX, Long.class)
 				 .setParameter(AbstractKunde.PARAM_KUNDE_ID_PREFIX, idPrefix + '%')
 				 .getResultList();
 	}
 	
-	/**
-	 * Suche einen Kunden zu gegebener Email-Adresse.
-	 * @param email Die gegebene Email-Adresse.
-	 * @return Der gefundene Kunde.
-	 * @exception ConstraintViolationException zu @NotNull, falls kein Kunde gefunden wurde
-	 */
+	
 	@NotNull(message = "{kunde.notFound.email}")
 	public AbstractKunde findKundeByEmail(String email) {
 		try {
@@ -125,12 +110,7 @@ public class KundeService implements Serializable {
 		}
 	}
 
-	/**
-	 * Suche alle Kunden.
-	 * @param fetch Angabe, welche Objekte aus der DB mitgeladen werden sollen, z.B. Bestellungen.
-	 * @param order Sortierreihenfolge, z.B. noch ID
-	 * @return Liste der Kunden
-	 */
+	
 	public List<AbstractKunde> findAllKunden(FetchType fetch, OrderType order) {
 		final TypedQuery<AbstractKunde> query = OrderType.ID.equals(order)
 		                                        ? em.createNamedQuery(AbstractKunde.FIND_KUNDEN_ORDER_BY_ID,
@@ -159,13 +139,7 @@ public class KundeService implements Serializable {
 		return query.getResultList();
 	}
 	
-	/**
-	 * Suche alle Kunden mit gleichem Nachnamen
-	 * @param nachname Der gemeinsame Nachname
-	 * @param fetch Angabe, welche Objekte aus der DB mitgeladen werden sollen, z.B. Bestellungen.
-	 * @return Liste der gefundenen Kunden
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Size(min = 1, message = "{kunde.notFound.nachname}")
 	public List<AbstractKunde> findKundenByNachname(String nachname, FetchType fetch) {
 		final TypedQuery<AbstractKunde> query = em.createNamedQuery(AbstractKunde.FIND_KUNDEN_BY_NACHNAME,
@@ -194,23 +168,14 @@ public class KundeService implements Serializable {
 		return query.getResultList();
 	}
 
-	/**
-	 * Suche alle Nachnamen mit gleichem Praefix
-	 * @param nachnamePrefix Der gemeinsame Praefix
-	 * @return Liste der passenden Nachnamen
-	 */
+	
 	public List<String> findNachnamenByPrefix(String nachnamePrefix) {
 		return em.createNamedQuery(AbstractKunde.FIND_NACHNAMEN_BY_PREFIX, String.class)
 				 .setParameter(AbstractKunde.PARAM_KUNDE_NACHNAME_PREFIX, nachnamePrefix + '%')
 				 .getResultList();
 	}
 	
-	/**
-	 * Die Kunden mit gleicher Postleitzahl suchen.
-	 * @param plz Die Postleitzahl
-	 * @return Liste der passenden Kunden.
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Size(min = 1, message = "{kunde.notFound.plz}")
 	public List<AbstractKunde> findKundenByPLZ(String plz) {
 		return em.createNamedQuery(AbstractKunde.FIND_KUNDEN_BY_PLZ, AbstractKunde.class)
@@ -218,12 +183,7 @@ public class KundeService implements Serializable {
                  .getResultList();
 	}
 
-	/**
-	 * Diejenigen Kunden suchen, die seit einem bestimmten Datum registriert sind. 
-	 * @param seit Das zu vergleichende Datum
-	 * @return Die Liste der passenden Kunden
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Size(min = 1, message = "{kunde.notFound.seit}")
 	public List<AbstractKunde> findKundenBySeit(Date seit) {
 		return em.createNamedQuery(AbstractKunde.FIND_KUNDEN_BY_DATE, AbstractKunde.class)
@@ -231,21 +191,13 @@ public class KundeService implements Serializable {
                  .getResultList();
 	}
 	
-	/**
-	 * Alle Privat- und Firmenkunden suchen.
-	 * @return Liste der Privat- und Firmenkunden.
-	 */
+	
 	public List<AbstractKunde> findPrivatkundenFirmenkunden() {
 		return em.createNamedQuery(AbstractKunde.FIND_PRIVATKUNDEN_FIRMENKUNDEN, AbstractKunde.class)
                  .getResultList();
 	}
 	
-	/**
-	 * Kunden mit gleichem Nachnamen durch eine Criteria-Query suchen.
-	 * @param nachname Der gemeinsame Nachname.
-	 * @return Liste der passenden Kunden
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Size(min = 1, message = "{kunde.notFound.nachname}")
 	public List<AbstractKunde> findKundenByNachnameCriteria(String nachname) {
 		final CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -263,12 +215,7 @@ public class KundeService implements Serializable {
 		return em.createQuery(criteriaQuery).getResultList();
 	}
 	
-	/**
-	 * Die Kunden mit einer bestimmten Mindestbestellmenge suchen.
-	 * @param minMenge Die Mindestbestellmenge
-	 * @return Liste der passenden Kunden
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Size(min = 1, message = "{kunde.notFound.minBestMenge}")
 	public List<AbstractKunde> findKundenMitMinBestMenge(short minMenge) {
 		final CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -284,22 +231,11 @@ public class KundeService implements Serializable {
 		         .getResultList();
 	}
 
-	/**
-	 * Kunden zu den Suchkriterien suchen
-	 * @param email Email-Adresse
-	 * @param nachname Nachname
-	 * @param plz Postleitzahl
-	 * @üaram seit Datum seit
-	 * @param minBestMenge Mindestbestellmenge
-	 * @return Die gefundenen Kunden
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@NotNull(message = "{kunde.notFound.criteria}")
 	public List<AbstractKunde> findKundenByCriteria(String email, String nachname, String plz, Date seit,
 			                                        Short minBestMenge) {
-		// SELECT DISTINCT k
-		// FROM   AbstractKunde k
-		// WHERE  email = ? AND nachname = ? AND k.adresse.plz = ? and seit = ?
+		
 		
 		final CriteriaBuilder builder = em.getCriteriaBuilder();
 		final CriteriaQuery<AbstractKunde> criteriaQuery  = builder.createQuery(AbstractKunde.class);
@@ -339,17 +275,13 @@ public class KundeService implements Serializable {
 		return em.createQuery(criteriaQuery).getResultList();
 	}
 	
-	/**
-	 * Einen neuen Kunden in der DB anlegen.
-	 * @param kunde Der anzulegende Kunde.
-	 * @return Der neue Kunde einschliesslich generierter ID.
-	 */
+	
 	public <T extends AbstractKunde> T createKunde(T kunde) {
 		if (kunde == null) {
 			return kunde;
 		}
 
-		// Pruefung, ob die Email-Adresse schon existiert
+		
 		final AbstractKunde tmp = findKundeByEmail(kunde.getEmail());   // Kein Aufruf als Business-Methode
 		if (tmp != null) {
 			throw new EmailExistsException(kunde.getEmail());
@@ -359,25 +291,21 @@ public class KundeService implements Serializable {
 		return kunde;		
 	}
 	
-	/**
-	 * Einen vorhandenen Kunden aktualisieren
-	 * @param kunde Der Kunde mit aktualisierten Attributwerten
-	 * @return Der aktualisierte Kunde
-	 */
+	
 	public <T extends AbstractKunde> T updateKunde(T kunde) {
 		if (kunde == null) {
 			return null;
 		}
 		
-		// kunde vom EntityManager trennen, weil anschliessend z.B. nach Id und Email gesucht wird
+		
 		em.detach(kunde);
 		
-		// Gibt es ein anderes Objekt mit gleicher Email-Adresse?
-		final AbstractKunde tmp = findKundeByEmail(kunde.getEmail());  // Kein Aufruf als Business-Methode
+		
+		final AbstractKunde tmp = findKundeByEmail(kunde.getEmail());  
 		if (tmp != null) {
 			em.detach(tmp);
 			if (tmp.getId().longValue() != kunde.getId().longValue()) {
-				// anderes Objekt mit gleichem Attributwert fuer email
+				
 				throw new EmailExistsException(kunde.getEmail());
 			}
 		}
@@ -386,22 +314,19 @@ public class KundeService implements Serializable {
 		return kunde;
 	}
 
-	/**
-	 * Einen Kunden aus der DB loeschen, falls er existiert.
-	 * @param kunde Der zu loeschende Kunde.
-	 */
+	
 	public void deleteKunde(AbstractKunde kunde) {
 		if (kunde == null) {
 			return;
 		}
 		
-		// Bestellungen laden, damit sie anschl. ueberprueft werden koennen
-		kunde = findKundeById(kunde.getId(), FetchType.MIT_BESTELLUNGEN);  // Kein Aufruf als Business-Methode
+		
+		kunde = findKundeById(kunde.getId(), FetchType.MIT_BESTELLUNGEN);  
 		if (kunde == null) {
 			return;
 		}
 		
-		// Gibt es Bestellungen?
+		
 		if (!kunde.getBestellungen().isEmpty()) {
 			throw new KundeDeleteBestellungException(kunde);
 		}
@@ -409,12 +334,7 @@ public class KundeService implements Serializable {
 		em.remove(kunde);
 	}
 
-	/**
-	 * Wartungsvertrage zu einem Kunden suchen
-	 * @param kundeId ID des Kunden
-	 * @return Liste der Wartungsvertraege des Kunden
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Size(min = 1, message = "{wartungsvertrag.notFound.kundeId}")
 	public List<Wartungsvertrag> findWartungsvertraege(Long kundeId) {
 		return em.createNamedQuery(Wartungsvertrag.FIND_WARTUNGSVERTRAEGE_BY_KUNDE_ID, Wartungsvertrag.class)
@@ -422,12 +342,7 @@ public class KundeService implements Serializable {
                  .getResultList();
 	}
 	
-	/**
-	 * Einen neuen Wartungsvertrag in der DB anlegen.
-	 * @param wartungsvertrag Der neu anzulegende Wartungsvertrag
-	 * @param kunde Der zugehoerige Kunde
-	 * @return Der neu angelegte Wartungsvertrag
-	 */
+	
 	public Wartungsvertrag createWartungsvertrag(Wartungsvertrag wartungsvertrag, AbstractKunde kunde) {
 		if (wartungsvertrag == null || kunde == null) {
 			return null;

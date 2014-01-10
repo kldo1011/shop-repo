@@ -10,9 +10,7 @@ import util.interceptor.Log;
 public class EmailExistsException extends AbstractKundeServiceException {
 
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -6299385679845138634L;
 	private static final String MESSAGE_KEY = "kunde.emailExists";
 	private final String email;

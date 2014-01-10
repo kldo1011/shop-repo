@@ -30,44 +30,27 @@ public class ArtikelService implements Serializable {
 	@Inject
 	private transient EntityManager em;
 	
-	/**
-	 * Suche nach verfuegbaren Artikeln.
-	 * @return Liste der verfuegbaren Artikel.
-	 */
+	
 	public List<Artikel> findVerfuegbareArtikel() {
 		return em.createNamedQuery(Artikel.FIND_VERFUEGBARE_ARTIKEL, Artikel.class)
 				 .getResultList();
 	}
 
 	
-	/**
-	 * Suche den Artikel zu gegebener ID.
-	 * @param id ID des gesuchten Artikels.
-	 * @return Der gefundene Artikel, null sonst.
-	 * @exception ConstraintViolationException zu @NotNull, falls kein Artikel gefunden wurde
-	 */
+	
 	@NotNull(message = "{artikel.notFound.id}")
 	public Artikel findArtikelById(Long id) {
 		return em.find(Artikel.class, id);
 	}
 	
-	/**
-	 * Suche die Artikel zu gegebenen IDs. 
-	 * @param ids Liste der IDs
-	 * @return Liste der gefundenen Artikel
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Size(min = 1, message = "{artikel.notFound.ids}")
 	public List<Artikel> findArtikelByIds(List<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
 			return Collections.emptyList();
 		}
 		
-		/*
-		 * SELECT a
-		 * FROM   Artikel a
-		 * WHERE  a.id = ? OR a.id = ? OR ...
-		 */
+		
 		final CriteriaBuilder builder = em.getCriteriaBuilder();
 		final CriteriaQuery<Artikel> criteriaQuery = builder.createQuery(Artikel.class);
 		final Root<Artikel> a = criteriaQuery.from(Artikel.class);
@@ -98,12 +81,7 @@ public class ArtikelService implements Serializable {
 	}
 
 	
-	/**
-	 * Suche die Artikel mit gleicher Bezeichnung
-	 * @param bezeichnung Gemeinsame Bezeichnung der gesuchten Artikel
-	 * @return Liste der gefundenen Artikel
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Size(min = 1, message = "{artikel.notFound.bezeichnung}")
 	public List<Artikel> findArtikelByBezeichnung(String bezeichnung) {
 		if (Strings.isNullOrEmpty(bezeichnung)) {
@@ -115,12 +93,7 @@ public class ArtikelService implements Serializable {
 				 .getResultList();
 	}
 	
-	/**
-	 * Suche Artikel, die preiswerter als ein bestimmter Preis sind
-	 * @param preis Maximaler Preis
-	 * @return Liste der Artikel mit einem geringeren Preis als die angegebene Obergrenze
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Size(min = 1, message = "{kunde.notFound.maxPreis}")
 	public List<Artikel> findArtikelByMaxPreis(BigDecimal preis) {
 		return em.createNamedQuery(Artikel.FIND_ARTIKEL_MAX_PREIS, Artikel.class)
@@ -129,7 +102,7 @@ public class ArtikelService implements Serializable {
 	}
 	
 
-	public Artikel createArtikel( Artikel artikel){
+	public Artikel createArtikel(Artikel artikel) {
 		if (artikel == null) {
 			return artikel;
 		}

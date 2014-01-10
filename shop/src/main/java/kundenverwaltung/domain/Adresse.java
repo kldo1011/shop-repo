@@ -23,16 +23,12 @@ import org.jboss.logging.Logger;
 
 import util.persistence.AbstractAuditable;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @Entity
-@Table(indexes = @Index(columnList = "plz"))   // Zu kunde_fk wird unten ein UNIQUE Index definiert
+@Table(indexes = @Index(columnList = "plz"))   
 public class Adresse extends AbstractAuditable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1694112393457760638L;
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
@@ -67,7 +63,7 @@ public class Adresse extends AbstractAuditable {
 
 	@OneToOne
 	@JoinColumn(name = "kunde_fk", nullable = false, unique = true)
-	//NICHT @NotNull, weil beim Anlegen ueber REST der Rueckwaertsverweis noch nicht existiert
+	
 	@XmlTransient
 	private AbstractKunde kunde;
 	

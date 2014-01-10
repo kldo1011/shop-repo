@@ -25,9 +25,7 @@ import com.google.common.base.Splitter;
 
 import util.interceptor.Log;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @ApplicationScoped
 @Log
 public class Messages {
@@ -112,7 +110,7 @@ public class Messages {
 			if (bundle != null) {
 				break;
 			}
-			// wenn es z.B. "en_US" nicht gibt, dann evtl. nur "en"
+			
 			String localeStr = locale.toString();
 			if (localeStr.length() > 2) {
 				localeStr = localeStr.substring(0, 2);

@@ -95,10 +95,7 @@ public class BestellungServiceImpl implements Serializable, BestellungService {
 		}
 	}
 
-	/**
-	 * {inheritDoc}
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Override
 	@Size(min = 1, message = "{bestellung.notFound.kunde}")
 	public List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
@@ -111,10 +108,7 @@ public class BestellungServiceImpl implements Serializable, BestellungService {
 	}
 	
 	
-	/**
-	 * {inheritDoc}
-	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
-	 */
+	
 	@Override
 	@Size(min = 1, message = "{bestellung.notFound.ids}")
 	public List<Bestellung> findBestellungenByIds(List<Long> ids, FetchType fetch) {
@@ -122,22 +116,19 @@ public class BestellungServiceImpl implements Serializable, BestellungService {
 			return Collections.emptyList();
 		}
 		
-		// SELECT b
-		// FROM   Bestellung b
-		// WHERE  b.id = <id> OR ...
-
+		
 		final CriteriaBuilder builder = em.getCriteriaBuilder();
 		final CriteriaQuery<Bestellung> criteriaQuery  = builder.createQuery(Bestellung.class);
 		final Root<Bestellung> b = criteriaQuery.from(Bestellung.class);
 		
-		// Die Vergleichen mit "=" als Liste aufbauen
+		
 		final Path<Long> idPath = b.get("id");
 		final List<Predicate> predList = new ArrayList<>();
 		for (Long id : ids) {
 			final Predicate equal = builder.equal(idPath, id);
 			predList.add(equal);
 		}
-		// Die Vergleiche mit "=" durch "or" verknuepfen
+		
 		final Predicate[] predArray = new Predicate[predList.size()];
 		final Predicate pred = builder.or(predList.toArray(predArray));
 		criteriaQuery.where(pred).distinct(true);
