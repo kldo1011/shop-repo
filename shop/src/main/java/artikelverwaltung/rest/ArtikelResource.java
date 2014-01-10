@@ -69,7 +69,7 @@ public class ArtikelResource {
                               .rel(SELF_LINK)
                               .build();
 
-		return new Link[] { self };
+		return new Link[] {self };
 	}
 	
 	public URI getUriArtikel(Artikel artikel, UriInfo uriInfo) {

@@ -56,13 +56,13 @@ public class Bestellposition extends AbstractAuditable {
 	@JoinColumn(name = "artikel_fk", nullable = false)
 	@XmlTransient
 	@Valid
-	@NotNull(message="{bestellposition.artikel.notNull}")
+	@NotNull(message = "{bestellposition.artikel.notNull}")
 	private Artikel artikel;
 
 	@XmlTransient
 	private URI artikelUri;
 	
-    @NotNull(message="{bestellposition.anzahl.notNull}")
+    @NotNull(message = "{bestellposition.anzahl.notNull}")
 	@Min(value = ANZAHL_MIN, message = "{bestellposition.anzahl.min}")
 	@Basic(optional = false)
 	private short anzahl;

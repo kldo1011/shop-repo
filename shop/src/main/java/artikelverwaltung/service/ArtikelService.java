@@ -129,7 +129,7 @@ public class ArtikelService implements Serializable {
 	}
 	
 
-	public Artikel createArtikel( Artikel artikel) {
+	public Artikel createArtikel( Artikel artikel){
 		if (artikel == null) {
 			return artikel;
 		}

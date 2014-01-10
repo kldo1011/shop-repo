@@ -95,12 +95,11 @@ public class Artikel extends AbstractAuditable {
 		LOGGER.debugf("Neuer Artikel mit ID=%d", id);
 	}
 	
-	public void setValues(Artikel a) 
-	{
+	public void setValues(Artikel a) {	
 		
-		bezeichnung=a.bezeichnung;
-		preis=a.preis;
-		ausgesondert=a.ausgesondert;
+		bezeichnung = a.bezeichnung;
+		preis = a.preis;
+		ausgesondert = a.ausgesondert;
 		
 	}
 
