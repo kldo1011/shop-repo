@@ -7,6 +7,7 @@ import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
+import java.util.Date;
 
 import util.interceptor.Log;
 
@@ -25,7 +26,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+
 import org.jboss.logging.Logger;
+
 import artikelverwaltung.domain.Artikel;
 import artikelverwaltung.service.ArtikelService;
 import util.rest.UriHelper;
@@ -83,14 +86,18 @@ public class ArtikelResource {
 		return Response.created(getUriArtikel(artikel, uriInfo))
 				       .build();
 	}
-	@PUT
-	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
-	@Produces
-	public void updateArtikel(@Valid Artikel artikel) {
-		final Artikel orgArtikel=as.findArtikelById(artikel.getId());
-		LOGGER.tracef("Artikel vorher: %s", orgArtikel);
-		orgArtikel.setValues(artikel);
-		LOGGER.tracef("Artikel aktualisiert: %s", orgArtikel);
-		as.updateArtikel(artikel);
-	}
+    @PUT
+    @Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+    @Produces
+    public void updateArtikel(@Valid Artikel artikel) {
+            final Artikel orgArtikel = as.findArtikelById(artikel.getId());
+            LOGGER.tracef("Artikel vorher: %s", orgArtikel);
+            final Artikel tmp = as.findArtikelById(artikel.getId());
+            final Date erzeugt = tmp.getErzeugt();
+            artikel.setErzeugt(erzeugt);
+            orgArtikel.setValues(artikel);
+            LOGGER.tracef("Arikel nachher: %s, orgArtikel");
+            
+            as.updateArtikel(artikel);
+    }
 }
