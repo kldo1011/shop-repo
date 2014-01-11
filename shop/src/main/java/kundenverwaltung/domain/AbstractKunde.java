@@ -177,9 +177,7 @@ public abstract class AbstractKunde extends AbstractAuditable {
 	@Pattern(regexp = NACHNAME_PATTERN, message = "{kunde.nachname.pattern}")
 	private String nachname;
     
-	@NotNull(message = "{kunde.vorname.notNull}")
 	@Size(max = VORNAME_LENGTH_MAX, message = "{kunde.vorname.length}")
-	@Pattern(regexp = NACHNAME_PATTERN, message = "{kunde.vorname.pattern}")
 	private String vorname;
 	
 	@Temporal(DATE)

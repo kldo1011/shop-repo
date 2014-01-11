@@ -1,4 +1,5 @@
 package bestellverwaltung.rest;
+
 import static bestellverwaltung.service.BestellungService.FetchType.NUR_BESTELLUNG;
 import static util.Constants.ADD_LINK;
 import static util.Constants.SELF_LINK;
@@ -42,6 +43,7 @@ import kundenverwaltung.rest.KundeResource;
 import util.interceptor.Log;
 import util.rest.UriHelper;
 
+
 @Path("/bestellungen")
 @Produces({APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
@@ -67,7 +69,11 @@ public class BestellungResource {
 	@Inject
 	private UriHelper uriHelper;
 	
-	
+	/**
+	 * Mit der URL /bestellungen/{id} eine Bestellung ermitteln
+	 * @param id ID der Bestellung
+	 * @return Objekt mit Bestelldaten, falls die ID vorhanden ist
+	 */
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
@@ -108,18 +114,30 @@ public class BestellungResource {
 		final Link add = Link.fromUri(uriHelper.getUri(BestellungResource.class, uriInfo))
                              .rel(ADD_LINK)
                              .build();
-		return new Link[] {self, add };
+		return new Link[] { self, add };
 	}
 
 	public URI getUriBestellung(Bestellung bestellung, UriInfo uriInfo) {
 		return uriHelper.getUri(BestellungResource.class, "findBestellungById", bestellung.getId(), uriInfo);
 	}
 	
-	
+	/**
+	 * Mit der URL /bestellungen/{id}/lieferungen die Lieferung ermitteln
+	 * zu einer bestimmten Bestellung ermitteln
+	 * @param id ID der Bestellung
+	 * @return Objekt mit Lieferdaten, falls die ID vorhanden ist
+	 */
 	@GET
 	@Path("{id:[1-9][0-9]*}/lieferungen")
 	public Response findLieferungenByBestellungId(@PathParam("id") Long id) {
+		// Diese Methode ist bewusst NICHT implementiert, um zu zeigen,
+		// wie man Methodensignaturen an der Schnittstelle fuer andere
+		// Teammitglieder schon mal bereitstellt, indem einfach ein "Internal
+		// Server Error (500)" produziert wird.
+		// Die Kolleg/inn/en koennen nun weiterarbeiten, waehrend man selbst
+		// gerade keine Zeit hat, weil andere Aufgaben Vorrang haben.
 		
+		// TODO findLieferungenByBestellungId noch nicht implementiert
 		return Response.status(INTERNAL_SERVER_ERROR)
 			       .entity("findLieferungenByBestellungId: NOT YET IMPLEMENTED")
 			       .type(TEXT_PLAIN)
@@ -127,7 +145,11 @@ public class BestellungResource {
 	}
 
 	
-	
+	/**
+	 * Mit der URL /bestellungen/{id}/kunde den Kunden einer Bestellung ermitteln
+	 * @param id ID der Bestellung
+	 * @return Objekt mit Kundendaten, falls die ID vorhanden ist
+	 */
 	@GET
 	@Path("{id:[1-9][0-9]*}/kunde")
 	public Response findKundeByBestellungId(@PathParam("id") Long id) {
@@ -142,7 +164,11 @@ public class BestellungResource {
 	}
 
 	
-	
+	/**
+	 * Mit der URL /bestellungen eine neue Bestellung anlegen
+	 * @param bestellung die neue Bestellung
+	 * @return Objekt mit Bestelldaten, falls die ID vorhanden ist
+	 */
 	@POST
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
@@ -188,14 +214,18 @@ public class BestellungResource {
 
 		final Collection<Artikel> gefundeneArtikel = as.findArtikelByIds(artikelIds);
 		
-		
+		// Bestellpositionen haben URLs fuer persistente Artikel.
+		// Diese persistenten Artikel wurden in einem DB-Zugriff ermittelt (s.o.)
+		// Fuer jede Bestellposition wird der Artikel passend zur Artikel-URL bzw. Artikel-ID gesetzt.
+		// Bestellpositionen mit nicht-gefundene Artikel werden eliminiert.
 		int i = 0;
 		final Set<Bestellposition> neueBestellpositionen = new HashSet<>();
 		for (Bestellposition bp : bestellpositionen) {
-			
+			// Artikel-ID der aktuellen Bestellposition (s.o.):
+			// artikelIds haben gleiche Reihenfolge wie bestellpositionen
 			final long artikelId = artikelIds.get(i++);
 			
-			
+			// Wurde der Artikel beim DB-Zugriff gefunden?
 			for (Artikel artikel : gefundeneArtikel) {
 				if (artikel.getId().longValue() == artikelId) {
 					// Der Artikel wurde gefunden
@@ -204,7 +234,14 @@ public class BestellungResource {
 					break;					
 				}
 			}
-			
+			// FIXME JDK 8 hat Lambda-Ausdruecke
+			//final Artikel artikel = gefundeneArtikel.stream()
+			//                                        .filter(a -> a.getId() == artikelId)
+			//                                        .findAny();
+			//if (artikel != null) {
+			//	bp.setArtikel(artikel);
+			//	neueBestellpositionen.add(bp);				
+			//}
 		}
 		bestellung.setBestellpositionen(neueBestellpositionen);
 		
@@ -214,13 +251,20 @@ public class BestellungResource {
 		return Response.created(bestellungUri).build();
 	}
 	
-	
+	/**
+	 * @NotNull verletzen, um die entsprechende Meldung zu verursachen, weil keine einzige Artikel-ID
+	 *          eine gueltige Zahl war.
+	 * @return null
+	 */
 	@NotNull(message = "{bestellung.artikelIds.invalid}")
 	public List<Long> artikelIdsInvalid() {
 		return null;
 	}
 	
-	
+	/**
+	 * @NotNull verletzen, um die entsprechende Meldung zu verursachen, weil die Kunde-Id ungueltig ist.
+	 * @return null
+	 */
 	@NotNull(message = "{bestellung.kunde.id.invalid}")
 	public Long kundeIdInvalid() {
 		return null;

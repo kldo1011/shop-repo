@@ -14,9 +14,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.PostPersist;
 import javax.persistence.Table;
-import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -66,14 +65,10 @@ public class Artikel extends AbstractAuditable {
 	@Basic(optional = false)
 	private Long id = KEINE_ID;
 	
-	@NotNull(message = "{artikel.bezeichnung.notNull}")
-	@Size(max = BEZEICHNUNG_LENGTH_MAX, message = "{artikel.bezeichnung.length}")
-    @Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][-A-Za-z0-9\u00E4\u00F6\u00FC\u00DF\u0020]+",
-    message = "{artikelverwaltung.artikel.bezeichnung.pattern}")
+    @NotNull(message = "{artikel.bezeichnung.notNull}")
+    @Size(max = BEZEICHNUNG_LENGTH_MAX, message = "{artikel.bezeichnung.length}")
 	private String bezeichnung = "";
-    @NotNull(message = "{artikelverwaltung.artikel.preis.notnull}")
-    @DecimalMin(value = "0.0", message = "{artikelverwaltung.artikel.preis.min}")
-	//@Digits(integer = 10, fraction = 2, message = "{artikel.preis.digits}")
+    @Digits(integer = 10, fraction = 2, message = "{artikel.preis.digits}")
 	private BigDecimal preis;
 	
 	@Basic(optional = false)
@@ -85,9 +80,8 @@ public class Artikel extends AbstractAuditable {
 	
 	public Artikel(String bezeichnung, BigDecimal preis) {
 		super();
-		this.setBezeichnung(bezeichnung);
-		
-		this.setPreis(preis);
+		this.bezeichnung = bezeichnung;
+        this.preis = preis;
 	}
 
 	@PostPersist

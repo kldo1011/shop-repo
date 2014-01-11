@@ -1,4 +1,5 @@
 package bestellverwaltung.domain;
+
 import static util.Constants.KEINE_ID;
 
 import java.lang.invoke.MethodHandles;
@@ -15,9 +16,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.PostPersist;
 import javax.persistence.Table;
-import javax.validation.Valid;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.logging.Logger;
@@ -27,6 +27,7 @@ import util.persistence.AbstractAuditable;
 
 
 @Entity
+// TODO MySQL 5.7 kann einen Index nicht 2x anlegen
 @Table(indexes =  {
 	@Index(columnList = "bestellung_fk"),
 	@Index(columnList = "artikel_fk")
@@ -38,9 +39,7 @@ import util.persistence.AbstractAuditable;
    	            	    + " WHERE  a NOT IN (SELECT bp.artikel FROM Bestellposition bp)")
 })
 public class Bestellposition extends AbstractAuditable {
-
-	private static final long serialVersionUID = 5879823217126837812L;
-
+	private static final long serialVersionUID = 2222771733641950913L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
 	private static final String PREFIX = "Bestellposition.";
@@ -55,14 +54,11 @@ public class Bestellposition extends AbstractAuditable {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "artikel_fk", nullable = false)
 	@XmlTransient
-	@Valid
-	@NotNull(message = "{bestellposition.artikel.notNull}")
 	private Artikel artikel;
 
-	@XmlTransient
+	@Transient
 	private URI artikelUri;
-	
-    @NotNull(message = "{bestellposition.anzahl.notNull}")
+
 	@Min(value = ANZAHL_MIN, message = "{bestellposition.anzahl.min}")
 	@Basic(optional = false)
 	private short anzahl;
@@ -150,7 +146,8 @@ public class Bestellposition extends AbstractAuditable {
 		}
 		final Bestellposition other = (Bestellposition) obj;
 		
-		
+		// Bei persistenten Bestellpositionen koennen zu verschiedenen Bestellungen gehoeren
+		// und deshalb den gleichen Artikel (s.u.) referenzieren, deshalb wird Id hier beruecksichtigt
 		if (id == null) {
 			if (other.id != null) {
 				return false;
@@ -160,7 +157,8 @@ public class Bestellposition extends AbstractAuditable {
 			return false;
 		}
 
-		
+		// Wenn eine neue Bestellung angelegt wird, dann wird jeder zu bestellende Artikel
+		// genau 1x referenziert (nicht zu verwechseln mit der "anzahl")
 		if (artikel == null) {
 			if (other.artikel != null) {
 				return false;

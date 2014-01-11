@@ -1,4 +1,5 @@
 package bestellverwaltung.domain;
+
 import static util.Constants.KEINE_ID;
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.CascadeType.REMOVE;
@@ -47,6 +48,7 @@ import util.persistence.AbstractAuditable;
 
 @XmlRootElement
 @Entity
+// TODO MySQL 5.7 kann einen Index nicht 2x anlegen
 @Table(indexes = {
 	@Index(columnList = "kunde_fk"),
 	@Index(columnList = "erzeugt")
@@ -189,7 +191,7 @@ public class Bestellung extends AbstractAuditable {
 			return;
 		}
 		
-		
+		// Wiederverwendung der vorhandenen Collection
 		this.lieferungen.clear();
 		if (lieferungen != null) {
 			this.lieferungen.addAll(lieferungen);

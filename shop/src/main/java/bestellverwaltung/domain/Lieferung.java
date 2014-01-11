@@ -1,4 +1,5 @@
 package bestellverwaltung.domain;
+
 import static util.Constants.KEINE_ID;
 import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
@@ -127,7 +128,7 @@ public class Lieferung extends AbstractAuditable {
 			return;
 		}
 		
-		
+		// Wiederverwendung der vorhandenen Collection
 		this.bestellungen.clear();
 		if (bestellungen != null) {
 			this.bestellungen.addAll(bestellungen);
