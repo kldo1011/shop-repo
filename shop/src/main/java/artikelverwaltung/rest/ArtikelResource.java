@@ -91,6 +91,10 @@ public class ArtikelResource {
 	public void updateArtikel(@Valid Artikel artikel) {
 		final Artikel origArtikel = as.findArtikelById(artikel.getId());
 		LOGGER.tracef("Artikel vorher: %s", origArtikel);
-
-}
+		
+		origArtikel.setValues(artikel);
+		LOGGER.tracef("Artikel nachher: %s", origArtikel);
+		
+		as.updateArtikel(origArtikel);
+	}
 }

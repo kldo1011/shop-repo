@@ -109,13 +109,12 @@ public class ArtikelService implements Serializable {
 		em.persist(artikel);
 		return artikel;		
 	}
-	
-    public Artikel updateArtikel(Artikel artikel) {
-            if (artikel == null)
-                    return null;
-            em.detach(artikel);
-            em.merge(artikel);
-            return artikel;
-    }
+	public Artikel updateArtikel(Artikel artikel) {
+		if (artikel == null) 
+			return null;
+		
+		em.merge(artikel);
+		return artikel;
+	}
 	
 	}
